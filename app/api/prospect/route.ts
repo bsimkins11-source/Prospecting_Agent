@@ -92,6 +92,7 @@ async function getOrganizationData(company: string, apiKey: string) {
       const orgJson = await orgResponse.json();
       const accounts = orgJson.accounts || [];
       console.log(`Found ${accounts.length} accounts from Apollo`);
+      console.log(`Apollo response:`, JSON.stringify(orgJson, null, 2));
       
       if (accounts.length > 0) {
         // Find best match
@@ -120,7 +121,8 @@ async function getOrganizationData(company: string, apiKey: string) {
         return orgData;
       }
     } else {
-      console.warn(`Apollo API error: ${orgResponse.status} ${orgResponse.statusText}`);
+      const errorText = await orgResponse.text();
+      console.warn(`Apollo API error: ${orgResponse.status} ${orgResponse.statusText} - ${errorText}`);
     }
   } catch (error) {
     console.warn('Organization search failed:', error);
