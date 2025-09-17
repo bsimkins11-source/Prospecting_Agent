@@ -25,25 +25,27 @@ export type ApolloNewsArticle = {
 
 const APOLLO_BASE = "https://api.apollo.io/api/v1";
 
-export async function enrichOrganization(domainOrName: string, apiKey: string): Promise<ApolloOrg> {
-  const url = new URL(`${APOLLO_BASE}/organizations/enrich`);
-  // You can pass domain or name; domain tends to be more reliable.
-  url.searchParams.set("domain", domainOrName);
-  
-  const res = await fetch(url.toString(), {
+export async function searchOrganizations(domainOrName: string, apiKey: string): Promise<ApolloOrg> {
+  const res = await fetch(`${APOLLO_BASE}/mixed_people/search`, {
+    method: "POST",
     headers: { 
       "Content-Type": "application/json", 
       "X-Api-Key": apiKey 
     },
+    body: JSON.stringify({
+      q_organization_domains: [domainOrName],
+      per_page: 1,
+      page: 1,
+    }),
     cache: "no-store",
   });
   
   if (!res.ok) {
     const errorText = await res.text();
-    let errorMessage = `Apollo org enrich failed: ${res.status} ${res.statusText}`;
+    let errorMessage = `Apollo organization search failed: ${res.status} ${res.statusText}`;
     
     if (res.status === 403) {
-      errorMessage += ` - Your Apollo.io API key may not have access to Organization Enrichment. Please check your plan permissions.`;
+      errorMessage += ` - Your Apollo.io API key may not have access to People Search. Please check your plan permissions.`;
     }
     
     errorMessage += ` - ${errorText}`;
@@ -51,7 +53,15 @@ export async function enrichOrganization(domainOrName: string, apiKey: string): 
   }
   
   const json = await res.json();
-  return json.organization as ApolloOrg;
+  
+  // Extract organization info from the first person result
+  const firstPerson = json.people?.[0] || json.contacts?.[0];
+  
+  if (!firstPerson?.organization) {
+    throw new Error("No organization found matching the search criteria");
+  }
+  
+  return firstPerson.organization as ApolloOrg;
 }
 
 // Generic people search for a department/title lane
