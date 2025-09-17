@@ -170,9 +170,8 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         body: JSON.stringify({
           q_organization_domains: [companyDomain],
           person_titles: getDepartmentTitles(dept),
-          person_locations: [],
           page: 1,
-          per_page: 10,
+          per_page: 25,
           reveal_personal_emails: true,
           reveal_phone_numbers: false
         })
@@ -182,11 +181,13 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         const data = await response.json();
         const people = data.people || [];
         console.log(`Found ${people.length} people for ${dept}`);
+        if (people.length > 0) {
+          console.log(`Sample person:`, JSON.stringify(people[0], null, 2));
+        }
         
         people.forEach((person: any) => {
-          if (person.first_name && person.last_name && person.title && 
-              isValidPerson(person, dept, companyDomain)) {
-            
+          if (person.first_name && person.last_name && person.title) {
+            // Less restrictive validation for now
             const cleanTitle = cleanPersonTitle(person.title);
             const seniority = getSeniorityFromTitle(cleanTitle);
             
@@ -197,6 +198,8 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
               email: person.email && person.email !== 'email_not_unlocked@domain.com' ? person.email : null,
               linkedin_url: person.linkedin_url || null
             });
+            
+            console.log(`Added person: ${person.first_name} ${person.last_name} - ${person.title}`);
           }
         });
       } else {
