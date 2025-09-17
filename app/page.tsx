@@ -349,6 +349,235 @@ export default function Home() {
               </div>
             </div>
           )}
+
+          {/* Child Brands */}
+          {data.child_brands && data.child_brands.is_portfolio_company && (
+            <div style={{ marginBottom: "2rem" }}>
+              <h3 style={{ 
+                fontSize: "1.25rem", 
+                fontWeight: "bold", 
+                marginBottom: "1rem",
+                color: "#1f2937"
+              }}>
+                🏢 Portfolio Company
+              </h3>
+              
+              <div style={{ 
+                backgroundColor: "#f8fafc", 
+                padding: "1.5rem", 
+                borderRadius: "12px", 
+                border: "1px solid #e2e8f0"
+              }}>
+                <h4 style={{ 
+                  margin: "0 0 1rem 0", 
+                  color: "#1f2937",
+                  fontSize: "1.1rem",
+                  fontWeight: "600"
+                }}>
+                  Parent Company: {data.child_brands.parent_company}
+                </h4>
+                
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#374151" }}>Key Child Brands:</strong>
+                  <div style={{ 
+                    display: "flex", 
+                    flexWrap: "wrap", 
+                    gap: "0.5rem", 
+                    marginTop: "0.5rem" 
+                  }}>
+                    {data.child_brands.child_brands.map((brand, i) => (
+                      <span key={i} style={{
+                        backgroundColor: "#e5e7eb",
+                        padding: "0.25rem 0.75rem",
+                        borderRadius: "16px",
+                        fontSize: "0.875rem",
+                        color: "#374151"
+                      }}>
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <p style={{ 
+                  margin: 0, 
+                  color: "#6b7280",
+                  fontSize: "0.875rem",
+                  fontStyle: "italic"
+                }}>
+                  {data.child_brands.note}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Technology Stack Analysis */}
+          {data.technology_stack && (
+            <div style={{ marginBottom: "2rem" }}>
+              <h3 style={{ 
+                fontSize: "1.25rem", 
+                fontWeight: "bold", 
+                marginBottom: "1rem",
+                color: "#1f2937"
+              }}>
+                🔧 Technology Stack Analysis
+              </h3>
+              
+              <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
+                {/* Technology Categories */}
+                {Object.entries(data.technology_stack).filter(([key]) => 
+                  !['potential_issues', 'integration_complexity', 'recommendation'].includes(key)
+                ).map(([category, tech]) => (
+                  <div key={category} style={{ 
+                    backgroundColor: "#f8fafc", 
+                    padding: "1rem", 
+                    borderRadius: "8px",
+                    border: "1px solid #e2e8f0"
+                  }}>
+                    <h4 style={{ 
+                      margin: "0 0 0.5rem 0", 
+                      color: "#374151",
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                      textTransform: "capitalize"
+                    }}>
+                      {category.replace('_', ' ')}
+                    </h4>
+                    
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      <strong>Primary:</strong> {tech.primary}
+                    </div>
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      <strong>Secondary:</strong> {tech.secondary}
+                    </div>
+                    
+                    {tech.potential_issues && (
+                      <div>
+                        <strong style={{ color: "#dc2626" }}>Potential Issues:</strong>
+                        <ul style={{ margin: "0.25rem 0 0 1rem", padding: 0 }}>
+                          {tech.potential_issues.map((issue, i) => (
+                            <li key={i} style={{ 
+                              fontSize: "0.875rem", 
+                              color: "#6b7280",
+                              marginBottom: "0.25rem"
+                            }}>
+                              {issue}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Integration Issues */}
+              {data.technology_stack.potential_issues && data.technology_stack.potential_issues.length > 0 && (
+                <div style={{ 
+                  backgroundColor: "#fef2f2", 
+                  padding: "1.5rem", 
+                  borderRadius: "12px", 
+                  border: "1px solid #fecaca",
+                  marginBottom: "1rem"
+                }}>
+                  <h4 style={{ 
+                    margin: "0 0 1rem 0", 
+                    color: "#dc2626",
+                    fontSize: "1.1rem",
+                    fontWeight: "600"
+                  }}>
+                    ⚠️ Critical Integration Issues
+                  </h4>
+                  
+                  <div style={{ display: "grid", gap: "1rem" }}>
+                    {data.technology_stack.potential_issues.map((issue, i) => (
+                      <div key={i} style={{ 
+                        backgroundColor: "white", 
+                        padding: "1rem", 
+                        borderRadius: "8px",
+                        border: "1px solid #fecaca"
+                      }}>
+                        <div style={{ 
+                          display: "flex", 
+                          justifyContent: "space-between", 
+                          alignItems: "center",
+                          marginBottom: "0.5rem"
+                        }}>
+                          <h5 style={{ 
+                            margin: 0, 
+                            color: "#dc2626",
+                            fontSize: "1rem",
+                            fontWeight: "600"
+                          }}>
+                            {issue.category}
+                          </h5>
+                          <span style={{
+                            backgroundColor: issue.impact === 'High' ? "#dc2626" : "#f59e0b",
+                            color: "white",
+                            padding: "0.25rem 0.5rem",
+                            borderRadius: "4px",
+                            fontSize: "0.75rem",
+                            fontWeight: "600"
+                          }}>
+                            {issue.impact} Impact
+                          </span>
+                        </div>
+                        
+                        <p style={{ 
+                          margin: "0 0 0.5rem 0", 
+                          color: "#374151",
+                          fontSize: "0.875rem"
+                        }}>
+                          <strong>Issue:</strong> {issue.issue}
+                        </p>
+                        
+                        <p style={{ 
+                          margin: 0, 
+                          color: "#059669",
+                          fontSize: "0.875rem",
+                          fontWeight: "600"
+                        }}>
+                          <strong>Solution:</strong> {issue.solution}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Integration Complexity & Recommendation */}
+              <div style={{ 
+                backgroundColor: "#f0f9ff", 
+                padding: "1.5rem", 
+                borderRadius: "12px", 
+                border: "1px solid #bae6fd"
+              }}>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong>Integration Complexity:</strong> 
+                  <span style={{
+                    backgroundColor: data.technology_stack.integration_complexity === 'High' ? "#dc2626" : "#f59e0b",
+                    color: "white",
+                    padding: "0.25rem 0.5rem",
+                    borderRadius: "4px",
+                    fontSize: "0.875rem",
+                    fontWeight: "600",
+                    marginLeft: "0.5rem"
+                  }}>
+                    {data.technology_stack.integration_complexity}
+                  </span>
+                </div>
+                
+                <p style={{ 
+                  margin: 0, 
+                  color: "#0369a1",
+                  fontSize: "0.875rem",
+                  fontWeight: "600"
+                }}>
+                  <strong>Recommendation:</strong> {data.technology_stack.recommendation}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </main>
