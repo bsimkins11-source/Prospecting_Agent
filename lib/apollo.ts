@@ -33,6 +33,10 @@ const APOLLO_BASE = "https://api.apollo.io/api/v1";
 
 export async function searchOrganizations(domainOrName: string, apiKey: string): Promise<ApolloOrg> {
   // Use Organization Search endpoint instead of Organization Enrichment
+  const searchQuery = domainOrName.includes('.') 
+    ? domainOrName.replace(/^https?:\/\//, '').replace(/\/.*$/, '') // Extract domain from URL
+    : domainOrName;
+    
   const res = await fetch(`${APOLLO_BASE}/mixed_companies/search`, {
     method: "POST",
     headers: { 
@@ -40,8 +44,8 @@ export async function searchOrganizations(domainOrName: string, apiKey: string):
       "X-Api-Key": apiKey 
     },
     body: JSON.stringify({
-      q: domainOrName,
-      per_page: 1,
+      q: searchQuery,
+      per_page: 10, // Get more results to find the right company
       page: 1,
     }),
     cache: "no-store",
@@ -60,13 +64,38 @@ export async function searchOrganizations(domainOrName: string, apiKey: string):
   }
   
   const json = await res.json();
-  const organization = json.organizations?.[0] || json.accounts?.[0];
+  const accounts = json.accounts || [];
   
-  if (!organization) {
+  if (accounts.length === 0) {
     throw new Error("No organization found matching the search criteria");
   }
   
-  return organization as ApolloOrg;
+  // Find the best matching company
+  let bestMatch = accounts[0];
+  const searchDomain = searchQuery.toLowerCase();
+  
+  // Look for exact domain match first
+  for (const account of accounts) {
+    const accountDomain = account.primary_domain || account.domain || '';
+    if (accountDomain.toLowerCase() === searchDomain) {
+      bestMatch = account;
+      break;
+    }
+  }
+  
+  // If no exact match, look for partial domain match
+  if (!bestMatch.primary_domain?.toLowerCase().includes(searchDomain)) {
+    for (const account of accounts) {
+      const accountDomain = account.primary_domain || account.domain || '';
+      if (accountDomain.toLowerCase().includes(searchDomain) || 
+          searchDomain.includes(accountDomain.toLowerCase())) {
+        bestMatch = account;
+        break;
+      }
+    }
+  }
+  
+  return bestMatch as ApolloOrg;
 }
 
 // Generic people search for a department/title lane
@@ -96,23 +125,32 @@ export async function searchPeople(
 export async function searchNewsArticles(
   companyDomain: string,
   apiKey: string,
+  organizationId?: string,
   limit = 3
 ) {
+  const body: any = {
+    per_page: limit,
+    page: 1,
+    // keyword filter to bias to AI/MarTech/AdTech/Data related topics
+    q_keywords: ["AI", "artificial intelligence", "MarTech", "AdTech", "data"],
+    sort_by: "published_at", 
+    sort_dir: "desc",
+  };
+
+  // Add organization filter if available
+  if (organizationId) {
+    body.organization_ids = [organizationId];
+  } else {
+    body.q_organization_domains = [companyDomain];
+  }
+
   const res = await fetch(`${APOLLO_BASE}/news_articles/search`, {
     method: "POST",
     headers: { 
       "Content-Type": "application/json", 
       "X-Api-Key": apiKey 
     },
-    body: JSON.stringify({
-      q_organization_domains: [companyDomain],
-      per_page: limit,
-      page: 1,
-      // keyword filter to bias to AI/MarTech/AdTech/Data related topics
-      q_keywords: ["AI", "artificial intelligence", "MarTech", "AdTech", "data"],
-      sort_by: "published_at", 
-      sort_dir: "desc",
-    }),
+    body: JSON.stringify(body),
   });
   
   if (!res.ok) {

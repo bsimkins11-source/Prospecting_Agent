@@ -166,7 +166,8 @@ export async function POST(req: NextRequest) {
     // 3) News (3 articles)
     let articles: any[] = [];
     try {
-      const news = await searchNewsArticles(domain, APOLLO_API_KEY, 3);
+      const organizationId = (org as any)?.organization_id;
+      const news = await searchNewsArticles(domain, APOLLO_API_KEY, organizationId, 3);
       articles = (news?.articles || []).map((a: any) => ({
         title: a?.title,
         url: a?.url,
