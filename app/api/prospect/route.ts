@@ -6,6 +6,16 @@ import type { ProspectResult, AccountMapLane } from "@/types";
 export const runtime = "nodejs"; // you can use 'edge' later; Node is simpler for npm deps
 export const dynamic = "force-dynamic";
 
+// Add a GET handler for health checks
+export async function GET() {
+  return NextResponse.json({ 
+    status: "ok", 
+    message: "Prospect API is running",
+    hasApolloKey: !!process.env.APOLLO_API_KEY,
+    hasOpenAIKey: !!process.env.OPENAI_API_KEY
+  });
+}
+
 const LANE_CONFIG = {
   Marketing: { 
     departments: ["marketing"], 
@@ -43,15 +53,24 @@ function buildPeopleFilters(domain: string, lane: keyof typeof LANE_CONFIG) {
 export async function POST(req: NextRequest) {
   try {
     const { company } = await req.json() as { company: string }; // domain or name (prefer domain)
-    const APOLLO_API_KEY = process.env.APOLLO_API_KEY!;
+    
+    // Check environment variables
+    const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const OPENAI_MODEL = DEFAULT_MODEL;
 
     if (!APOLLO_API_KEY) {
-      throw new Error("APOLLO_API_KEY environment variable is required");
+      return NextResponse.json(
+        { error: "APOLLO_API_KEY environment variable is required" }, 
+        { status: 500 }
+      );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error("OPENAI_API_KEY environment variable is required");
+    if (!OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: "OPENAI_API_KEY environment variable is required" }, 
+        { status: 500 }
+      );
     }
 
     // 1) Enrich org
