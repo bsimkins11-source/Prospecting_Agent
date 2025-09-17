@@ -4,6 +4,7 @@ export type Person = {
   name: string;
   title: string;
   seniority?: string;
+  email?: string;
   linkedin_url?: string;
 };
 

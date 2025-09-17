@@ -270,18 +270,21 @@ export default function Home() {
                           <li key={i} style={{ marginBottom: "0.25rem" }}>
                             <strong>{p.name}</strong> — {p.title}
                             {p.seniority && ` (${p.seniority})`}
-                            {p.linkedin_url && (
-                              <span style={{ marginLeft: "0.5rem" }}>
-                                <a 
+                            <div style={{ marginLeft: "1rem", fontSize: "0.875rem", color: "#6b7280" }}>
+                              {p.email && (
+                                <div>📧 <a href={`mailto:${p.email}`} style={{ color: "#059669", textDecoration: "none" }}>{p.email}</a></div>
+                              )}
+                              {p.linkedin_url && (
+                                <div>🔗 <a 
                                   href={p.linkedin_url} 
                                   target="_blank" 
                                   rel="noopener noreferrer"
                                   style={{ color: "#3b82f6", textDecoration: "none" }}
                                 >
-                                  LinkedIn ↗
-                                </a>
-                              </span>
-                            )}
+                                  LinkedIn Profile ↗
+                                </a></div>
+                              )}
+                            </div>
                           </li>
                         ))}
                       </ul>
