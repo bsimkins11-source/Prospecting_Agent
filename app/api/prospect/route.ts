@@ -179,7 +179,10 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
           page: 1,
           per_page: 25,
           reveal_personal_emails: true,
-          reveal_phone_numbers: false
+          reveal_phone_numbers: false,
+          person_titles: getDepartmentTitles(dept),
+          person_locations: ['United States'],
+          organization_locations: ['United States']
         })
       });
       
@@ -187,28 +190,47 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         const data = await response.json();
         const people = data.people || [];
         console.log(`Found ${people.length} people for ${dept}`);
-        if (people.length > 0) {
-          console.log(`Sample person:`, JSON.stringify(people[0], null, 2));
-        }
         
-        people.forEach((person: any) => {
-          if (person.first_name && person.last_name && person.title) {
-            console.log(`Raw title: "${person.title}"`);
-            const cleanTitle = cleanPersonTitle(person.title);
-            console.log(`Cleaned title: "${cleanTitle}"`);
-            const seniority = getSeniorityFromTitle(cleanTitle);
-            
-            accountMap[dept].push({
-              name: `${person.first_name} ${person.last_name}`,
-              title: cleanTitle,
-              seniority: seniority,
-              email: person.email && person.email !== 'email_not_unlocked@domain.com' ? person.email : null,
-              linkedin_url: person.linkedin_url || null
-            });
-            
-            console.log(`Added person: ${person.first_name} ${person.last_name} - ${person.title}`);
-          }
-        });
+        // Check if we're getting generic/demo data (same people every time)
+        // Also check if any people are actually from the target company
+        const isGenericData = people.length > 0 && 
+          people.some((person: any) => 
+            person.first_name === 'Philippe' && person.last_name === 'Winter' ||
+            person.first_name === 'Mike' && person.last_name === 'Braham' ||
+            person.first_name === 'Bill' && person.last_name === 'Gates'
+          );
+        
+        // Check if we have any people from the target company
+        const hasCompanyPeople = people.some((person: any) => 
+          person.organization?.name?.toLowerCase().includes(orgData.name?.toLowerCase() || '') ||
+          person.organization?.primary_domain?.includes(orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '') || '')
+        );
+        
+        if (isGenericData && !hasCompanyPeople) {
+          console.warn(`⚠️  Apollo API returned generic/demo data for ${dept}. This suggests API key limitations.`);
+          // Don't add generic data - it's not useful
+        } else if (people.length > 0) {
+          console.log(`Sample person:`, JSON.stringify(people[0], null, 2));
+          
+          people.forEach((person: any) => {
+            if (person.first_name && person.last_name && person.title) {
+              console.log(`Raw title: "${person.title}"`);
+              const cleanTitle = cleanPersonTitle(person.title);
+              console.log(`Cleaned title: "${cleanTitle}"`);
+              const seniority = getSeniorityFromTitle(cleanTitle);
+              
+              accountMap[dept].push({
+                name: `${person.first_name} ${person.last_name}`,
+                title: cleanTitle,
+                seniority: seniority,
+                email: person.email && person.email !== 'email_not_unlocked@domain.com' ? person.email : null,
+                linkedin_url: person.linkedin_url || null
+              });
+              
+              console.log(`Added person: ${person.first_name} ${person.last_name} - ${person.title}`);
+            }
+          });
+        }
       } else {
         const errorText = await response.text();
         console.error(`Apollo people search failed for ${dept}: ${response.status} - ${errorText}`);
