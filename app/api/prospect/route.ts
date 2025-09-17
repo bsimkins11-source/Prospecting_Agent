@@ -8,7 +8,8 @@ export async function GET() {
     status: "ok", 
     message: "Prospect API is running",
     hasApolloKey: !!process.env.APOLLO_API_KEY,
-    hasOpenAIKey: !!process.env.OPENAI_API_KEY
+    hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+    apolloKeyPrefix: process.env.APOLLO_API_KEY?.substring(0, 8) || 'not set'
   });
 }
 
@@ -23,9 +24,11 @@ export async function POST(req: NextRequest) {
     }
 
     console.log(`Analyzing prospect for: ${company}`);
+    console.log(`Using Apollo API key: ${apiKey?.substring(0, 8)}...`);
 
     // 1. Get Organization Data from Apollo
     let orgData = await getOrganizationData(company, apiKey);
+    console.log(`Organization data result:`, JSON.stringify(orgData, null, 2));
     
     // 2. Get Real People Data from Apollo
     let accountMap = await getRealPeopleData(orgData, apiKey);
