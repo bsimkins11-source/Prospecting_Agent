@@ -49,9 +49,16 @@ export default function Home() {
       padding: 16,
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     }}>
-      <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-        🎯 Prospecting Copilot
-      </h1>
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
+        <img 
+          src="/transparent-logo.png" 
+          alt="Transparent Partners Logo" 
+          style={{ height: "60px", width: "auto" }}
+        />
+        <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", margin: 0 }}>
+          Transparent Partners Prospecting Agent
+        </h1>
+      </div>
       <p style={{ color: "#666", marginBottom: "2rem" }}>
         Enter a company domain (preferred) or name to get comprehensive prospect insights.
       </p>
