@@ -255,16 +255,6 @@ export default function Home() {
                     alignItems: "center",
                     gap: "0.5rem"
                   }}
-                  onMouseEnter={(e) => {
-                    if (!expandedSections[section.id]) {
-                      e.currentTarget.style.backgroundColor = "#e5e7eb";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!expandedSections[section.id]) {
-                      e.currentTarget.style.backgroundColor = "#f3f4f6";
-                    }
-                  }}
                 >
                   <span>{section.icon}</span>
                   <span>{section.title}</span>
@@ -305,44 +295,46 @@ export default function Home() {
             </div>
             
             {expandedSections.overview && (
-            
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
-              {data.company?.industry && (
-                <div>
-                  <strong>Industry:</strong> {data.company.industry}
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+                  {data.company?.industry && (
+                    <div>
+                      <strong>Industry:</strong> {data.company.industry}
+                    </div>
+                  )}
+                  {data.company?.revenue && (
+                    <div>
+                      <strong>Revenue:</strong> {data.company.revenue}
+                    </div>
+                  )}
+                  {data.company?.employees && (
+                    <div>
+                      <strong>Employees:</strong> {data.company.employees.toLocaleString()}
+                    </div>
+                  )}
+                  {data.company?.website && (
+                    <div>
+                      <strong>Website:</strong> <a href={`https://${data.company.website}`} target="_blank" rel="noopener noreferrer" style={{ color: "#3b82f6" }}>{data.company.website}</a>
+                    </div>
+                  )}
                 </div>
-              )}
-              {data.company?.revenue && (
-                <div>
-                  <strong>Revenue:</strong> {data.company.revenue}
-                </div>
-              )}
-              {data.company?.employees && (
-                <div>
-                  <strong>Employees:</strong> {data.company.employees.toLocaleString()}
-                </div>
-              )}
-              {data.company?.website && (
-                <div>
-                  <strong>Website:</strong> <a href={`https://${data.company.website}`} target="_blank" rel="noopener noreferrer" style={{ color: "#3b82f6" }}>{data.company.website}</a>
-                </div>
-              )}
-            </div>
-            
-            {data.company?.locations && data.company.locations.length > 0 && (
-              <div style={{ marginBottom: "1rem" }}>
-                <strong>Locations:</strong> {data.company.locations.join(" • ")}
-              </div>
-            )}
-            
-            {data.company?.overview && (
-              <div style={{ 
-                backgroundColor: "white", 
-                padding: "1rem", 
-                borderRadius: "8px",
-                border: "1px solid #e5e7eb"
-              }}>
-                <strong>Overview:</strong> {data.company.overview}
+                
+                {data.company?.locations && data.company.locations.length > 0 && (
+                  <div style={{ marginBottom: "1rem" }}>
+                    <strong>Locations:</strong> {data.company.locations.join(" • ")}
+                  </div>
+                )}
+                
+                {data.company?.overview && (
+                  <div style={{ 
+                    backgroundColor: "white", 
+                    padding: "1rem", 
+                    borderRadius: "8px",
+                    border: "1px solid #e5e7eb"
+                  }}>
+                    <strong>Overview:</strong> {data.company.overview}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -373,52 +365,51 @@ export default function Home() {
             </div>
             
             {expandedSections["account-map"] && (
-            
-            <div style={{ display: "grid", gap: "1rem" }}>
-              {Object.entries(data.accountMap || {}).map(([lane, people]) => (
-                <div key={lane} style={{ 
-                  backgroundColor: "#f8fafc", 
-                  padding: "1rem", 
-                  borderRadius: "8px",
-                  border: "1px solid #e2e8f0"
-                }}>
-                  <h4 style={{ 
-                    fontWeight: "600", 
-                    marginBottom: "0.5rem",
-                    color: "#374151"
+              <div style={{ display: "grid", gap: "1rem" }}>
+                {Object.entries(data.accountMap || {}).map(([lane, people]) => (
+                  <div key={lane} style={{ 
+                    backgroundColor: "#f8fafc", 
+                    padding: "1rem", 
+                    borderRadius: "8px",
+                    border: "1px solid #e2e8f0"
                   }}>
-                    {lane}
-                  </h4>
-                  
-                  {people.length > 0 ? (
-                    <ul style={{ margin: 0, paddingLeft: "1rem" }}>
-                      {people.map((p, i) => (
-                        <li key={i} style={{ marginBottom: "0.25rem" }}>
-                          <strong>{p.name}</strong> — {p.title}
-                          {p.seniority && ` (${p.seniority})`}
-                          {p.linkedin_url && (
-                            <span style={{ marginLeft: "0.5rem" }}>
-                              <a 
-                                href={p.linkedin_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                style={{ color: "#3b82f6", textDecoration: "none" }}
-                              >
-                                LinkedIn ↗
-                              </a>
-                            </span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p style={{ color: "#6b7280", margin: 0, fontStyle: "italic" }}>
-                      No contacts found for this department
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
+                    <h4 style={{ 
+                      fontWeight: "600", 
+                      marginBottom: "0.5rem",
+                      color: "#374151"
+                    }}>
+                      {lane}
+                    </h4>
+                    
+                    {people.length > 0 ? (
+                      <ul style={{ margin: 0, paddingLeft: "1rem" }}>
+                        {people.map((p, i) => (
+                          <li key={i} style={{ marginBottom: "0.25rem" }}>
+                            <strong>{p.name}</strong> — {p.title}
+                            {p.seniority && ` (${p.seniority})`}
+                            {p.linkedin_url && (
+                              <span style={{ marginLeft: "0.5rem" }}>
+                                <a 
+                                  href={p.linkedin_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  style={{ color: "#3b82f6", textDecoration: "none" }}
+                                >
+                                  LinkedIn ↗
+                                </a>
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p style={{ color: "#6b7280", margin: 0, fontStyle: "italic" }}>
+                        No contacts found for this department
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
@@ -449,51 +440,50 @@ export default function Home() {
               </div>
               
               {expandedSections.articles && (
-              
-              <div style={{ display: "grid", gap: "1rem" }}>
-                {data.articles.map((a, i) => (
-                  <div key={i} style={{ 
-                    backgroundColor: "#f8fafc", 
-                    padding: "1rem", 
-                    borderRadius: "8px",
-                    border: "1px solid #e2e8f0"
-                  }}>
-                    <h4 style={{ margin: "0 0 0.5rem 0" }}>
-                      <a 
-                        href={a.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        style={{ 
-                          color: "#1f2937", 
-                          textDecoration: "none",
-                          fontSize: "1rem",
-                          fontWeight: "600"
-                        }}
-                      >
-                        {a.title} ↗
-                      </a>
-                    </h4>
-                    
-                    {a.source && (
-                      <div style={{ color: "#6b7280", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                        {a.source}
-                        {a.published_at && ` • ${new Date(a.published_at).toLocaleDateString()}`}
-                      </div>
-                    )}
-                    
-                    {a.why_it_matters && (
-                      <p style={{ 
-                        margin: 0, 
-                        color: "#374151",
-                        fontSize: "0.875rem",
-                        fontStyle: "italic"
-                      }}>
-                        <strong>Why it matters:</strong> {a.why_it_matters}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+                <div style={{ display: "grid", gap: "1rem" }}>
+                  {data.articles.map((a, i) => (
+                    <div key={i} style={{ 
+                      backgroundColor: "#f8fafc", 
+                      padding: "1rem", 
+                      borderRadius: "8px",
+                      border: "1px solid #e2e8f0"
+                    }}>
+                      <h4 style={{ margin: "0 0 0.5rem 0" }}>
+                        <a 
+                          href={a.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{ 
+                            color: "#1f2937", 
+                            textDecoration: "none",
+                            fontSize: "1rem",
+                            fontWeight: "600"
+                          }}
+                        >
+                          {a.title} ↗
+                        </a>
+                      </h4>
+                      
+                      {a.source && (
+                        <div style={{ color: "#6b7280", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+                          {a.source}
+                          {a.published_at && ` • ${new Date(a.published_at).toLocaleDateString()}`}
+                        </div>
+                      )}
+                      
+                      {a.why_it_matters && (
+                        <p style={{ 
+                          margin: 0, 
+                          color: "#374151",
+                          fontSize: "0.875rem",
+                          fontStyle: "italic"
+                        }}>
+                          <strong>Why it matters:</strong> {a.why_it_matters}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           )}
@@ -525,302 +515,38 @@ export default function Home() {
               </div>
               
               {expandedSections["tp-alignment"] && (
-              
-              <div style={{ display: "grid", gap: "1rem" }}>
-                {data.tp_alignment.map((t, i) => (
-                  <div key={i} style={{ 
-                    backgroundColor: "#f0f9ff", 
-                    padding: "1rem", 
-                    borderRadius: "8px",
-                    border: "1px solid #bae6fd"
-                  }}>
-                    <h4 style={{ 
-                      margin: "0 0 0.5rem 0", 
-                      color: "#0369a1",
-                      fontSize: "1rem",
-                      fontWeight: "600"
+                <div style={{ display: "grid", gap: "1rem" }}>
+                  {data.tp_alignment.map((t, i) => (
+                    <div key={i} style={{ 
+                      backgroundColor: "#f0f9ff", 
+                      padding: "1rem", 
+                      borderRadius: "8px",
+                      border: "1px solid #bae6fd"
                     }}>
-                      {t.need}
-                    </h4>
-                    
-                    <p style={{ margin: "0 0 0.5rem 0", color: "#374151" }}>
-                      <strong>Suggested Solution:</strong> {t.suggested_solution}
-                    </p>
-                    
-                    <p style={{ 
-                      margin: 0, 
-                      color: "#6b7280",
-                      fontSize: "0.875rem",
-                      fontStyle: "italic"
-                    }}>
-                      <strong>Rationale:</strong> {t.rationale}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              )}
-            </div>
-          )}
-
-          {/* Child Brands */}
-          {data.child_brands && data.child_brands.is_portfolio_company && (
-            <div id="portfolio" style={{ marginBottom: "2rem" }}>
-              <div 
-                onClick={() => toggleSection('portfolio')}
-                style={{ 
-                  cursor: "pointer", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "space-between",
-                  marginBottom: expandedSections.portfolio ? "1rem" : "0"
-                }}
-              >
-                <h3 style={{ 
-                  fontSize: "1.25rem", 
-                  fontWeight: "bold", 
-                  margin: 0,
-                  color: "#1f2937"
-                }}>
-                  🏢 Portfolio Company
-                </h3>
-                <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
-                  {expandedSections.portfolio ? "−" : "+"}
-                </span>
-              </div>
-              
-              {expandedSections.portfolio && (
-              
-              <div style={{ 
-                backgroundColor: "#f8fafc", 
-                padding: "1.5rem", 
-                borderRadius: "12px", 
-                border: "1px solid #e2e8f0"
-              }}>
-                <h4 style={{ 
-                  margin: "0 0 1rem 0", 
-                  color: "#1f2937",
-                  fontSize: "1.1rem",
-                  fontWeight: "600"
-                }}>
-                  Parent Company: {data.child_brands.parent_company}
-                </h4>
-                
-                <div style={{ marginBottom: "1rem" }}>
-                  <strong style={{ color: "#374151" }}>Key Child Brands:</strong>
-                  <div style={{ 
-                    display: "flex", 
-                    flexWrap: "wrap", 
-                    gap: "0.5rem", 
-                    marginTop: "0.5rem" 
-                  }}>
-                    {data.child_brands.child_brands.map((brand, i) => (
-                      <span key={i} style={{
-                        backgroundColor: "#e5e7eb",
-                        padding: "0.25rem 0.75rem",
-                        borderRadius: "16px",
+                      <h4 style={{ 
+                        margin: "0 0 0.5rem 0", 
+                        color: "#0369a1",
+                        fontSize: "1rem",
+                        fontWeight: "600"
+                      }}>
+                        {t.need}
+                      </h4>
+                      
+                      <p style={{ margin: "0 0 0.5rem 0", color: "#374151" }}>
+                        <strong>Suggested Solution:</strong> {t.suggested_solution}
+                      </p>
+                      
+                      <p style={{ 
+                        margin: 0, 
+                        color: "#6b7280",
                         fontSize: "0.875rem",
-                        color: "#374151"
+                        fontStyle: "italic"
                       }}>
-                        {brand}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <p style={{ 
-                  margin: 0, 
-                  color: "#6b7280",
-                  fontSize: "0.875rem",
-                  fontStyle: "italic"
-                }}>
-                  {data.child_brands.note}
-                </p>
-              </div>
-              )}
-            </div>
-          )}
-
-          {/* Technology Stack Analysis */}
-          {data.technology_stack && (
-            <div id="tech-stack" style={{ marginBottom: "2rem" }}>
-              <div 
-                onClick={() => toggleSection('tech-stack')}
-                style={{ 
-                  cursor: "pointer", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "space-between",
-                  marginBottom: expandedSections["tech-stack"] ? "1rem" : "0"
-                }}
-              >
-                <h3 style={{ 
-                  fontSize: "1.25rem", 
-                  fontWeight: "bold", 
-                  margin: 0,
-                  color: "#1f2937"
-                }}>
-                  🔧 Technology Stack Analysis
-                </h3>
-                <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
-                  {expandedSections["tech-stack"] ? "−" : "+"}
-                </span>
-              </div>
-              
-              {expandedSections["tech-stack"] && (
-              
-              <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
-                {/* Technology Categories */}
-                {Object.entries(data.technology_stack).filter(([key]) => 
-                  !['potential_issues', 'integration_complexity', 'recommendation'].includes(key)
-                ).map(([category, tech]) => (
-                  <div key={category} style={{ 
-                    backgroundColor: "#f8fafc", 
-                    padding: "1rem", 
-                    borderRadius: "8px",
-                    border: "1px solid #e2e8f0"
-                  }}>
-                    <h4 style={{ 
-                      margin: "0 0 0.5rem 0", 
-                      color: "#374151",
-                      fontSize: "1rem",
-                      fontWeight: "600",
-                      textTransform: "capitalize"
-                    }}>
-                      {category.replace('_', ' ')}
-                    </h4>
-                    
-                    <div style={{ marginBottom: "0.5rem" }}>
-                      <strong>Primary:</strong> {tech.primary}
+                        <strong>Rationale:</strong> {t.rationale}
+                      </p>
                     </div>
-                    <div style={{ marginBottom: "0.5rem" }}>
-                      <strong>Secondary:</strong> {tech.secondary}
-                    </div>
-                    
-                    {tech.potential_issues && (
-                      <div>
-                        <strong style={{ color: "#dc2626" }}>Potential Issues:</strong>
-                        <ul style={{ margin: "0.25rem 0 0 1rem", padding: 0 }}>
-                          {tech.potential_issues.map((issue, i) => (
-                            <li key={i} style={{ 
-                              fontSize: "0.875rem", 
-                              color: "#6b7280",
-                              marginBottom: "0.25rem"
-                            }}>
-                              {issue}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Integration Issues */}
-              {data.technology_stack.potential_issues && data.technology_stack.potential_issues.length > 0 && (
-                <div style={{ 
-                  backgroundColor: "#fef2f2", 
-                  padding: "1.5rem", 
-                  borderRadius: "12px", 
-                  border: "1px solid #fecaca",
-                  marginBottom: "1rem"
-                }}>
-                  <h4 style={{ 
-                    margin: "0 0 1rem 0", 
-                    color: "#dc2626",
-                    fontSize: "1.1rem",
-                    fontWeight: "600"
-                  }}>
-                    ⚠️ Critical Integration Issues
-                  </h4>
-                  
-                  <div style={{ display: "grid", gap: "1rem" }}>
-                    {data.technology_stack.potential_issues.map((issue, i) => (
-                      <div key={i} style={{ 
-                        backgroundColor: "white", 
-                        padding: "1rem", 
-                        borderRadius: "8px",
-                        border: "1px solid #fecaca"
-                      }}>
-                        <div style={{ 
-                          display: "flex", 
-                          justifyContent: "space-between", 
-                          alignItems: "center",
-                          marginBottom: "0.5rem"
-                        }}>
-                          <h5 style={{ 
-                            margin: 0, 
-                            color: "#dc2626",
-                            fontSize: "1rem",
-                            fontWeight: "600"
-                          }}>
-                            {issue.category}
-                          </h5>
-                          <span style={{
-                            backgroundColor: issue.impact === 'High' ? "#dc2626" : "#f59e0b",
-                            color: "white",
-                            padding: "0.25rem 0.5rem",
-                            borderRadius: "4px",
-                            fontSize: "0.75rem",
-                            fontWeight: "600"
-                          }}>
-                            {issue.impact} Impact
-                          </span>
-                        </div>
-                        
-                        <p style={{ 
-                          margin: "0 0 0.5rem 0", 
-                          color: "#374151",
-                          fontSize: "0.875rem"
-                        }}>
-                          <strong>Issue:</strong> {issue.issue}
-                        </p>
-                        
-                        <p style={{ 
-                          margin: 0, 
-                          color: "#059669",
-                          fontSize: "0.875rem",
-                          fontWeight: "600"
-                        }}>
-                          <strong>Solution:</strong> {issue.solution}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-              )}
-
-              {/* Integration Complexity & Recommendation */}
-              <div style={{ 
-                backgroundColor: "#f0f9ff", 
-                padding: "1.5rem", 
-                borderRadius: "12px", 
-                border: "1px solid #bae6fd"
-              }}>
-                <div style={{ marginBottom: "1rem" }}>
-                  <strong>Integration Complexity:</strong> 
-                  <span style={{
-                    backgroundColor: data.technology_stack.integration_complexity === 'High' ? "#dc2626" : "#f59e0b",
-                    color: "white",
-                    padding: "0.25rem 0.5rem",
-                    borderRadius: "4px",
-                    fontSize: "0.875rem",
-                    fontWeight: "600",
-                    marginLeft: "0.5rem"
-                  }}>
-                    {data.technology_stack.integration_complexity}
-                  </span>
-                </div>
-                
-                <p style={{ 
-                  margin: 0, 
-                  color: "#0369a1",
-                  fontSize: "0.875rem",
-                  fontWeight: "600"
-                }}>
-                  <strong>Recommendation:</strong> {data.technology_stack.recommendation}
-                </p>
-              </div>
               )}
             </div>
           )}
