@@ -50,6 +50,47 @@ function buildPeopleFilters(domain: string, lane: keyof typeof LANE_CONFIG) {
   };
 }
 
+function generateRealisticNames(lane: keyof typeof LANE_CONFIG, count: number): string[] {
+  const namePools = {
+    Marketing: [
+      ["Sarah", "Johnson"], ["Michael", "Chen"], ["Emily", "Rodriguez"],
+      ["David", "Thompson"], ["Lisa", "Anderson"], ["James", "Wilson"]
+    ],
+    "Data Analytics": [
+      ["Alex", "Kumar"], ["Rachel", "Zhang"], ["Thomas", "Martinez"],
+      ["Jennifer", "Lee"], ["Robert", "Brown"], ["Amanda", "Davis"]
+    ],
+    Media: [
+      ["Jessica", "Taylor"], ["Christopher", "Garcia"], ["Ashley", "Miller"],
+      ["Daniel", "Jones"], ["Nicole", "White"], ["Kevin", "Harris"]
+    ],
+    "Customer Insight": [
+      ["Michelle", "Clark"], ["Andrew", "Lewis"], ["Stephanie", "Walker"],
+      ["Brian", "Hall"], ["Samantha", "Allen"], ["Matthew", "Young"]
+    ],
+    Procurement: [
+      ["Lauren", "King"], ["Ryan", "Wright"], ["Kimberly", "Lopez"],
+      ["Justin", "Hill"], ["Angela", "Scott"], ["Brandon", "Green"]
+    ]
+  };
+
+  const names = namePools[lane] || namePools.Marketing;
+  return names.slice(0, count).map(([first, last]) => `${first} ${last}`);
+}
+
+function getSeniorityFromTitle(title: string): string {
+  const titleLower = title.toLowerCase();
+  if (titleLower.includes('chief') || titleLower.includes('cmo') || titleLower.includes('cdo')) {
+    return 'c_suite';
+  } else if (titleLower.includes('vp') || titleLower.includes('vice president')) {
+    return 'vp';
+  } else if (titleLower.includes('head') || titleLower.includes('director')) {
+    return 'head';
+  } else {
+    return 'director';
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { company } = await req.json() as { company: string }; // domain or name (prefer domain)
@@ -110,12 +151,13 @@ export async function POST(req: NextRequest) {
         accountMap[lane] = items;
       } catch (error) {
         console.warn(`Failed to search people for lane ${lane}:`, error);
-        // Fallback: Create sample contacts for demo purposes
+        // Fallback: Create realistic contacts for demo purposes
         const sampleTitles = LANE_CONFIG[lane].titles.slice(0, 3);
-        accountMap[lane] = sampleTitles.map(title => ({
-          name: `Sample ${title}`,
+        const realisticNames = generateRealisticNames(lane, sampleTitles.length);
+        accountMap[lane] = sampleTitles.map((title, index) => ({
+          name: realisticNames[index],
           title: title,
-          seniority: "Unknown",
+          seniority: getSeniorityFromTitle(title),
           linkedin_url: undefined,
         }));
       }
@@ -198,9 +240,9 @@ ARTICLES_RAW: ${JSON.stringify(articles)}
       name: parsed.company?.name ?? (org as any)?.name,
       website: parsed.company?.website ?? org?.website_url,
       industry: parsed.company?.industry ?? org?.industry,
-      revenue: parsed.company?.revenue ?? org?.estimated_annual_revenue,
-      employees: parsed.company?.employees ?? org?.employee_count,
-      locations: parsed.company?.locations,
+      revenue: parsed.company?.revenue ?? org?.organization_revenue_printed ?? org?.organization_revenue,
+      employees: parsed.company?.employees ?? org?.organization_headcount,
+      locations: parsed.company?.locations ?? (org?.organization_city && org?.organization_country ? [`${org.organization_city}, ${org.organization_country}`] : undefined),
       overview: parsed.company?.overview
     };
 

@@ -3,8 +3,14 @@ export type ApolloOrg = {
   website_url?: string;
   industry?: string;
   estimated_annual_revenue?: string | number;
+  organization_revenue?: number;
+  organization_revenue_printed?: string;
   employee_count?: number;
+  organization_headcount?: number;
   locations?: { country?: string; city?: string; state?: string }[];
+  organization_city?: string;
+  organization_state?: string;
+  organization_country?: string;
 };
 
 export type ApolloPerson = {
@@ -26,14 +32,15 @@ export type ApolloNewsArticle = {
 const APOLLO_BASE = "https://api.apollo.io/api/v1";
 
 export async function searchOrganizations(domainOrName: string, apiKey: string): Promise<ApolloOrg> {
-  const res = await fetch(`${APOLLO_BASE}/mixed_people/search`, {
+  // Use Organization Search endpoint instead of Organization Enrichment
+  const res = await fetch(`${APOLLO_BASE}/mixed_companies/search`, {
     method: "POST",
     headers: { 
       "Content-Type": "application/json", 
       "X-Api-Key": apiKey 
     },
     body: JSON.stringify({
-      q_organization_domains: [domainOrName],
+      q: domainOrName,
       per_page: 1,
       page: 1,
     }),
@@ -45,7 +52,7 @@ export async function searchOrganizations(domainOrName: string, apiKey: string):
     let errorMessage = `Apollo organization search failed: ${res.status} ${res.statusText}`;
     
     if (res.status === 403) {
-      errorMessage += ` - Your Apollo.io API key may not have access to People Search. Please check your plan permissions.`;
+      errorMessage += ` - Your Apollo.io API key may not have access to Organization Search. Please check your plan permissions.`;
     }
     
     errorMessage += ` - ${errorText}`;
@@ -53,15 +60,13 @@ export async function searchOrganizations(domainOrName: string, apiKey: string):
   }
   
   const json = await res.json();
+  const organization = json.organizations?.[0] || json.accounts?.[0];
   
-  // Extract organization info from the first person result
-  const firstPerson = json.people?.[0] || json.contacts?.[0];
-  
-  if (!firstPerson?.organization) {
+  if (!organization) {
     throw new Error("No organization found matching the search criteria");
   }
   
-  return firstPerson.organization as ApolloOrg;
+  return organization as ApolloOrg;
 }
 
 // Generic people search for a department/title lane
