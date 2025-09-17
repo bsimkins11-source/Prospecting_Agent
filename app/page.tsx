@@ -2,15 +2,6 @@
 import { useState } from "react";
 import type { ProspectResult, TechStackCategory } from "@/types";
 
-// Navigation sections
-const SECTIONS = [
-  { id: "overview", title: "Company Overview", icon: "🏢" },
-  { id: "account-map", title: "Account Map", icon: "👥" },
-  { id: "articles", title: "Industry News", icon: "📰" },
-  { id: "portfolio", title: "Portfolio Analysis", icon: "🏢" },
-  { id: "tech-stack", title: "Technology Stack", icon: "🔧" },
-  { id: "tp-alignment", title: "TP Solutions", icon: "🎯" }
-];
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -67,34 +58,6 @@ export default function Home() {
     }));
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const expandAllSections = () => {
-    setExpandedSections({
-      overview: true,
-      "account-map": true,
-      articles: true,
-      portfolio: true,
-      "tech-stack": true,
-      "tp-alignment": true
-    });
-  };
-
-  const collapseAllSections = () => {
-    setExpandedSections({
-      overview: true,
-      "account-map": false,
-      articles: false,
-      portfolio: false,
-      "tech-stack": false,
-      "tp-alignment": false
-    });
-  };
 
   return (
     <main style={{ 
@@ -180,88 +143,8 @@ export default function Home() {
         </div>
       )}
       
-      {data && (
-        <div style={{ marginTop: "2rem" }}>
-          {/* Navigation */}
-          <div style={{ 
-            backgroundColor: "#ffffff", 
-            padding: "1.5rem", 
-            borderRadius: "12px", 
-            marginBottom: "2rem",
-            border: "2px solid #e2e8f0",
-            position: "sticky",
-            top: "20px",
-            zIndex: 10
-          }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-              <h3 style={{ 
-                fontSize: "1.25rem", 
-                fontWeight: "bold", 
-                margin: 0,
-                color: "#1f2937"
-              }}>
-                📋 Report Navigation
-              </h3>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button 
-                  onClick={expandAllSections}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    backgroundColor: "#10b981",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    fontSize: "0.875rem",
-                    fontWeight: "600",
-                    cursor: "pointer"
-                  }}
-                >
-                  Expand All
-                </button>
-                <button 
-                  onClick={collapseAllSections}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    backgroundColor: "#6b7280",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    fontSize: "0.875rem",
-                    fontWeight: "600",
-                    cursor: "pointer"
-                  }}
-                >
-                  Collapse All
-                </button>
-              </div>
-            </div>
-            
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0.5rem" }}>
-              {SECTIONS.map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => scrollToSection(section.id)}
-                  style={{
-                    padding: "0.75rem 1rem",
-                    backgroundColor: expandedSections[section.id] ? "#3b82f6" : "#f3f4f6",
-                    color: expandedSections[section.id] ? "white" : "#374151",
-                    border: "none",
-                    borderRadius: "8px",
-                    fontSize: "0.875rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem"
-                  }}
-                >
-                  <span>{section.icon}</span>
-                  <span>{section.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+        {data && (
+          <div style={{ marginTop: "2rem" }}>
 
           {/* Company Overview */}
           <div id="overview" style={{ 
