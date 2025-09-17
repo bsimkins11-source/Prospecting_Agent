@@ -95,35 +95,44 @@ export async function POST(req: NextRequest) {
   try {
     const { company } = await req.json() as { company: string }; // domain or name (prefer domain)
     
-    // Check environment variables
-    const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    // Backend API endpoints (replace with your actual backend URLs)
+    const BACKEND_BASE_URL = process.env.BACKEND_API_URL || "https://your-backend-server.com";
+    const APOLLO_API_KEY = process.env.APOLLO_API_KEY; // Optional fallback
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Optional fallback
     const OPENAI_MODEL = DEFAULT_MODEL;
 
-    if (!APOLLO_API_KEY) {
+    // Check if we have backend URL configured
+    if (!process.env.BACKEND_API_URL && !APOLLO_API_KEY) {
       return NextResponse.json(
-        { error: "APOLLO_API_KEY environment variable is required" }, 
+        { error: "Backend API URL or Apollo API key must be configured" }, 
         { status: 500 }
       );
     }
 
-    if (!OPENAI_API_KEY) {
-      return NextResponse.json(
-        { error: "OPENAI_API_KEY environment variable is required" }, 
-        { status: 500 }
-      );
-    }
-
-    // 1) Search for organization (with fallback for free plans)
+    // 1) Search for organization
     let org: any = {};
     let domain = company;
     
     try {
-      org = await searchOrganizations(company, APOLLO_API_KEY);
+      if (process.env.BACKEND_API_URL) {
+        // Use backend server (secure)
+        const response = await fetch(`${process.env.BACKEND_API_URL}/api/apollo/organizations`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ domain: company })
+        });
+        org = await response.json();
+      } else if (APOLLO_API_KEY) {
+        // Direct API call (fallback)
+        org = await searchOrganizations(company, APOLLO_API_KEY);
+      } else {
+        throw new Error("No backend URL or API key configured");
+      }
+      
       domain = org?.website_url?.replace(/^https?:\/\//, "")?.replace(/\/.*/, "") || company;
     } catch (error: any) {
-      // Fallback for free Apollo.io plans - create basic company structure
-      console.warn("Apollo.io search failed, using fallback:", error.message);
+      // Fallback for errors - create basic company structure
+      console.warn("Organization search failed, using fallback:", error.message);
       org = {
         name: company.replace(/\.com$/, "").replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase()),
         website_url: company.includes('.') ? `https://${company}` : undefined,
@@ -141,7 +150,23 @@ export async function POST(req: NextRequest) {
     
     for (const lane of lanes) {
       try {
-        const r = await searchPeople(buildPeopleFilters(domain, lane), APOLLO_API_KEY, 1, 10);
+        let r: any;
+        
+        if (process.env.BACKEND_API_URL) {
+          // Use backend server (secure)
+          const response = await fetch(`${process.env.BACKEND_API_URL}/api/apollo/people`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filters: buildPeopleFilters(domain, lane) })
+          });
+          r = await response.json();
+        } else if (APOLLO_API_KEY) {
+          // Direct API call (fallback)
+          r = await searchPeople(buildPeopleFilters(domain, lane), APOLLO_API_KEY, 1, 10);
+        } else {
+          throw new Error("No backend URL or API key configured");
+        }
+        
         const items = (r?.people || r?.contacts || []).slice(0, 5).map((p: any) => ({
           name: [p?.first_name, p?.last_name].filter(Boolean).join(" "),
           title: p?.title,
@@ -167,7 +192,23 @@ export async function POST(req: NextRequest) {
     let articles: any[] = [];
     try {
       const organizationId = (org as any)?.organization_id;
-      const news = await searchNewsArticles(domain, APOLLO_API_KEY, organizationId, 3);
+      let news: any;
+      
+      if (process.env.BACKEND_API_URL) {
+        // Use backend server (secure)
+        const response = await fetch(`${process.env.BACKEND_API_URL}/api/apollo/news`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ domain, organizationId })
+        });
+        news = await response.json();
+      } else if (APOLLO_API_KEY) {
+        // Direct API call (fallback)
+        news = await searchNewsArticles(domain, APOLLO_API_KEY, organizationId, 3);
+      } else {
+        throw new Error("No backend URL or API key configured");
+      }
+      
       articles = (news?.articles || []).map((a: any) => ({
         title: a?.title,
         url: a?.url,
@@ -224,17 +265,32 @@ ACCOUNT_MAP_RAW: ${JSON.stringify(accountMap)}
 ARTICLES_RAW: ${JSON.stringify(articles)}
 `;
 
-    const completion = await openai.chat.completions.create({
-      model: OPENAI_MODEL,
-      temperature: 0.2,
-      response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: "You are a precise B2B research analyst. Output valid JSON only." },
-        { role: "user", content: prompt }
-      ]
-    });
-
-    const parsed = JSON.parse(completion.choices[0].message.content || "{}") as ProspectResult;
+    let parsed: ProspectResult;
+    
+    if (process.env.BACKEND_API_URL) {
+      // Use backend server (secure)
+      const response = await fetch(`${process.env.BACKEND_API_URL}/api/openai/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      const result = await response.json();
+      parsed = JSON.parse(result.result || "{}") as ProspectResult;
+    } else if (OPENAI_API_KEY) {
+      // Direct API call (fallback)
+      const completion = await openai.chat.completions.create({
+        model: OPENAI_MODEL,
+        temperature: 0.2,
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: "You are a precise B2B research analyst. Output valid JSON only." },
+          { role: "user", content: prompt }
+        ]
+      });
+      parsed = JSON.parse(completion.choices[0].message.content || "{}") as ProspectResult;
+    } else {
+      throw new Error("No backend URL or OpenAI API key configured");
+    }
 
     // Fill missing top-level company fields from Apollo enrichment
     parsed.company = {
