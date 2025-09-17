@@ -49,11 +49,11 @@ export default function Home() {
       padding: 16,
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
+      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
         <img 
           src="/transparent-logo.png" 
           alt="Transparent Partners Logo" 
-          style={{ height: "60px", width: "auto" }}
+          style={{ height: "80px", width: "auto", marginBottom: "1rem" }}
         />
         <h1 style={{ fontSize: "2.5rem", fontWeight: "bold", margin: 0 }}>
           Transparent Partners Prospecting Agent
