@@ -188,8 +188,9 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         
         people.forEach((person: any) => {
           if (person.first_name && person.last_name && person.title) {
-            // Less restrictive validation for now
+            console.log(`Raw title: "${person.title}"`);
             const cleanTitle = cleanPersonTitle(person.title);
+            console.log(`Cleaned title: "${cleanTitle}"`);
             const seniority = getSeniorityFromTitle(cleanTitle);
             
             accountMap[dept].push({
