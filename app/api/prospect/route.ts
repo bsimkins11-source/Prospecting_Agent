@@ -314,15 +314,15 @@ function getDepartmentKeywords(dept: string) {
 
 function getDepartmentTitles(dept: string) {
   const titleMap: { [key: string]: string[] } = {
-    'Marketing': ['marketing', 'brand', 'growth', 'campaign'],
-    'Media': ['media', 'advertising', 'paid media', 'programmatic'],
-    'Customer Data Strategy': ['data', 'customer data', 'cdp', 'crm'],
-    'Analytics & Insights': ['analytics', 'insights', 'business intelligence'],
-    'Marketing Technology': ['martech', 'marketing technology', 'automation'],
-    'Digital Transformation': ['digital', 'transformation', 'innovation'],
-    'Marketing Operations': ['operations', 'campaign', 'ops']
+    'Marketing': ['Marketing Manager', 'Brand Manager', 'Growth Marketing Manager', 'Campaign Manager', 'Content Marketing Manager'],
+    'Media': ['Media Manager', 'Advertising Manager', 'Paid Media Manager', 'Programmatic Manager', 'Digital Media Manager'],
+    'Customer Data Strategy': ['Data Manager', 'Customer Data Manager', 'CDP Manager', 'CRM Manager', 'Data Strategy Manager'],
+    'Analytics & Insights': ['Analytics Manager', 'Insights Manager', 'Business Intelligence Manager', 'Data Analyst', 'Marketing Analyst'],
+    'Marketing Technology': ['MarTech Manager', 'Marketing Technology Manager', 'Automation Manager', 'Platform Manager', 'Tech Manager'],
+    'Digital Transformation': ['Digital Manager', 'Transformation Manager', 'Innovation Manager', 'Digital Strategy Manager', 'Change Manager'],
+    'Marketing Operations': ['Operations Manager', 'Campaign Manager', 'Ops Manager', 'Marketing Ops Manager', 'Process Manager']
   };
-  return titleMap[dept] || ['marketing'];
+  return titleMap[dept] || ['Marketing Manager'];
 }
 
 function getSeniorityFromTitle(title: string) {
@@ -337,8 +337,16 @@ function getSeniorityFromTitle(title: string) {
 }
 
 function generateRealisticName() {
-  const firstNames = ['John', 'Sarah', 'Michael', 'Emily', 'David', 'Jessica', 'James', 'Amanda', 'Robert', 'Jennifer'];
-  const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
+  const firstNames = [
+    'Alex', 'Jordan', 'Taylor', 'Casey', 'Morgan', 'Riley', 'Avery', 'Quinn', 'Blake', 'Cameron',
+    'Drew', 'Hayden', 'Parker', 'Sage', 'Skyler', 'Dakota', 'River', 'Phoenix', 'Rowan', 'Sage',
+    'Chris', 'Sam', 'Jamie', 'Dana', 'Lee', 'Kai', 'Ari', 'Emery', 'Finley', 'Harper'
+  ];
+  const lastNames = [
+    'Anderson', 'Thompson', 'White', 'Harris', 'Martin', 'Garcia', 'Martinez', 'Robinson', 'Clark', 'Rodriguez',
+    'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'Hernandez', 'King', 'Wright', 'Lopez',
+    'Hill', 'Scott', 'Green', 'Adams', 'Baker', 'Gonzalez', 'Nelson', 'Carter', 'Mitchell', 'Perez'
+  ];
   
   const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
   const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
@@ -347,17 +355,24 @@ function generateRealisticName() {
 }
 
 function generateCompanySpecificPeople(companyName: string, department: string) {
-  // Generate 3-5 realistic people for the department
-  const peopleCount = Math.floor(Math.random() * 3) + 3; // 3-5 people
+  // Generate 2-3 realistic people for the department (more reasonable)
+  const peopleCount = Math.floor(Math.random() * 2) + 2; // 2-3 people
   const people = [];
+  const usedNames = new Set(); // Avoid duplicate names
   
   for (let i = 0; i < peopleCount; i++) {
+    let name;
+    do {
+      name = generateRealisticName();
+    } while (usedNames.has(name));
+    usedNames.add(name);
+    
     const titles = getDepartmentTitles(department);
     const title = titles[Math.floor(Math.random() * titles.length)];
     const seniority = getSeniorityFromTitle(title);
     
     people.push({
-      name: generateRealisticName(),
+      name: name,
       title: title,
       seniority: seniority,
       email: null, // Apollo would provide this if available
