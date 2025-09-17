@@ -40,7 +40,14 @@ export async function enrichOrganization(domainOrName: string, apiKey: string): 
   
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(`Apollo org enrich failed: ${res.status} ${res.statusText} - ${errorText}`);
+    let errorMessage = `Apollo org enrich failed: ${res.status} ${res.statusText}`;
+    
+    if (res.status === 403) {
+      errorMessage += ` - Your Apollo.io API key may not have access to Organization Enrichment. Please check your plan permissions.`;
+    }
+    
+    errorMessage += ` - ${errorText}`;
+    throw new Error(errorMessage);
   }
   
   const json = await res.json();
