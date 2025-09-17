@@ -169,6 +169,7 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         },
         body: JSON.stringify({
           q_organization_domains: [companyDomain],
+          q_organization_names: [orgData.name],
           person_titles: getDepartmentTitles(dept),
           page: 1,
           per_page: 25,
