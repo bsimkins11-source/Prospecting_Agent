@@ -204,7 +204,8 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
           }
         });
       } else {
-        console.error(`Apollo people search failed for ${dept}: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`Apollo people search failed for ${dept}: ${response.status} - ${errorText}`);
       }
     } catch (error: any) {
       console.warn(`Error searching for people in ${dept}:`, error.message);
@@ -221,6 +222,10 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
       });
     }
   }
+  
+  // Log summary of what we found
+  const totalRealPeople = Object.values(accountMap).reduce((total: number, dept: any) => total + dept.length, 0);
+  console.log(`Total people found across all departments: ${totalRealPeople}`);
   
   return accountMap;
 }
