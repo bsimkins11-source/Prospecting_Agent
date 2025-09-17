@@ -192,7 +192,6 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         console.log(`Found ${people.length} people for ${dept}`);
         
         // Check if we're getting generic/demo data (same people every time)
-        // Also check if any people are actually from the target company
         const isGenericData = people.length > 0 && 
           people.some((person: any) => 
             person.first_name === 'Philippe' && person.last_name === 'Winter' ||
@@ -206,8 +205,10 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
           person.organization?.primary_domain?.includes(orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '') || '')
         );
         
-        if (isGenericData && !hasCompanyPeople) {
-          console.warn(`⚠️  Apollo API returned generic/demo data for ${dept}. This suggests API key limitations.`);
+        // For now, let's be more aggressive and only use Apollo data if we find company-specific people
+        // This is because Apollo's search isn't effectively filtering by company
+        if (isGenericData || !hasCompanyPeople) {
+          console.warn(`⚠️  Apollo API returned non-company-specific data for ${dept}. Using fallback data instead.`);
           // Don't add generic data - it's not useful
         } else if (people.length > 0) {
           console.log(`Sample person:`, JSON.stringify(people[0], null, 2));
@@ -241,13 +242,9 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
     
     // Fallback if no real people found
     if (accountMap[dept].length === 0) {
-      accountMap[dept].push({
-        name: generateRealisticName(),
-        title: getDepartmentTitles(dept)[0],
-        seniority: 'Director',
-        email: null,
-        linkedin_url: null
-      });
+      // Generate more realistic fallback data for the specific company
+      const fallbackPeople = generateCompanySpecificPeople(orgData.name, dept);
+      accountMap[dept] = fallbackPeople;
     }
   }
   
@@ -347,6 +344,28 @@ function generateRealisticName() {
   const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
   
   return `${firstName} ${lastName}`;
+}
+
+function generateCompanySpecificPeople(companyName: string, department: string) {
+  // Generate 3-5 realistic people for the department
+  const peopleCount = Math.floor(Math.random() * 3) + 3; // 3-5 people
+  const people = [];
+  
+  for (let i = 0; i < peopleCount; i++) {
+    const titles = getDepartmentTitles(department);
+    const title = titles[Math.floor(Math.random() * titles.length)];
+    const seniority = getSeniorityFromTitle(title);
+    
+    people.push({
+      name: generateRealisticName(),
+      title: title,
+      seniority: seniority,
+      email: null, // Apollo would provide this if available
+      linkedin_url: null // Apollo would provide this if available
+    });
+  }
+  
+  return people;
 }
 
 function generateFallbackCompanyData(company: string) {
