@@ -95,6 +95,8 @@ async function getOrganizationData(company: string, apiKey: string) {
       console.log(`Apollo response:`, JSON.stringify(orgJson, null, 2));
       
       if (accounts.length > 0) {
+        console.log(`First few accounts found:`, accounts.slice(0, 3).map((acc: any) => ({ name: acc.name, domain: acc.primary_domain })));
+        
         // Find best match
         let bestMatch = accounts.find((acc: any) => 
           acc.primary_domain === searchQuery || 
@@ -103,7 +105,10 @@ async function getOrganizationData(company: string, apiKey: string) {
         );
         
         if (!bestMatch) {
+          console.log(`No exact match found, using first result: ${accounts[0].name}`);
           bestMatch = accounts[0];
+        } else {
+          console.log(`Found exact match: ${bestMatch.name}`);
         }
         
         const orgData = {
