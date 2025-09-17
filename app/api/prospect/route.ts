@@ -251,6 +251,21 @@ function cleanPersonTitle(title: string) {
     .replace(/\s+/g, ' ')
     .trim();
   
+  // Fix duplicate words and clean up messy titles
+  const words = cleanTitle.split(' ').filter(word => word.length > 0);
+  const uniqueWords = [];
+  const seen = new Set();
+  
+  for (const word of words) {
+    const lowerWord = word.toLowerCase();
+    if (!seen.has(lowerWord)) {
+      seen.add(lowerWord);
+      uniqueWords.push(word);
+    }
+  }
+  
+  cleanTitle = uniqueWords.join(' ');
+  
   if (cleanTitle.length < 3) cleanTitle = 'Manager';
   
   return cleanTitle
