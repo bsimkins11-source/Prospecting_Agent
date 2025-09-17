@@ -163,16 +163,14 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
     accountMap[dept] = [];
     
     try {
-      const response = await fetch('https://api.apollo.io/api/v1/mixed_people/search', {
+      const response = await fetch('https://api.apollo.io/api/v1/people/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Api-Key': apiKey
         },
         body: JSON.stringify({
-          q_organization_domains: [companyDomain],
-          q_organization_names: [orgData.name],
-          person_titles: getDepartmentTitles(dept),
+          q: `${orgData.name} ${getDepartmentTitles(dept)[0]}`,
           page: 1,
           per_page: 25,
           reveal_personal_emails: true,
