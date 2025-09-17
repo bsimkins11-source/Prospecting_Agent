@@ -31,9 +31,42 @@ export type TPSolutionAlignment = {
   rationale: string;
 };
 
+export type ChildBrands = {
+  is_portfolio_company: boolean;
+  parent_company: string;
+  child_brands: string[];
+  note: string;
+};
+
+export type TechStackCategory = {
+  primary: string;
+  secondary: string;
+  potential_issues?: string[];
+};
+
+export type TechStackIssue = {
+  category: string;
+  issue: string;
+  solution: string;
+  impact: 'High' | 'Medium' | 'Low';
+};
+
+export type TechnologyStack = {
+  email_marketing?: TechStackCategory;
+  data_management?: TechStackCategory;
+  analytics?: TechStackCategory;
+  advertising?: TechStackCategory;
+  crm?: TechStackCategory;
+  potential_issues?: TechStackIssue[];
+  integration_complexity?: 'High' | 'Medium' | 'Low';
+  recommendation?: string;
+};
+
 export type ProspectResult = {
   company: Company;
   accountMap: Record<AccountMapLane, Person[]>;
   articles: Article[];
   tp_alignment?: TPSolutionAlignment[];
+  child_brands?: ChildBrands;
+  technology_stack?: TechnologyStack;
 };
