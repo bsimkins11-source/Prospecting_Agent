@@ -179,27 +179,17 @@ export async function POST(req: NextRequest) {
             `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
           ).join('\n');
           
-          const prompt = `Analyze the MarTech landscape for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+          const prompt = `Analyze MarTech for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
 
-Key contacts found:
-${peopleData}
-
-Company overview: ${companyData.short_description || 'No description available'}
-
-Provide a MarTech analysis in JSON format with these sections:
-- current_state: What marketing technology they likely use based on their industry and team
-- challenges: Main MarTech challenges they face
-- recommendations: Top 3 specific MarTech recommendations for this company
-- priority: High/Medium/Low based on their current state
-
-Keep it specific to ${companyData.name} and their industry.`;
+Return JSON only:
+{"current_state": "brief description", "challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High/Medium/Low"}`;
 
           console.log(`🤖 ENHANCED: Calling OpenAI for MarTech analysis...`);
           const response = await openai.chat.completions.create({
             model: DEFAULT_MODEL,
             messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: 800
+            temperature: 0.3,
+            max_tokens: 300
           });
 
           console.log(`🤖 ENHANCED: OpenAI response received`);
@@ -224,26 +214,17 @@ Keep it specific to ${companyData.name} and their industry.`;
             `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
           ).join('\n');
           
-          const prompt = `Analyze the key challenges for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+          const prompt = `Analyze challenges for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
 
-Key contacts found:
-${peopleData}
-
-Company overview: ${companyData.short_description || 'No description available'}
-
-Identify the primary challenges this company likely faces in JSON format:
-- primary_challenges: Top 3 specific challenges they face
-- recommendations: Specific recommendations to address these challenges
-- priority: High/Medium/Low based on urgency and impact
-
-Focus on challenges specific to ${companyData.name} and their industry.`;
+Return JSON only:
+{"primary_challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High/Medium/Low"}`;
 
           console.log(`🤖 ENHANCED: Calling OpenAI for challenges analysis...`);
           const response = await openai.chat.completions.create({
             model: DEFAULT_MODEL,
             messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: 600
+            temperature: 0.3,
+            max_tokens: 200
           });
 
           console.log(`🤖 ENHANCED: OpenAI response received`);
@@ -281,28 +262,19 @@ Focus on challenges specific to ${companyData.name} and their industry.`;
             `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
           ).join('\n');
           
-          const prompt = `Analyze Transparent Partners alignment for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+          const prompt = `Analyze TP alignment for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
 
-Key contacts found:
-${peopleData}
+TP specializes in: Marketing, MarTech, Analytics, Customer Strategy, Content, Social Media, Brand, CRM.
 
-Company overview: ${companyData.short_description || 'No description available'}
-
-Transparent Partners specializes in: Marketing, Media & AdTech, MarTech, Analytics & Data, Customer Strategy, Content & Creative, Social Media, Brand, CRM.
-
-Provide TP alignment analysis in JSON format:
-- alignment_score: 0-100 score based on how well they align with TP's expertise
-- key_opportunities: Top 3 specific opportunities for TP to help this company
-- next_steps: Specific next steps for engagement
-
-Focus on how TP can specifically help ${companyData.name}.`;
+Return JSON only:
+{"alignment_score": 85, "key_opportunities": ["opp1", "opp2"], "next_steps": ["step1", "step2"]}`;
 
           console.log(`🤖 ENHANCED: Calling OpenAI for TP alignment analysis...`);
           const response = await openai.chat.completions.create({
             model: DEFAULT_MODEL,
             messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: 600
+            temperature: 0.3,
+            max_tokens: 200
           });
 
           console.log(`🤖 ENHANCED: OpenAI response received`);
