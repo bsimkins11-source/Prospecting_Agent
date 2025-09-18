@@ -179,12 +179,12 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
     
     try {
       const searchPayload = {
-        q: `${orgData.name} ${getDepartmentTitles(dept)[0]}`,
+        q_organization_domains: orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, ''),
+        person_titles: getDepartmentTitles(dept),
         page: 1,
         per_page: 25,
         reveal_personal_emails: true,
         reveal_phone_numbers: false,
-        person_titles: getDepartmentTitles(dept),
         person_locations: ['United States'],
         organization_locations: ['United States']
       };
@@ -219,32 +219,13 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
             person.first_name === 'Bill' && person.last_name === 'Gates'
           );
         
-        // Filter people to only include those from the target company
-        const companyPeople = people.filter((person: any) => {
-          const personCompany = person.organization?.name?.toLowerCase() || '';
-          const personDomain = person.organization?.primary_domain?.toLowerCase() || '';
-          const targetCompany = orgData.name?.toLowerCase() || '';
-          const targetDomain = orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '').toLowerCase() || '';
-          
-          // Strict company matching - person's company must contain target company name
-          const companyMatch = personCompany.includes(targetCompany);
-          const domainMatch = personDomain.includes(targetDomain);
-          
-          // Log for debugging
-          if (personCompany && targetCompany) {
-            console.log(`Checking: "${personCompany}" vs "${targetCompany}" - Match: ${companyMatch}`);
-          }
-          
-          return companyMatch || domainMatch;
-        });
+        // Since we're using q_organization_domains, all results should be company-specific
+        console.log(`Found ${people.length} company-specific people for ${dept}`);
         
-        console.log(`Found ${companyPeople.length} company-specific people out of ${people.length} total for ${dept}`);
-        
-        // Only use Apollo data if we find company-specific people
-        if (companyPeople.length > 0) {
-          console.log(`Sample company-specific person:`, JSON.stringify(companyPeople[0], null, 2));
+        if (people.length > 0) {
+          console.log(`Sample company-specific person:`, JSON.stringify(people[0], null, 2));
           
-          companyPeople.forEach((person: any) => {
+          people.forEach((person: any) => {
             if (person.first_name && person.last_name && person.title) {
               console.log(`Raw title: "${person.title}"`);
               const cleanTitle = cleanPersonTitle(person.title);
@@ -264,7 +245,7 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
             }
           });
         } else {
-          console.warn(`⚠️  No company-specific people found for ${dept} at ${orgData.name}. Rejecting ${people.length} non-matching results.`);
+          console.warn(`⚠️  No people found for ${dept} at ${orgData.name}. Apollo database may not contain employees for this company.`);
         }
       } else {
         const errorText = await response.text();
@@ -421,7 +402,7 @@ function generateFallbackCompanyData(company: string) {
   // Use known data for major companies instead of generic generation
   const knownCompanies: { [key: string]: any } = {
     'verizon': {
-      name: 'Verizon Communications',
+      name: 'Verizon Wireless Communications',
       website_url: 'verizon.com',
       industry: 'Telecommunications',
       estimated_annual_revenue: '$130B+',
