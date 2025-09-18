@@ -721,11 +721,29 @@ function generateFallbackCompanyData(company: string) {
     }
   };
   
-  const companyKey = company.toLowerCase().replace(/[^a-z]/g, '');
-  const knownData = knownCompanies[companyKey];
+  // Try multiple matching strategies
+  const companyLower = company.toLowerCase();
+  const companyKey = companyLower.replace(/[^a-z]/g, '');
   
+  // Direct key match
+  let knownData = knownCompanies[companyKey];
   if (knownData) {
     return knownData;
+  }
+  
+  // Try partial matches for common variations
+  const partialMatches = Object.keys(knownCompanies).filter(key => {
+    return companyKey.includes(key) || key.includes(companyKey) ||
+           companyLower.includes(key) || key.includes(companyLower);
+  });
+  
+  if (partialMatches.length > 0) {
+    // Use the best match (longest key)
+    const bestMatch = partialMatches.reduce((a, b) => a.length > b.length ? a : b);
+    knownData = knownCompanies[bestMatch];
+    if (knownData) {
+      return knownData;
+    }
   }
   
   // Fallback to generic generation for unknown companies
