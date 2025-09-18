@@ -146,67 +146,50 @@ async function getOrganizationData(company: string, apiKey: string) {
     
     console.log(`Searching Apollo for: "${searchQuery}"`);
 
-    const orgResponse = await fetch('https://api.apollo.io/api/v1/mixed_companies/search', {
-      method: 'POST',
+    // Use organization enrichment by domain (more accurate than search)
+    const orgResponse = await fetch(`https://api.apollo.io/api/v1/organizations/enrich?domain=${searchQuery}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-Api-Key': apiKey
-      },
-      body: JSON.stringify({
-        q: searchQuery,
-        per_page: 20,
-        page: 1
-      })
+        'X-Api-Key': apiKey,
+        'accept': 'application/json'
+      }
     });
 
     if (orgResponse.ok) {
-      const orgJson = await orgResponse.json();
-      const accounts = orgJson.accounts || [];
-      console.log(`Found ${accounts.length} accounts from Apollo`);
+      const orgData = await orgResponse.json();
+      console.log(`Organization enrichment result:`, orgData);
       
-      if (accounts.length > 0) {
-        console.log(`First few accounts found:`, accounts.slice(0, 3).map((acc: any) => ({ name: acc.name, domain: acc.primary_domain })));
-        
-        // Use OpenAI to improve the search results
-        console.log(`Using OpenAI to improve search results for: ${company}`);
-        const improvedData = await improveCompanySearchWithAI(company, accounts);
+      if (orgData && orgData.name) {
+        // Use OpenAI to validate and improve the enrichment data
+        console.log(`Using OpenAI to validate enrichment data for: ${company}`);
+        const improvedData = await improveCompanySearchWithAI(company, [orgData]);
         
         if (improvedData) {
           console.log(`OpenAI improved data:`, improvedData);
           return improvedData;
         }
         
-        // Fallback to Apollo results if OpenAI fails
-        let bestMatch = accounts.find((acc: any) => 
-          acc.primary_domain === searchQuery || 
-          acc.primary_domain?.includes(searchQuery) ||
-          acc.name?.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        
-        if (!bestMatch) {
-          console.log(`No exact match found, using first result: ${accounts[0].name}`);
-          bestMatch = accounts[0];
-        } else {
-          console.log(`Found exact match: ${bestMatch.name}`);
-        }
-        
-        const orgData = {
-          name: bestMatch.name,
-          website_url: bestMatch.primary_domain,
-          industry: bestMatch.industry,
-          estimated_annual_revenue: bestMatch.estimated_annual_revenue,
-          organization_headcount: bestMatch.organization_headcount,
-          organization_city: bestMatch.organization_city,
-          organization_state: bestMatch.organization_state,
-          organization_country: bestMatch.organization_country
+        // Return the enrichment data directly (more accurate than search)
+        const result = {
+          name: orgData.name,
+          website_url: orgData.website_url || orgData.primary_domain,
+          industry: orgData.industry,
+          estimated_annual_revenue: orgData.annual_revenue,
+          organization_headcount: orgData.employee_count,
+          organization_city: orgData.city,
+          organization_state: orgData.state,
+          organization_country: orgData.country
         };
         
-        console.log(`Using Apollo data for: ${orgData.name}`);
-        return orgData;
+        console.log(`Using Apollo enrichment data for: ${result.name}`);
+        return result;
+      } else {
+        console.warn(`No organization data found for domain: ${searchQuery}`);
       }
     } else {
       const errorText = await orgResponse.text();
-      console.warn(`Apollo API error: ${orgResponse.status} ${orgResponse.statusText} - ${errorText}`);
+      console.warn(`Apollo enrichment error: ${orgResponse.status} ${orgResponse.statusText} - ${errorText}`);
     }
   } catch (error) {
     console.warn('Organization search failed:', error);
@@ -248,8 +231,10 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
     
     try {
       const searchPayload = {
-        q_organization_domains: orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, ''),
+        q_organization_domains_list: [orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '')],
         person_titles: getDepartmentTitles(dept),
+        person_seniorities: ['manager', 'director', 'vp', 'cxo', 'head'],
+        contact_email_status: ['verified'],
         page: 1,
         per_page: 25,
         reveal_personal_emails: true,
@@ -290,13 +275,45 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
             person.first_name === 'Bill' && person.last_name === 'Gates'
           );
         
-        // Since we're using q_organization_domains, all results should be company-specific
-        console.log(`Found ${people.length} company-specific people for ${dept}`);
+        // Score and filter people results for quality
+        console.log(`Found ${people.length} people for ${dept}`);
         
         if (people.length > 0) {
-          console.log(`Sample company-specific person:`, JSON.stringify(people[0], null, 2));
+          // Score each person for quality
+          const scoredPeople = people.map((person: any) => {
+            let score = 0;
+            
+            // Exact domain match (required)
+            const personDomain = person.organization?.primary_domain?.toLowerCase() || '';
+            const targetDomain = orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '').toLowerCase() || '';
+            if (personDomain === targetDomain) score += 10;
+            
+            // Title/function contains target keywords
+            const title = person.title?.toLowerCase() || '';
+            const deptTitles = getDepartmentTitles(dept).map(t => t.toLowerCase());
+            if (deptTitles.some(t => title.includes(t))) score += 5;
+            
+            // Seniority in allowed set
+            const seniority = person.seniority?.toLowerCase() || '';
+            if (['manager', 'director', 'vp', 'cxo', 'head'].includes(seniority)) score += 3;
+            
+            // Email status is verified
+            if (person.email_status === 'verified') score += 2;
+            
+            // LinkedIn URL present
+            if (person.linkedin_url) score += 1;
+            
+            return { ...person, score };
+          });
           
-          people.forEach((person: any) => {
+          // Filter to only high-quality matches (score >= 8)
+          const qualityPeople = scoredPeople.filter(p => p.score >= 8);
+          console.log(`Filtered to ${qualityPeople.length} high-quality people (score >= 8) out of ${people.length} total`);
+          
+          if (qualityPeople.length > 0) {
+            console.log(`Sample high-quality person:`, JSON.stringify(qualityPeople[0], null, 2));
+            
+            qualityPeople.forEach((person: any) => {
             if (person.first_name && person.last_name && person.title) {
               console.log(`Raw title: "${person.title}"`);
               const cleanTitle = cleanPersonTitle(person.title);
