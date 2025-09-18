@@ -19,6 +19,11 @@ type ApolloOrg = {
   estimated_num_employees?: number;
   founded_year?: number;
   keywords?: string[];
+  current_technologies?: Array<{
+    uid: string;
+    name: string;
+    category: string;
+  }>;
 };
 
 export const runtime = "nodejs";
@@ -161,152 +166,49 @@ export async function POST(req: NextRequest) {
     // Generate technology stack analysis
     technologyStack = generateTechnologyStack(companyData);
 
-    // STEP 4: Generate MarTech analysis and challenges using AI
-    let martechAnalysis = null;
-    let challenges = null;
-    let techStack = null;
-    let tpAlignment = null;
-
-    if (openaiKey) {
-      try {
-        console.log(`🤖 ENHANCED: Generating AI analysis...`);
-        console.log(`🤖 ENHANCED: OpenAI key detected: ${openaiKey.substring(0, 10)}...`);
-        
-        // MarTech Analysis (Test with simple AI call)
-        console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
-        try {
-          // Test with very simple prompt first
-          const testPrompt = `Say "AI working" for ${companyData.name}`;
-          
-          console.log(`🤖 ENHANCED: Testing OpenAI connection...`);
-          const testResponse = await openai.chat.completions.create({
-            model: DEFAULT_MODEL,
-            messages: [{ role: "user", content: testPrompt }],
-            temperature: 0.3,
-            max_tokens: 50
-          });
-
-          console.log(`🤖 ENHANCED: OpenAI test response:`, testResponse.choices[0].message.content);
-          
-          // If test works, try real analysis
-          const prompt = `Analyze MarTech for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees). Return JSON: {"current_state": "description", "challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High"}`;
-
-          console.log(`🤖 ENHANCED: Calling OpenAI for MarTech analysis...`);
-          const response = await openai.chat.completions.create({
-            model: DEFAULT_MODEL,
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.3,
-            max_tokens: 200
-          });
-
-          console.log(`🤖 ENHANCED: OpenAI response received:`, response.choices[0].message.content);
-          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
-          martechAnalysis = aiResult;
-          console.log(`🤖 ENHANCED: MarTech analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: MarTech analysis error:`, error.message);
-          console.error(`❌ ENHANCED: Error type:`, error.constructor.name);
-          // Fallback to basic analysis
-          martechAnalysis = {
-            current_state: 'Mixed MarTech stack with potential integration gaps',
-            challenges: ['Data silos', 'Tool proliferation', 'Team coordination'],
-            recommendations: ['Implement CDP', 'Consolidate tools', 'Improve training'],
-            priority: 'High'
-          };
-        }
-        
-        // Challenges Analysis (Real AI Analysis)
-        console.log(`🤖 ENHANCED: Starting challenges analysis...`);
-        try {
-          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
-            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
-          ).join('\n');
-          
-          const prompt = `Analyze challenges for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
-
-Return JSON only:
-{"primary_challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High/Medium/Low"}`;
-
-          console.log(`🤖 ENHANCED: Calling OpenAI for challenges analysis...`);
-          const response = await openai.chat.completions.create({
-            model: DEFAULT_MODEL,
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.3,
-            max_tokens: 200
-          });
-
-          console.log(`🤖 ENHANCED: OpenAI response received`);
-          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
-          challenges = aiResult;
-          console.log(`🤖 ENHANCED: Challenges analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: Challenges analysis error:`, error.message);
-          // Fallback to basic analysis
-          challenges = {
-            primary_challenges: ['Data integration', 'Technology adoption', 'Team alignment'],
-            recommendations: ['Implement unified data platform', 'Invest in training', 'Establish clear processes'],
-            priority: 'High'
-          };
-        }
-        
-        // Tech Stack Analysis (Simplified for now)
-        console.log(`🤖 ENHANCED: Starting tech stack analysis...`);
-        try {
-          techStack = {
-            current_tech: ['CRM', 'Marketing Automation', 'Analytics'],
-            gaps: ['Data unification', 'Cross-platform integration'],
-            recommendations: ['Implement CDP', 'Upgrade automation tools']
-          };
-          console.log(`🤖 ENHANCED: Tech stack analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: Tech stack analysis error:`, error.message);
-          techStack = null;
-        }
-        
-        // TP Alignment (Real AI Analysis)
-        console.log(`🤖 ENHANCED: Starting TP alignment analysis...`);
-        try {
-          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
-            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
-          ).join('\n');
-          
-          const prompt = `Analyze TP alignment for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
-
-TP specializes in: Marketing, MarTech, Analytics, Customer Strategy, Content, Social Media, Brand, CRM.
-
-Return JSON only:
-{"alignment_score": 85, "key_opportunities": ["opp1", "opp2"], "next_steps": ["step1", "step2"]}`;
-
-          console.log(`🤖 ENHANCED: Calling OpenAI for TP alignment analysis...`);
-          const response = await openai.chat.completions.create({
-            model: DEFAULT_MODEL,
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.3,
-            max_tokens: 200
-          });
-
-          console.log(`🤖 ENHANCED: OpenAI response received`);
-          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
-          tpAlignment = aiResult;
-          console.log(`🤖 ENHANCED: TP alignment analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: TP alignment analysis error:`, error.message);
-          // Fallback to basic analysis
-          tpAlignment = {
-            alignment_score: 85,
-            key_opportunities: ['MarTech optimization', 'Data strategy', 'Team development'],
-            next_steps: ['Schedule discovery call', 'Review current stack', 'Identify quick wins']
-          };
-        }
-        
-        console.log(`✅ ENHANCED: AI analysis completed`);
-      } catch (error: any) {
-        console.error(`❌ ENHANCED: AI analysis failed:`, error);
-        console.error(`❌ ENHANCED: Error details:`, error.message);
-        console.error(`❌ ENHANCED: Error stack:`, error.stack);
-      }
+    // STEP 4: Extract real technology stack from Apollo data
+    console.log(`🔧 APOLLO: Extracting real technology stack...`);
+    
+    let martechStack = null;
+    let technologyCategories = null;
+    
+    if (companyData.current_technologies && companyData.current_technologies.length > 0) {
+      console.log(`✅ APOLLO: Found ${companyData.current_technologies.length} technologies`);
+      
+      // Extract MarTech-specific technologies
+      const martechTechnologies = companyData.current_technologies.filter(tech => 
+        tech.category && (
+          tech.category.includes('Marketing') ||
+          tech.category.includes('Analytics') ||
+          tech.category.includes('Advertising') ||
+          tech.category.includes('Email') ||
+          tech.category.includes('Social') ||
+          tech.category.includes('Automation') ||
+          tech.category.includes('Tag Management') ||
+          tech.category.includes('Retargeting')
+        )
+      );
+      
+      martechStack = {
+        total_technologies: companyData.current_technologies.length,
+        martech_technologies: martechTechnologies,
+        categories: Array.from(new Set(companyData.current_technologies.map(tech => tech.category))),
+        top_categories: getTopCategories(companyData.current_technologies)
+      };
+      
+      // Group technologies by category
+      technologyCategories = groupTechnologiesByCategory(companyData.current_technologies);
+      
+      console.log(`✅ APOLLO: MarTech technologies: ${martechTechnologies.length}`);
     } else {
-      console.log(`⚠️ ENHANCED: OpenAI key not available, skipping AI analysis`);
+      console.log(`⚠️ APOLLO: No technology data available for ${companyData.name}`);
+      martechStack = {
+        total_technologies: 0,
+        martech_technologies: [],
+        categories: [],
+        top_categories: []
+      };
+      technologyCategories = {};
     }
 
     // STEP 4: Filter out empty categories and return comprehensive data
@@ -333,10 +235,8 @@ Return JSON only:
       articles: articles,
       child_brands: childBrands,
       technology_stack: technologyStack,
-      martech_analysis: martechAnalysis,
-      challenges: challenges,
-      tech_stack: techStack,
-      tp_alignment: tpAlignment,
+      martech_stack: martechStack,
+      technology_categories: technologyCategories,
       generated_at: new Date().toISOString()
     };
 
@@ -510,6 +410,39 @@ function generateTechnologyStack(companyData: ApolloOrg) {
     integration_complexity: companySize > 10000 ? 'High' : 'Medium',
     recommendation: `Focus on ${primaryTech} solutions with ${secondaryTech} integration for ${companyData.name}`
   };
+}
+
+function getTopCategories(technologies: any[]) {
+  const categoryCount: { [key: string]: number } = {};
+  
+  technologies.forEach(tech => {
+    if (tech.category) {
+      categoryCount[tech.category] = (categoryCount[tech.category] || 0) + 1;
+    }
+  });
+  
+  return Object.entries(categoryCount)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 5)
+    .map(([category, count]) => ({ category, count }));
+}
+
+function groupTechnologiesByCategory(technologies: any[]) {
+  const grouped: { [key: string]: any[] } = {};
+  
+  technologies.forEach(tech => {
+    if (tech.category) {
+      if (!grouped[tech.category]) {
+        grouped[tech.category] = [];
+      }
+      grouped[tech.category].push({
+        name: tech.name,
+        uid: tech.uid
+      });
+    }
+  });
+  
+  return grouped;
 }
 
 async function generateSimpleMarTechAnalysis(companyData: ApolloOrg, accountMap: { [key: string]: any[] }) {
