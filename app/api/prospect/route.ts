@@ -37,6 +37,10 @@ export async function POST(req: NextRequest) {
     const childBrands = detectChildBrands(orgData);
     const techStackAnalysis = analyzeTechnologyStack(orgData);
 
+    // Check if we found any real people
+    const totalPeople = Object.values(accountMap).reduce((total: number, dept: any) => total + dept.length, 0);
+    const hasRealPeople = totalPeople > 0;
+
     const result = {
       company: companyOverview,
       accountMap: accountMap,
@@ -44,7 +48,13 @@ export async function POST(req: NextRequest) {
       tp_alignment: tpAlignment,
       child_brands: childBrands,
       technology_stack: techStackAnalysis,
-      generated_at: new Date().toISOString()
+      generated_at: new Date().toISOString(),
+      // Add transparency about data quality
+      data_quality: {
+        has_real_people: hasRealPeople,
+        total_people_found: totalPeople,
+        apollo_limitation: !hasRealPeople ? "Apollo database may not contain employees for this company" : null
+      }
     };
 
     return NextResponse.json(result, { status: 200 });
@@ -199,21 +209,32 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
             person.first_name === 'Bill' && person.last_name === 'Gates'
           );
         
-        // Check if we have any people from the target company
-        const hasCompanyPeople = people.some((person: any) => 
-          person.organization?.name?.toLowerCase().includes(orgData.name?.toLowerCase() || '') ||
-          person.organization?.primary_domain?.includes(orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '') || '')
-        );
-        
-        // For now, let's be more aggressive and only use Apollo data if we find company-specific people
-        // This is because Apollo's search isn't effectively filtering by company
-        if (isGenericData || !hasCompanyPeople) {
-          console.warn(`⚠️  Apollo API returned non-company-specific data for ${dept}. Using fallback data instead.`);
-          // Don't add generic data - it's not useful
-        } else if (people.length > 0) {
-          console.log(`Sample person:`, JSON.stringify(people[0], null, 2));
+        // Filter people to only include those from the target company
+        const companyPeople = people.filter((person: any) => {
+          const personCompany = person.organization?.name?.toLowerCase() || '';
+          const personDomain = person.organization?.primary_domain?.toLowerCase() || '';
+          const targetCompany = orgData.name?.toLowerCase() || '';
+          const targetDomain = orgData.website_url?.replace(/^https?:\/\//, '').replace(/^www\./, '').toLowerCase() || '';
           
-          people.forEach((person: any) => {
+          // Strict company matching - person's company must contain target company name
+          const companyMatch = personCompany.includes(targetCompany);
+          const domainMatch = personDomain.includes(targetDomain);
+          
+          // Log for debugging
+          if (personCompany && targetCompany) {
+            console.log(`Checking: "${personCompany}" vs "${targetCompany}" - Match: ${companyMatch}`);
+          }
+          
+          return companyMatch || domainMatch;
+        });
+        
+        console.log(`Found ${companyPeople.length} company-specific people out of ${people.length} total for ${dept}`);
+        
+        // Only use Apollo data if we find company-specific people
+        if (companyPeople.length > 0) {
+          console.log(`Sample company-specific person:`, JSON.stringify(companyPeople[0], null, 2));
+          
+          companyPeople.forEach((person: any) => {
             if (person.first_name && person.last_name && person.title) {
               console.log(`Raw title: "${person.title}"`);
               const cleanTitle = cleanPersonTitle(person.title);
@@ -225,12 +246,15 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
                 title: cleanTitle,
                 seniority: seniority,
                 email: person.email && person.email !== 'email_not_unlocked@domain.com' ? person.email : null,
-                linkedin_url: person.linkedin_url || null
+                linkedin_url: person.linkedin_url || null,
+                company: person.organization?.name || 'Unknown' // Add company for verification
               });
               
-              console.log(`Added person: ${person.first_name} ${person.last_name} - ${person.title}`);
+              console.log(`Added person: ${person.first_name} ${person.last_name} - ${person.title} (${person.organization?.name})`);
             }
           });
+        } else {
+          console.warn(`⚠️  No company-specific people found for ${dept} at ${orgData.name}. Rejecting ${people.length} non-matching results.`);
         }
       } else {
         const errorText = await response.text();
@@ -240,11 +264,11 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
       console.warn(`Error searching for people in ${dept}:`, error.message);
     }
     
-    // Fallback if no real people found
+    // No fallback data - this is a production prospecting tool
+    // If Apollo doesn't have company-specific people, we return empty results
     if (accountMap[dept].length === 0) {
-      // Generate more realistic fallback data for the specific company
-      const fallbackPeople = generateCompanySpecificPeople(orgData.name, dept);
-      accountMap[dept] = fallbackPeople;
+      console.warn(`No company-specific people found for ${dept} at ${orgData.name}. Apollo database may not contain this company's employees.`);
+      // Return empty array - no fake data
     }
   }
   
