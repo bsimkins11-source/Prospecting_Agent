@@ -149,7 +149,11 @@ export async function POST(req: NextRequest) {
       console.log(`⚠️ ENHANCED: OpenAI key not available, skipping AI analysis`);
     }
 
-    // STEP 4: Return comprehensive data
+    // STEP 4: Filter out empty categories and return comprehensive data
+    const filteredAccountMap = Object.fromEntries(
+      Object.entries(accountMap).filter(([_, people]) => people.length > 0)
+    );
+
     const result = {
       company: {
         name: companyData.name,
@@ -165,7 +169,7 @@ export async function POST(req: NextRequest) {
         keywords: companyData.keywords,
         raw_address: companyData.raw_address
       },
-      accountMap: accountMap,
+      accountMap: filteredAccountMap,
       martech_analysis: martechAnalysis,
       challenges: challenges,
       tech_stack: techStack,
@@ -184,15 +188,62 @@ export async function POST(req: NextRequest) {
 
 function getDepartmentTitles(dept: string): string[] {
   const titles: { [key: string]: string[] } = {
-    'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 'Marketing Technology Manager', 'VP Marketing', 'Head of Marketing'],
-    'Media and Advertising': ['Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 'Media Planning Manager', 'Advertising Manager', 'Ad Manager', 'Media Buyer', 'Media Planner', 'Advertising Director', 'VP Advertising'],
-    'Content and Creative': ['Content Manager', 'Content Director', 'Creative Director', 'Content Strategist', 'Creative Manager', 'Content Marketing Manager', 'VP Content', 'Head of Content', 'Creative Strategist', 'Content Creator', 'Brand Creative Manager', 'Digital Content Manager'],
-    'Social Media': ['Social Media Manager', 'Social Media Director', 'VP Social Media', 'Social Media Strategist', 'Community Manager', 'Social Media Specialist', 'Social Media Coordinator', 'Head of Social Media', 'Social Media Marketing Manager', 'Social Media Analyst', 'Social Media Content Manager', 'Digital Community Manager'],
-    'Brand': ['Brand Manager', 'Brand Director', 'VP Brand', 'Brand Strategist', 'Brand Marketing Manager', 'Head of Brand', 'Brand Marketing Director', 'Brand Specialist', 'Brand Coordinator', 'Brand Marketing Specialist', 'Brand Communications Manager', 'Brand Experience Manager'],
-    'CRM': ['CRM Manager', 'CRM Director', 'VP CRM', 'CRM Administrator', 'CRM Specialist', 'Customer Relationship Manager', 'CRM Analyst', 'Head of CRM', 'CRM Operations Manager', 'CRM Data Manager', 'CRM Systems Manager', 'Customer Data Manager'],
-    'MarTech': ['MarTech Manager', 'Marketing Technology Manager', 'Marketing Automation Manager', 'Marketing Operations Manager', 'Marketing Technology Director', 'VP Marketing Technology', 'Marketing Systems Manager'],
-    'Analytics & Data': ['Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 'Chief Data Officer', 'Business Intelligence Manager', 'Marketing Analytics Manager', 'Data Engineering Manager'],
-    'Customer Strategy': ['Customer Strategy Manager', 'Customer Experience Manager', 'VP Customer Experience', 'Customer Data Manager', 'Customer Insights Director', 'Customer Success Manager', 'Customer Marketing Manager', 'Customer Lifecycle Manager']
+    'Marketing': [
+      'Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 
+      'Marketing Technology Manager', 'VP Marketing', 'Head of Marketing', 'Marketing Specialist',
+      'Marketing Coordinator', 'Marketing Analyst', 'Marketing Operations Manager', 'Growth Marketing Manager',
+      'Product Marketing Manager', 'Field Marketing Manager', 'Marketing Communications Manager'
+    ],
+    'Media and Advertising': [
+      'Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 
+      'Media Planning Manager', 'Advertising Manager', 'Ad Manager', 'Media Buyer', 'Media Planner', 
+      'Advertising Director', 'VP Advertising', 'Media Specialist', 'Media Coordinator', 'Media Analyst',
+      'Programmatic Manager', 'Ad Operations Manager', 'Media Strategist', 'Advertising Specialist'
+    ],
+    'Content and Creative': [
+      'Content Manager', 'Content Director', 'Creative Director', 'Content Strategist', 'Creative Manager', 
+      'Content Marketing Manager', 'VP Content', 'Head of Content', 'Creative Strategist', 'Content Creator', 
+      'Brand Creative Manager', 'Digital Content Manager', 'Content Specialist', 'Content Coordinator',
+      'Creative Specialist', 'Content Writer', 'Creative Lead', 'Content Producer', 'Creative Director'
+    ],
+    'Social Media': [
+      'Social Media Manager', 'Social Media Director', 'VP Social Media', 'Social Media Strategist', 
+      'Community Manager', 'Social Media Specialist', 'Social Media Coordinator', 'Head of Social Media', 
+      'Social Media Marketing Manager', 'Social Media Analyst', 'Social Media Content Manager', 
+      'Digital Community Manager', 'Social Media Lead', 'Community Specialist', 'Social Media Producer'
+    ],
+    'Brand': [
+      'Brand Manager', 'Brand Director', 'VP Brand', 'Brand Strategist', 'Brand Marketing Manager', 
+      'Head of Brand', 'Brand Marketing Director', 'Brand Specialist', 'Brand Coordinator', 
+      'Brand Marketing Specialist', 'Brand Communications Manager', 'Brand Experience Manager',
+      'Brand Lead', 'Brand Analyst', 'Brand Marketing Coordinator', 'Brand Marketing Lead'
+    ],
+    'CRM': [
+      'CRM Manager', 'CRM Director', 'VP CRM', 'CRM Administrator', 'CRM Specialist', 
+      'Customer Relationship Manager', 'CRM Analyst', 'Head of CRM', 'CRM Operations Manager', 
+      'CRM Data Manager', 'CRM Systems Manager', 'Customer Data Manager', 'CRM Lead',
+      'Customer Success Manager', 'CRM Coordinator', 'Customer Data Analyst', 'CRM Consultant'
+    ],
+    'MarTech': [
+      'MarTech Manager', 'Marketing Technology Manager', 'Marketing Automation Manager', 
+      'Marketing Operations Manager', 'Marketing Technology Director', 'VP Marketing Technology', 
+      'Marketing Systems Manager', 'Marketing Technology Specialist', 'Marketing Automation Specialist',
+      'Marketing Operations Specialist', 'Marketing Technology Lead', 'Marketing Systems Administrator',
+      'Marketing Technology Analyst', 'Marketing Automation Lead', 'Marketing Operations Lead'
+    ],
+    'Analytics & Data': [
+      'Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 
+      'Chief Data Officer', 'Business Intelligence Manager', 'Marketing Analytics Manager', 
+      'Data Engineering Manager', 'Analytics Specialist', 'Data Specialist', 'Analytics Lead',
+      'Marketing Analyst', 'Business Analyst', 'Data Manager', 'Analytics Coordinator', 'Data Coordinator'
+    ],
+    'Customer Strategy': [
+      'Customer Strategy Manager', 'Customer Experience Manager', 'VP Customer Experience', 
+      'Customer Data Manager', 'Customer Insights Director', 'Customer Success Manager', 
+      'Customer Marketing Manager', 'Customer Lifecycle Manager', 'Customer Strategy Specialist',
+      'Customer Experience Specialist', 'Customer Insights Manager', 'Customer Success Lead',
+      'Customer Marketing Specialist', 'Customer Strategy Lead', 'Customer Experience Lead'
+    ]
   };
   return titles[dept] || ['Manager'];
 }
