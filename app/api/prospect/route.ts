@@ -172,32 +172,40 @@ export async function POST(req: NextRequest) {
         console.log(`🤖 ENHANCED: Generating AI analysis...`);
         console.log(`🤖 ENHANCED: OpenAI key detected: ${openaiKey.substring(0, 10)}...`);
         
-        // MarTech Analysis (Real AI Analysis)
+        // MarTech Analysis (Test with simple AI call)
         console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
         try {
-          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
-            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
-          ).join('\n');
+          // Test with very simple prompt first
+          const testPrompt = `Say "AI working" for ${companyData.name}`;
           
-          const prompt = `Analyze MarTech for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees).
+          console.log(`🤖 ENHANCED: Testing OpenAI connection...`);
+          const testResponse = await openai.chat.completions.create({
+            model: DEFAULT_MODEL,
+            messages: [{ role: "user", content: testPrompt }],
+            temperature: 0.3,
+            max_tokens: 50
+          });
 
-Return JSON only:
-{"current_state": "brief description", "challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High/Medium/Low"}`;
+          console.log(`🤖 ENHANCED: OpenAI test response:`, testResponse.choices[0].message.content);
+          
+          // If test works, try real analysis
+          const prompt = `Analyze MarTech for ${companyData.name} (${companyData.industry}, ${companyData.estimated_num_employees} employees). Return JSON: {"current_state": "description", "challenges": ["challenge1", "challenge2"], "recommendations": ["rec1", "rec2"], "priority": "High"}`;
 
           console.log(`🤖 ENHANCED: Calling OpenAI for MarTech analysis...`);
           const response = await openai.chat.completions.create({
             model: DEFAULT_MODEL,
             messages: [{ role: "user", content: prompt }],
             temperature: 0.3,
-            max_tokens: 300
+            max_tokens: 200
           });
 
-          console.log(`🤖 ENHANCED: OpenAI response received`);
+          console.log(`🤖 ENHANCED: OpenAI response received:`, response.choices[0].message.content);
           const aiResult = JSON.parse(response.choices[0].message.content || '{}');
           martechAnalysis = aiResult;
           console.log(`🤖 ENHANCED: MarTech analysis result: SUCCESS`);
         } catch (error: any) {
           console.error(`❌ ENHANCED: MarTech analysis error:`, error.message);
+          console.error(`❌ ENHANCED: Error type:`, error.constructor.name);
           // Fallback to basic analysis
           martechAnalysis = {
             current_state: 'Mixed MarTech stack with potential integration gaps',
