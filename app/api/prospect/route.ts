@@ -170,26 +170,59 @@ export async function POST(req: NextRequest) {
     if (openaiKey) {
       try {
         console.log(`🤖 ENHANCED: Generating AI analysis...`);
+        console.log(`🤖 ENHANCED: OpenAI key detected: ${openaiKey.substring(0, 10)}...`);
         
         // MarTech Analysis (Simplified for testing)
         console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
-        martechAnalysis = await generateSimpleMarTechAnalysis(companyData, accountMap);
-        console.log(`🤖 ENHANCED: MarTech analysis result:`, martechAnalysis ? 'SUCCESS' : 'FAILED');
+        try {
+          martechAnalysis = await generateSimpleMarTechAnalysis(companyData, accountMap);
+          console.log(`🤖 ENHANCED: MarTech analysis result:`, martechAnalysis ? 'SUCCESS' : 'FAILED');
+          if (martechAnalysis) {
+            console.log(`🤖 ENHANCED: MarTech keys:`, Object.keys(martechAnalysis));
+          }
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: MarTech analysis error:`, error.message);
+          martechAnalysis = null;
+        }
         
         // Challenges Analysis
         console.log(`🤖 ENHANCED: Starting challenges analysis...`);
-        challenges = await generateChallengesAnalysis(companyData, accountMap);
-        console.log(`🤖 ENHANCED: Challenges analysis result:`, challenges ? 'SUCCESS' : 'FAILED');
+        try {
+          challenges = await generateChallengesAnalysis(companyData, accountMap);
+          console.log(`🤖 ENHANCED: Challenges analysis result:`, challenges ? 'SUCCESS' : 'FAILED');
+          if (challenges) {
+            console.log(`🤖 ENHANCED: Challenges keys:`, Object.keys(challenges));
+          }
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: Challenges analysis error:`, error.message);
+          challenges = null;
+        }
         
         // Tech Stack Analysis
         console.log(`🤖 ENHANCED: Starting tech stack analysis...`);
-        techStack = await generateTechStackAnalysis(companyData, accountMap);
-        console.log(`🤖 ENHANCED: Tech stack analysis result:`, techStack ? 'SUCCESS' : 'FAILED');
+        try {
+          techStack = await generateTechStackAnalysis(companyData, accountMap);
+          console.log(`🤖 ENHANCED: Tech stack analysis result:`, techStack ? 'SUCCESS' : 'FAILED');
+          if (techStack) {
+            console.log(`🤖 ENHANCED: Tech stack keys:`, Object.keys(techStack));
+          }
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: Tech stack analysis error:`, error.message);
+          techStack = null;
+        }
         
         // TP Alignment
         console.log(`🤖 ENHANCED: Starting TP alignment analysis...`);
-        tpAlignment = await generateTPAlignment(companyData, accountMap);
-        console.log(`🤖 ENHANCED: TP alignment analysis result:`, tpAlignment ? 'SUCCESS' : 'FAILED');
+        try {
+          tpAlignment = await generateTPAlignment(companyData, accountMap);
+          console.log(`🤖 ENHANCED: TP alignment analysis result:`, tpAlignment ? 'SUCCESS' : 'FAILED');
+          if (tpAlignment) {
+            console.log(`🤖 ENHANCED: TP alignment keys:`, Object.keys(tpAlignment));
+          }
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: TP alignment analysis error:`, error.message);
+          tpAlignment = null;
+        }
         
         console.log(`✅ ENHANCED: AI analysis completed`);
       } catch (error: any) {
