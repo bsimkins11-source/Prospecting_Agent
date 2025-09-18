@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { ProspectResult, TechStackCategory } from "@/types";
+import CompanySearch from "@/components/CompanySearch";
 
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ProspectResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     overview: true,
     "account-map": false,
@@ -51,6 +53,12 @@ export default function Home() {
     }
   };
 
+  const handleCompanySelect = (companyName: string) => {
+    setInput(companyName);
+    setShowSearch(false);
+    run();
+  };
+
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev => ({
       ...prev,
@@ -77,7 +85,7 @@ export default function Home() {
         </h1>
       </div>
       <p style={{ color: "#666", marginBottom: "2rem" }}>
-        Enter a company domain (preferred) or name to get comprehensive prospect insights.
+        Enter a company name to get comprehensive prospect insights. Use the search feature to find the exact company you're looking for.
       </p>
       
       <div style={{ display: "flex", gap: 12, marginBottom: "2rem" }}>
@@ -85,7 +93,7 @@ export default function Home() {
           value={input} 
           onChange={e => setInput(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="e.g. coca-cola.com or Coca-Cola" 
+          placeholder="e.g. Verizon, Microsoft, Apple..." 
           style={{ 
             flex: 1, 
             padding: "12px 16px", 
@@ -98,6 +106,22 @@ export default function Home() {
           onFocus={(e) => e.target.style.borderColor = "#3b82f6"}
           onBlur={(e) => e.target.style.borderColor = "#e1e5e9"}
         />
+        <button 
+          onClick={() => setShowSearch(!showSearch)}
+          style={{
+            padding: "12px 24px",
+            backgroundColor: "#10b981",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            fontSize: "16px",
+            fontWeight: "600",
+            cursor: "pointer",
+            transition: "background-color 0.2s"
+          }}
+        >
+          {showSearch ? "Hide Search" : "Search Companies"}
+        </button>
         <button 
           onClick={run} 
           disabled={loading || !input.trim()}
@@ -116,6 +140,12 @@ export default function Home() {
           {loading ? "Analyzing..." : "Run Analysis"}
         </button>
       </div>
+
+      {showSearch && (
+        <div style={{ marginBottom: "2rem" }}>
+          <CompanySearch onCompanySelect={handleCompanySelect} />
+        </div>
+      )}
 
       {loading && (
         <div style={{ 
