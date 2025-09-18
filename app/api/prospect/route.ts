@@ -157,8 +157,11 @@ async function getOrganizationData(company: string, apiKey: string) {
     });
 
     if (orgResponse.ok) {
-      const orgData = await orgResponse.json();
-      console.log(`Organization enrichment result:`, orgData);
+      const orgResponseData = await orgResponse.json();
+      console.log(`Organization enrichment result:`, orgResponseData);
+      
+      // Apollo enrichment returns data in a nested structure
+      const orgData = orgResponseData.organization || orgResponseData;
       
       if (orgData && orgData.name) {
         // Use OpenAI to validate and improve the enrichment data
@@ -176,7 +179,7 @@ async function getOrganizationData(company: string, apiKey: string) {
           website_url: orgData.website_url || orgData.primary_domain,
           industry: orgData.industry,
           estimated_annual_revenue: orgData.annual_revenue,
-          organization_headcount: orgData.employee_count,
+          organization_headcount: orgData.estimated_num_employees || orgData.employee_count,
           organization_city: orgData.city,
           organization_state: orgData.state,
           organization_country: orgData.country
