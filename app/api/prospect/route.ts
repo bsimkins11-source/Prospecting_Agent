@@ -129,9 +129,9 @@ export async function POST(req: NextRequest) {
       try {
         console.log(`🤖 ENHANCED: Generating AI analysis...`);
         
-        // MarTech Analysis
+        // MarTech Analysis (Simplified for testing)
         console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
-        martechAnalysis = await generateMarTechAnalysis(companyData, accountMap);
+        martechAnalysis = await generateSimpleMarTechAnalysis(companyData, accountMap);
         console.log(`🤖 ENHANCED: MarTech analysis result:`, martechAnalysis ? 'SUCCESS' : 'FAILED');
         
         // Challenges Analysis
@@ -256,6 +256,37 @@ function getDepartmentTitles(dept: string): string[] {
     ]
   };
   return titles[dept] || ['Manager'];
+}
+
+async function generateSimpleMarTechAnalysis(companyData: ApolloOrg, accountMap: { [key: string]: any[] }) {
+  try {
+    console.log(`🤖 Simple MarTech Analysis: Starting for ${companyData.name}`);
+    
+    const prompt = `Analyze the MarTech landscape for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+
+Provide a brief MarTech analysis in JSON format with these sections:
+- current_state: What marketing technology they likely use
+- challenges: Main MarTech challenges they face
+- recommendations: Top 3 MarTech recommendations
+
+Keep it concise and practical.`;
+
+    console.log(`🤖 Simple MarTech Analysis: Calling OpenAI API...`);
+    const response = await openai.chat.completions.create({
+      model: DEFAULT_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 500
+    });
+
+    console.log(`🤖 Simple MarTech Analysis: OpenAI response received`);
+    const result = JSON.parse(response.choices[0].message.content || '{}');
+    console.log(`🤖 Simple MarTech Analysis: Parsed result:`, Object.keys(result));
+    return result;
+  } catch (error) {
+    console.error(`❌ Simple MarTech Analysis Error:`, error);
+    return null;
+  }
 }
 
 async function generateMarTechAnalysis(companyData: ApolloOrg, accountMap: { [key: string]: any[] }) {
