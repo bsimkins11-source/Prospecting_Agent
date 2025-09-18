@@ -69,12 +69,34 @@ export type TechnologyStack = {
   recommendation?: string;
 };
 
+export type MarTechStack = {
+  total_technologies: number;
+  martech_technologies: Array<{
+    uid: string;
+    name: string;
+    category: string;
+  }>;
+  categories: string[];
+  top_categories: Array<{
+    category: string;
+    count: number;
+  }>;
+};
+
+export type TechnologyCategories = {
+  [category: string]: Array<{
+    name: string;
+    uid: string;
+  }>;
+};
+
 export type ProspectResult = {
   company: Company;
   accountMap: Record<AccountMapLane, Person[]>;
-  martech_analysis?: any;
-  challenges?: any;
-  tech_stack?: any;
-  tp_alignment?: any;
+  articles?: Article[];
+  child_brands?: ChildBrands;
+  technology_stack?: TechnologyStack;
+  martech_stack?: MarTechStack;
+  technology_categories?: TechnologyCategories;
   generated_at?: string;
 };

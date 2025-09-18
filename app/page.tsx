@@ -15,9 +15,9 @@ export default function Home() {
     overview: true,
     "account-map": false,
     articles: false,
-    portfolio: false,
-    "tech-stack": false,
-    "tp-alignment": false
+    "child-brands": false,
+    "martech-stack": false,
+    "technology-categories": false
   });
 
   const run = async () => {
@@ -412,8 +412,8 @@ export default function Home() {
             )}
           </div>
 
-          {/* MarTech Analysis */}
-          {data.martech_analysis && (
+          {/* Articles */}
+          {data.articles && data.articles.length > 0 && (
             <div id="articles" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('articles')}
@@ -431,7 +431,7 @@ export default function Home() {
                   margin: 0,
                   color: "#1f2937"
                 }}>
-                  🔧 MarTech Analysis
+                  📰 Articles (Apollo Data)
                 </h3>
                 <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
                   {expandedSections.articles ? "−" : "+"}
@@ -440,7 +440,7 @@ export default function Home() {
               
               {expandedSections.articles && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {data.martech_analysis && Object.entries(data.martech_analysis).map(([key, value], i) => (
+                  {data.articles.map((article, i) => (
                     <div key={i} style={{ 
                       backgroundColor: "#f8fafc", 
                       padding: "1rem", 
@@ -448,11 +448,27 @@ export default function Home() {
                       border: "1px solid #e2e8f0"
                     }}>
                       <h4 style={{ margin: "0 0 0.5rem 0", color: "#1f2937", fontSize: "1rem", fontWeight: "600" }}>
-                        {key.replace(/_/g, ' ').toUpperCase()}
+                        {article.title}
                       </h4>
-                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
-                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
+                      <p style={{ margin: "0 0 0.5rem 0", color: "#6b7280", fontSize: "0.875rem" }}>
+                        <strong>Source:</strong> {article.source} | <strong>Published:</strong> {new Date(article.published_at || '').toLocaleDateString()}
                       </p>
+                      <p style={{ margin: "0 0 0.5rem 0", color: "#374151", fontSize: "0.875rem" }}>
+                        {article.why_it_matters}
+                      </p>
+                      <a 
+                        href={article.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ 
+                          color: "#2563eb", 
+                          textDecoration: "none", 
+                          fontSize: "0.875rem",
+                          fontWeight: "500"
+                        }}
+                      >
+                        Read Article →
+                      </a>
                     </div>
                   ))}
                 </div>
@@ -461,16 +477,16 @@ export default function Home() {
           )}
 
           {/* Challenges Analysis */}
-          {data.challenges && (
-            <div id="portfolio" style={{ marginBottom: "2rem" }}>
+          {data.child_brands && (
+            <div id="child-brands" style={{ marginBottom: "2rem" }}>
               <div 
-                onClick={() => toggleSection('portfolio')}
+                onClick={() => toggleSection('child-brands')}
                 style={{ 
                   cursor: "pointer", 
                   display: "flex", 
                   alignItems: "center", 
                   justifyContent: "space-between",
-                  marginBottom: expandedSections.portfolio ? "1rem" : "0"
+                  marginBottom: expandedSections['child-brands'] ? "1rem" : "0"
                 }}
               >
                 <h3 style={{ 
@@ -479,37 +495,49 @@ export default function Home() {
                   margin: 0,
                   color: "#1f2937"
                 }}>
-                  ⚠️ Business Challenges
+                  🏢 Child Brands
                 </h3>
                 <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
-                  {expandedSections.portfolio ? "−" : "+"}
+                  {expandedSections['child-brands'] ? "−" : "+"}
                 </span>
               </div>
               
-              {expandedSections.portfolio && (
+              {expandedSections['child-brands'] && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {data.challenges && Object.entries(data.challenges).map(([key, value], i) => (
-                    <div key={i} style={{ 
-                      backgroundColor: "#fef2f2", 
-                      padding: "1rem", 
-                      borderRadius: "8px",
-                      border: "1px solid #fecaca"
-                    }}>
-                      <h4 style={{ margin: "0 0 0.5rem 0", color: "#dc2626", fontSize: "1rem", fontWeight: "600" }}>
-                        {key.replace(/_/g, ' ').toUpperCase()}
-                      </h4>
-                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
-                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
-                      </p>
+                  <div style={{ 
+                    backgroundColor: "#f0f9ff", 
+                    padding: "1rem", 
+                    borderRadius: "8px",
+                    border: "1px solid #bae6fd"
+                  }}>
+                    <h4 style={{ margin: "0 0 0.5rem 0", color: "#1e40af", fontSize: "1rem", fontWeight: "600" }}>
+                      Portfolio Companies
+                    </h4>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                      {data.child_brands.child_brands.map((brand, i) => (
+                        <span key={i} style={{ 
+                          backgroundColor: "#dbeafe", 
+                          color: "#1e40af", 
+                          padding: "0.25rem 0.75rem", 
+                          borderRadius: "20px", 
+                          fontSize: "0.875rem",
+                          fontWeight: "500"
+                        }}>
+                          {brand}
+                        </span>
+                      ))}
                     </div>
-                  ))}
+                    <p style={{ margin: "0.5rem 0 0 0", color: "#6b7280", fontSize: "0.875rem" }}>
+                      {data.child_brands.note}
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
           )}
 
           {/* Technology Stack Analysis */}
-          {data.tech_stack && (
+          {data.technology_stack && (
             <div id="tech-stack" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('tech-stack')}
@@ -697,17 +725,17 @@ export default function Home() {
             </div>
           )}
 
-          {/* TP Alignment */}
-          {data.tp_alignment && (
-            <div id="tp-alignment">
+          {/* MarTech Stack */}
+          {data.martech_stack && (
+            <div id="martech-stack" style={{ marginBottom: "2rem" }}>
               <div 
-                onClick={() => toggleSection('tp-alignment')}
+                onClick={() => toggleSection('martech-stack')}
                 style={{ 
                   cursor: "pointer", 
                   display: "flex", 
                   alignItems: "center", 
                   justifyContent: "space-between",
-                  marginBottom: expandedSections["tp-alignment"] ? "1rem" : "0"
+                  marginBottom: expandedSections['martech-stack'] ? "1rem" : "0"
                 }}
               >
                 <h3 style={{ 
@@ -716,33 +744,148 @@ export default function Home() {
                   margin: 0,
                   color: "#1f2937"
                 }}>
-                  🎯 TP Solution Alignment
+                  🔧 MarTech Stack (Apollo Data)
                 </h3>
                 <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
-                  {expandedSections["tp-alignment"] ? "−" : "+"}
+                  {expandedSections['martech-stack'] ? "−" : "+"}
                 </span>
               </div>
               
-              {expandedSections["tp-alignment"] && (
+              {expandedSections['martech-stack'] && (
+                <div>
+                  <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
+                    <div style={{ 
+                      padding: "1rem", 
+                      backgroundColor: "#f8fafc", 
+                      borderRadius: "8px",
+                      border: "1px solid #e2e8f0"
+                    }}>
+                      <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: "600", color: "#1f2937" }}>
+                        Total Technologies
+                      </h4>
+                      <p style={{ margin: "0", color: "#6b7280" }}>
+                        {data.martech_stack.total_technologies} technologies detected
+                      </p>
+                    </div>
+                    
+                    <div style={{ 
+                      padding: "1rem", 
+                      backgroundColor: "#f8fafc", 
+                      borderRadius: "8px",
+                      border: "1px solid #e2e8f0"
+                    }}>
+                      <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: "600", color: "#1f2937" }}>
+                        MarTech Technologies
+                      </h4>
+                      <p style={{ margin: "0", color: "#6b7280" }}>
+                        {data.martech_stack.martech_technologies?.length || 0} marketing technologies
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {data.martech_stack.martech_technologies && data.martech_stack.martech_technologies.length > 0 && (
+                    <div style={{ marginBottom: "1.5rem" }}>
+                      <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: "600", color: "#1f2937" }}>
+                        MarTech Technologies
+                      </h4>
+                      <div style={{ display: "grid", gap: "0.5rem" }}>
+                        {data.martech_stack.martech_technologies.map((tech, i) => (
+                          <div key={i} style={{ 
+                            padding: "0.75rem", 
+                            backgroundColor: "#f0f9ff", 
+                            borderRadius: "6px",
+                            border: "1px solid #bae6fd"
+                          }}>
+                            <div style={{ fontWeight: "500", color: "#1f2937" }}>{tech.name}</div>
+                            <div style={{ fontSize: "0.875rem", color: "#6b7280" }}>{tech.category}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {data.martech_stack.top_categories && data.martech_stack.top_categories.length > 0 && (
+                    <div style={{ marginBottom: "1.5rem" }}>
+                      <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem", fontWeight: "600", color: "#1f2937" }}>
+                        Top Technology Categories
+                      </h4>
+                      <div style={{ display: "grid", gap: "0.5rem" }}>
+                        {data.martech_stack.top_categories.map((cat, i) => (
+                          <div key={i} style={{ 
+                            padding: "0.75rem", 
+                            backgroundColor: "#f0fdf4", 
+                            borderRadius: "6px",
+                            border: "1px solid #bbf7d0"
+                          }}>
+                            <div style={{ fontWeight: "500", color: "#1f2937" }}>{cat.category}</div>
+                            <div style={{ fontSize: "0.875rem", color: "#6b7280" }}>{cat.count} technologies</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Technology Categories */}
+          {data.technology_categories && Object.keys(data.technology_categories).length > 0 && (
+            <div id="technology-categories" style={{ marginBottom: "2rem" }}>
+              <div 
+                onClick={() => toggleSection('technology-categories')}
+                style={{ 
+                  cursor: "pointer", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "space-between",
+                  marginBottom: expandedSections['technology-categories'] ? "1rem" : "0"
+                }}
+              >
+                <h3 style={{ 
+                  fontSize: "1.25rem", 
+                  fontWeight: "bold", 
+                  margin: 0,
+                  color: "#1f2937"
+                }}>
+                  📊 Technology Categories (Apollo Data)
+                </h3>
+                <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
+                  {expandedSections['technology-categories'] ? "−" : "+"}
+                </span>
+              </div>
+              
+              {expandedSections['technology-categories'] && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {data.tp_alignment && Object.entries(data.tp_alignment).map(([key, value], i) => (
-                    <div key={i} style={{ 
-                      backgroundColor: "#f0f9ff", 
+                  {Object.entries(data.technology_categories).map(([category, technologies]) => (
+                    <div key={category} style={{ 
+                      backgroundColor: "#f8fafc", 
                       padding: "1rem", 
                       borderRadius: "8px",
-                      border: "1px solid #bae6fd"
+                      border: "1px solid #e2e8f0"
                     }}>
                       <h4 style={{ 
                         margin: "0 0 0.5rem 0", 
-                        color: "#0369a1",
-                        fontSize: "1rem",
+                        color: "#1f2937", 
+                        fontSize: "1rem", 
                         fontWeight: "600"
                       }}>
-                        {key.replace(/_/g, ' ').toUpperCase()}
+                        {category} ({technologies.length} technologies)
                       </h4>
-                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
-                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
-                      </p>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                        {technologies.map((tech, i) => (
+                          <span key={i} style={{ 
+                            backgroundColor: "#e0f2fe", 
+                            color: "#0369a1", 
+                            padding: "0.25rem 0.5rem", 
+                            borderRadius: "4px", 
+                            fontSize: "0.875rem",
+                            fontWeight: "500"
+                          }}>
+                            {tech.name}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
