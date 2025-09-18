@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     console.log(`✅ ENHANCED: Company data:`, companyData.name, companyData.industry);
 
     // STEP 2: Get employee information by department (Transparent Partners focus areas)
-    const departments = ['Marketing', 'Media and Advertising', 'Content and Creative', 'MarTech', 'Analytics & Data', 'Customer Strategy'];
+    const departments = ['Marketing', 'Media and Advertising', 'Content and Creative', 'Social Media', 'MarTech', 'Analytics & Data', 'Customer Strategy'];
     const accountMap: { [key: string]: any[] } = {};
   
   for (const dept of departments) {
@@ -186,6 +186,7 @@ function getDepartmentTitles(dept: string): string[] {
     'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 'Marketing Technology Manager', 'VP Marketing', 'Head of Marketing'],
     'Media and Advertising': ['Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 'Media Planning Manager', 'Advertising Manager', 'Ad Manager', 'Media Buyer', 'Media Planner', 'Advertising Director', 'VP Advertising'],
     'Content and Creative': ['Content Manager', 'Content Director', 'Creative Director', 'Content Strategist', 'Creative Manager', 'Content Marketing Manager', 'VP Content', 'Head of Content', 'Creative Strategist', 'Content Creator', 'Brand Creative Manager', 'Digital Content Manager'],
+    'Social Media': ['Social Media Manager', 'Social Media Director', 'VP Social Media', 'Social Media Strategist', 'Community Manager', 'Social Media Specialist', 'Social Media Coordinator', 'Head of Social Media', 'Social Media Marketing Manager', 'Social Media Analyst', 'Social Media Content Manager', 'Digital Community Manager'],
     'MarTech': ['MarTech Manager', 'Marketing Technology Manager', 'Marketing Automation Manager', 'Marketing Operations Manager', 'Marketing Technology Director', 'VP Marketing Technology', 'Marketing Systems Manager'],
     'Analytics & Data': ['Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 'Chief Data Officer', 'Business Intelligence Manager', 'Marketing Analytics Manager', 'Data Engineering Manager'],
     'Customer Strategy': ['Customer Strategy Manager', 'Customer Experience Manager', 'VP Customer Experience', 'Customer Data Manager', 'Customer Insights Director', 'Customer Success Manager', 'Customer Marketing Manager', 'Customer Lifecycle Manager']
