@@ -408,6 +408,78 @@ function generateCompanySpecificPeople(companyName: string, department: string) 
 }
 
 function generateFallbackCompanyData(company: string) {
+  // Use known data for major companies instead of generic generation
+  const knownCompanies: { [key: string]: any } = {
+    'verizon': {
+      name: 'Verizon Communications',
+      website_url: 'verizon.com',
+      industry: 'Telecommunications',
+      estimated_annual_revenue: '$130B+',
+      organization_headcount: 130000,
+      organization_city: 'New York',
+      organization_state: 'NY',
+      organization_country: 'United States'
+    },
+    'microsoft': {
+      name: 'Microsoft Corporation',
+      website_url: 'microsoft.com',
+      industry: 'Technology',
+      estimated_annual_revenue: '$200B+',
+      organization_headcount: 220000,
+      organization_city: 'Redmond',
+      organization_state: 'WA',
+      organization_country: 'United States'
+    },
+    'apple': {
+      name: 'Apple Inc.',
+      website_url: 'apple.com',
+      industry: 'Technology',
+      estimated_annual_revenue: '$400B+',
+      organization_headcount: 160000,
+      organization_city: 'Cupertino',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'google': {
+      name: 'Alphabet Inc.',
+      website_url: 'google.com',
+      industry: 'Technology',
+      estimated_annual_revenue: '$280B+',
+      organization_headcount: 190000,
+      organization_city: 'Mountain View',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'amazon': {
+      name: 'Amazon.com Inc.',
+      website_url: 'amazon.com',
+      industry: 'E-commerce & Cloud Computing',
+      estimated_annual_revenue: '$500B+',
+      organization_headcount: 1500000,
+      organization_city: 'Seattle',
+      organization_state: 'WA',
+      organization_country: 'United States'
+    },
+    'walmart': {
+      name: 'Walmart Inc.',
+      website_url: 'walmart.com',
+      industry: 'Retail',
+      estimated_annual_revenue: '$600B+',
+      organization_headcount: 2300000,
+      organization_city: 'Bentonville',
+      organization_state: 'AR',
+      organization_country: 'United States'
+    }
+  };
+  
+  const companyKey = company.toLowerCase().replace(/[^a-z]/g, '');
+  const knownData = knownCompanies[companyKey];
+  
+  if (knownData) {
+    return knownData;
+  }
+  
+  // Fallback to generic generation for unknown companies
   const industry = generateIndustryFromDomain(company);
   const revenue = generateRevenueFromDomain(company);
   const employees = generateEmployeeCountFromDomain(company);
