@@ -65,8 +65,17 @@ Format your response as a professional analysis report.`;
 
   } catch (error: any) {
     console.error('Chat analysis error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return NextResponse.json(
-      { error: 'Failed to generate analysis' },
+      { 
+        error: 'Failed to generate analysis',
+        details: error.message,
+        hasApiKey: !!process.env.OPENAI_API_KEY
+      },
       { status: 500 }
     );
   }
