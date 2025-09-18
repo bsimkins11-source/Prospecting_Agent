@@ -96,6 +96,7 @@ export async function POST(req: NextRequest) {
           q_organization_domains_list: [companyData.primary_domain || searchQuery],
           person_titles: getDepartmentTitles(dept),
           contact_email_status: ['verified'],
+          person_locations: ['United States'],
           page: 1,
           per_page: 10
         })
