@@ -202,17 +202,22 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         reveal_personal_emails: true,
         reveal_phone_numbers: false,
         person_locations: ['United States'],
-        organization_locations: ['United States']
+        organization_locations: ['United States'],
+        // Additional parameters from documentation
+        sort_by_field: 'last_activity',
+        sort_ascending: false
       };
       
       console.log(`🔍 Apollo People Search for ${dept}:`, JSON.stringify(searchPayload, null, 2));
       console.log(`🏢 Organization data:`, JSON.stringify(orgData, null, 2));
       
-      const response = await fetch('https://api.apollo.io/api/v1/people/search', {
+      const response = await fetch('https://api.apollo.io/api/v1/mixed_people/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Api-Key': apiKey
+          'Cache-Control': 'no-cache',
+          'X-Api-Key': apiKey,
+          'accept': 'application/json'
         },
         body: JSON.stringify(searchPayload)
       });
