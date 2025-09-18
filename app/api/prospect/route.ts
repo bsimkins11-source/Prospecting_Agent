@@ -469,6 +469,46 @@ function generateFallbackCompanyData(company: string) {
       organization_city: 'Bentonville',
       organization_state: 'AR',
       organization_country: 'United States'
+    },
+    'mcdonalds': {
+      name: 'McDonald\'s Corporation',
+      website_url: 'mcdonalds.com',
+      industry: 'Food Service & Restaurants',
+      estimated_annual_revenue: '$25B+',
+      organization_headcount: 2000000,
+      organization_city: 'Chicago',
+      organization_state: 'IL',
+      organization_country: 'United States'
+    },
+    'tesla': {
+      name: 'Tesla Inc.',
+      website_url: 'tesla.com',
+      industry: 'Automotive & Energy',
+      estimated_annual_revenue: '$100B+',
+      organization_headcount: 140000,
+      organization_city: 'Austin',
+      organization_state: 'TX',
+      organization_country: 'United States'
+    },
+    'meta': {
+      name: 'Meta Platforms Inc.',
+      website_url: 'meta.com',
+      industry: 'Technology & Social Media',
+      estimated_annual_revenue: '$120B+',
+      organization_headcount: 87000,
+      organization_city: 'Menlo Park',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'netflix': {
+      name: 'Netflix Inc.',
+      website_url: 'netflix.com',
+      industry: 'Entertainment & Streaming',
+      estimated_annual_revenue: '$30B+',
+      organization_headcount: 15000,
+      organization_city: 'Los Gatos',
+      organization_state: 'CA',
+      organization_country: 'United States'
     }
   };
   
