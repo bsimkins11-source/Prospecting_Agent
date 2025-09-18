@@ -58,7 +58,9 @@ Your role is to:
 4. Be conversational and helpful
 5. Focus on practical, actionable insights
 
-Always be specific about how Transparent Partners' expertise can address the company's needs.`;
+Always be specific about how Transparent Partners' expertise can address the company's needs.
+
+IMPORTANT: Respond in plain text only. Do not use any markdown formatting (no **, #, -, or other markdown syntax).`;
 
     const messages = [
       { role: "system" as const, content: systemPrompt },
