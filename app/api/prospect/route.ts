@@ -83,6 +83,14 @@ export async function POST(req: NextRequest) {
 
 // Helper function to get organization data from Apollo
 async function getOrganizationData(company: string, apiKey: string) {
+  // First check if we have known data for this company
+  const knownData = generateFallbackCompanyData(company);
+  if (knownData && knownData.name !== company) {
+    // We found known data, use it instead of Apollo
+    console.log(`Using known company data for: ${company}`);
+    return knownData;
+  }
+  
   try {
     let searchQuery = company.trim();
     
