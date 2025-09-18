@@ -1,6 +1,81 @@
 import { NextRequest, NextResponse } from "next/server";
 import { openai, DEFAULT_MODEL } from '@/lib/openai';
 
+// Apollo Organization types
+type ApolloOrg = {
+  name?: string;
+  industry?: string;            // "airlines/aviation"
+  primary_domain?: string;      // "aa.com"
+  website_url?: string;
+  linkedin_url?: string;
+  city?: string;                // "Dallas"
+  state?: string;               // "Texas"
+  country?: string;             // "United States"
+  raw_address?: string;         // "..."
+  short_description?: string;
+  logo_url?: string;
+  annual_revenue?: number;
+  estimated_num_employees?: number;
+};
+
+type ApolloOrgEnrichResponse = { organization?: ApolloOrg };
+
+type CompanyCard = {
+  name: string;
+  domain?: string;
+  industry?: string;
+  location?: string;     // "Dallas, TX"
+  website?: string;
+  linkedin?: string;
+  description?: string;
+  logo?: string;
+};
+
+/** Convert "Texas" -> "TX"; no-op for non-US states or unknowns. */
+const toUSPS = (state?: string) => {
+  const map: Record<string, string> = {
+    "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA","Colorado":"CO",
+    "Connecticut":"CT","Delaware":"DE","Florida":"FL","Georgia":"GA","Hawaii":"HI","Idaho":"ID",
+    "Illinois":"IL","Indiana":"IN","Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA",
+    "Maine":"ME","Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS",
+    "Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ",
+    "New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK",
+    "Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD",
+    "Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT","Virginia":"VA","Washington":"WA",
+    "West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY","District of Columbia":"DC"
+  };
+  return state && map[state] ? map[state] : state ?? "";
+};
+
+/** Prefer Apollo's enrichment fields, with graceful fallbacks. */
+function extractCompanyFromApollo(resp: ApolloOrgEnrichResponse): CompanyCard {
+  const org = resp?.organization ?? ({} as ApolloOrg);
+
+  const industry = org.industry?.trim(); // ← key fix: read from organization.industry
+
+  // Build "City, ST" if US; else "City, State/Country"; else raw_address
+  const city = org.city?.trim();
+  const state = org.state?.trim();
+  const country = org.country?.trim();
+  const loc =
+    city && state && country === "United States"
+      ? `${city}, ${toUSPS(state)}`
+      : city && state
+      ? `${city}, ${state}`
+      : org.raw_address?.trim();
+
+  return {
+    name: org.name ?? "",
+    domain: org.primary_domain ?? undefined,
+    industry: industry ?? undefined,
+    location: loc ?? undefined,
+    website: org.website_url ?? undefined,
+    linkedin: org.linkedin_url ?? undefined,
+    description: org.short_description ?? undefined,
+    logo: org.logo_url ?? undefined,
+  };
+}
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -160,30 +235,31 @@ async function getOrganizationData(company: string, apiKey: string) {
       const orgResponseData = await orgResponse.json();
       console.log(`Organization enrichment result:`, orgResponseData);
       
-      // Apollo enrichment returns data in a nested structure
-      const orgData = orgResponseData.organization || orgResponseData;
-      console.log(`Extracted orgData:`, orgData);
+      // Use the proper extractor for Apollo enrichment response
+      const extractedData = extractCompanyFromApollo(orgResponseData);
+      console.log(`Extracted company data:`, extractedData);
       
-      if (orgData && orgData.name) {
+      if (extractedData && extractedData.name) {
         // Use OpenAI to validate and improve the enrichment data
         console.log(`Using OpenAI to validate enrichment data for: ${company}`);
-        const improvedData = await improveCompanySearchWithAI(company, [orgData]);
+        const improvedData = await improveCompanySearchWithAI(company, [extractedData]);
         
         if (improvedData) {
           console.log(`OpenAI improved data:`, improvedData);
           return improvedData;
         }
         
-        // Return the enrichment data directly (more accurate than search)
+        // Return the extracted enrichment data directly
         const result = {
-          name: orgData.name,
-          website_url: orgData.website_url || orgData.primary_domain,
-          industry: orgData.industry,
-          estimated_annual_revenue: orgData.annual_revenue,
-          organization_headcount: orgData.estimated_num_employees || orgData.employee_count,
-          organization_city: orgData.city,
-          organization_state: orgData.state,
-          organization_country: orgData.country
+          name: extractedData.name,
+          website_url: extractedData.website || extractedData.domain,
+          industry: extractedData.industry,
+          estimated_annual_revenue: orgResponseData.organization?.annual_revenue,
+          organization_headcount: orgResponseData.organization?.estimated_num_employees,
+          organization_city: orgResponseData.organization?.city,
+          organization_state: orgResponseData.organization?.state,
+          organization_country: orgResponseData.organization?.country,
+          location: extractedData.location
         };
         
         console.log(`Using Apollo enrichment data for: ${result.name}`);
@@ -933,11 +1009,15 @@ function generateTPAlignment(orgData: any) {
 }
 
 function formatCompanyOverview(orgData: any) {
+  // Handle both old format and new extracted format
   const locations = [];
-  if (orgData.organization_city && orgData.organization_state) {
+  
+  // Use location field if available (from extractor), otherwise build from city/state
+  if (orgData.location) {
+    locations.push(orgData.location);
+  } else if (orgData.organization_city && orgData.organization_state) {
     locations.push(`${orgData.organization_city}, ${orgData.organization_state}`);
-  }
-  if (orgData.organization_country && !locations.length) {
+  } else if (orgData.organization_country && !locations.length) {
     locations.push(orgData.organization_country);
   }
   
