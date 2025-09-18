@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { ProspectResult, TechStackCategory } from "@/types";
+import ChatModule from "@/components/ChatModule";
 
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
     articles: false,
     "child-brands": false,
     "martech-stack": false,
-    "technology-categories": false
+    "technology-categories": false,
+    "ai-chat": false
   });
 
   const run = async () => {
@@ -680,6 +682,43 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+              )}
+            </div>
+          )}
+
+          {/* AI Chat Module */}
+          {data && (
+            <div id="ai-chat" style={{ marginBottom: "2rem" }}>
+              <div 
+                onClick={() => toggleSection('ai-chat')}
+                style={{ 
+                  cursor: "pointer", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "space-between",
+                  marginBottom: expandedSections['ai-chat'] ? "1rem" : "0"
+                }}
+              >
+                <h3 style={{ 
+                  fontSize: "1.25rem", 
+                  fontWeight: "bold", 
+                  margin: 0,
+                  color: "#1f2937"
+                }}>
+                  🤖 AI Analysis & Chat
+                </h3>
+                <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
+                  {expandedSections['ai-chat'] ? "−" : "+"}
+                </span>
+              </div>
+              
+              {expandedSections['ai-chat'] && (
+                <ChatModule
+                  companyData={data.company}
+                  martechStack={data.martech_stack}
+                  technologyCategories={data.technology_categories}
+                  newsArticles={data.articles || []}
+                />
               )}
             </div>
           )}
