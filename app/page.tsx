@@ -412,8 +412,8 @@ export default function Home() {
             )}
           </div>
 
-          {/* Articles */}
-          {false && (
+          {/* MarTech Analysis */}
+          {data.martech_analysis && (
             <div id="articles" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('articles')}
@@ -431,7 +431,7 @@ export default function Home() {
                   margin: 0,
                   color: "#1f2937"
                 }}>
-                  📰 Recent Articles
+                  🔧 MarTech Analysis
                 </h3>
                 <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
                   {expandedSections.articles ? "−" : "+"}
@@ -440,41 +440,19 @@ export default function Home() {
               
               {expandedSections.articles && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {[].map((a, i) => (
+                  {data.martech_analysis && Object.entries(data.martech_analysis).map(([key, value], i) => (
                     <div key={i} style={{ 
                       backgroundColor: "#f8fafc", 
                       padding: "1rem", 
                       borderRadius: "8px",
                       border: "1px solid #e2e8f0"
                     }}>
-                      <h4 style={{ margin: "0 0 0.5rem 0" }}>
-                        <a 
-                          href={"#"} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          style={{ 
-                            color: "#1f2937", 
-                            textDecoration: "none",
-                            fontSize: "1rem",
-                            fontWeight: "600"
-                          }}
-                        >
-                          {"Article Title"}
-                        </a>
+                      <h4 style={{ margin: "0 0 0.5rem 0", color: "#1f2937", fontSize: "1rem", fontWeight: "600" }}>
+                        {key.replace(/_/g, ' ').toUpperCase()}
                       </h4>
-                      
-                      <div style={{ color: "#6b7280", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                          Source
-                        </div>
-                      
-                      <p style={{ 
-                          margin: 0, 
-                          color: "#374151",
-                          fontSize: "0.875rem",
-                          fontStyle: "italic"
-                        }}>
-                          <strong>Why it matters:</strong> Description
-                        </p>
+                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
+                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -482,8 +460,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* Child Brands */}
-          {false && (
+          {/* Challenges Analysis */}
+          {data.challenges && (
             <div id="portfolio" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('portfolio')}
@@ -501,7 +479,7 @@ export default function Home() {
                   margin: 0,
                   color: "#1f2937"
                 }}>
-                  🏢 Portfolio Company
+                  ⚠️ Business Challenges
                 </h3>
                 <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
                   {expandedSections.portfolio ? "−" : "+"}
@@ -509,58 +487,29 @@ export default function Home() {
               </div>
               
               {expandedSections.portfolio && (
-                <div style={{ 
-                  backgroundColor: "#f8fafc", 
-                  padding: "1.5rem", 
-                  borderRadius: "12px", 
-                  border: "1px solid #e2e8f0"
-                }}>
-                  <h4 style={{ 
-                    margin: "0 0 1rem 0", 
-                    color: "#1f2937",
-                    fontSize: "1.1rem",
-                    fontWeight: "600"
-                  }}>
-                    Parent Company: {""}
-                  </h4>
-                  
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#374151" }}>Key Child Brands:</strong>
-                    <div style={{ 
-                      display: "flex", 
-                      flexWrap: "wrap", 
-                      gap: "0.5rem", 
-                      marginTop: "0.5rem" 
+                <div style={{ display: "grid", gap: "1rem" }}>
+                  {data.challenges && Object.entries(data.challenges).map(([key, value], i) => (
+                    <div key={i} style={{ 
+                      backgroundColor: "#fef2f2", 
+                      padding: "1rem", 
+                      borderRadius: "8px",
+                      border: "1px solid #fecaca"
                     }}>
-                      {[].map((brand, i) => (
-                        <span key={i} style={{
-                          backgroundColor: "#e5e7eb",
-                          padding: "0.25rem 0.75rem",
-                          borderRadius: "16px",
-                          fontSize: "0.875rem",
-                          color: "#374151"
-                        }}>
-                          {brand}
-                        </span>
-                      ))}
+                      <h4 style={{ margin: "0 0 0.5rem 0", color: "#dc2626", fontSize: "1rem", fontWeight: "600" }}>
+                        {key.replace(/_/g, ' ').toUpperCase()}
+                      </h4>
+                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
+                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
+                      </p>
                     </div>
-                  </div>
-                  
-                  <p style={{ 
-                    margin: 0, 
-                    color: "#6b7280",
-                    fontSize: "0.875rem",
-                    fontStyle: "italic"
-                  }}>
-                    {""}
-                  </p>
+                  ))}
                 </div>
               )}
             </div>
           )}
 
           {/* Technology Stack Analysis */}
-          {false && (
+          {data.tech_stack && (
             <div id="tech-stack" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('tech-stack')}
@@ -749,7 +698,7 @@ export default function Home() {
           )}
 
           {/* TP Alignment */}
-          {false && (
+          {data.tp_alignment && (
             <div id="tp-alignment">
               <div 
                 onClick={() => toggleSection('tp-alignment')}
@@ -776,7 +725,7 @@ export default function Home() {
               
               {expandedSections["tp-alignment"] && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {[].map((t, i) => (
+                  {data.tp_alignment && Object.entries(data.tp_alignment).map(([key, value], i) => (
                     <div key={i} style={{ 
                       backgroundColor: "#f0f9ff", 
                       padding: "1rem", 
@@ -789,20 +738,10 @@ export default function Home() {
                         fontSize: "1rem",
                         fontWeight: "600"
                       }}>
-                        {"Need"}
+                        {key.replace(/_/g, ' ').toUpperCase()}
                       </h4>
-                      
-                      <p style={{ margin: "0 0 0.5rem 0", color: "#374151" }}>
-                        <strong>Suggested Solution:</strong> {"Solution"}
-                      </p>
-                      
-                      <p style={{ 
-                        margin: 0, 
-                        color: "#6b7280",
-                        fontSize: "0.875rem",
-                        fontStyle: "italic"
-                      }}>
-                        <strong>Rationale:</strong> {"Rationale"}
+                      <p style={{ margin: 0, color: "#374151", fontSize: "0.875rem" }}>
+                        {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
                       </p>
                     </div>
                   ))}

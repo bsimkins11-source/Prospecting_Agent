@@ -71,6 +71,10 @@ export type TechnologyStack = {
 
 export type ProspectResult = {
   company: Company;
-  accountMap: Record<string, Person[]>;
+  accountMap: Record<AccountMapLane, Person[]>;
+  martech_analysis?: any;
+  challenges?: any;
+  tech_stack?: any;
+  tp_alignment?: any;
   generated_at?: string;
 };

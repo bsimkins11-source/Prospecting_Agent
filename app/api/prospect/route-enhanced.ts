@@ -25,8 +25,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return NextResponse.json({ 
-    status: "ok", 
+  return NextResponse.json({
+    status: "ok",
     message: "Enhanced Prospect API is running",
     hasApolloKey: !!process.env.APOLLO_API_KEY,
     hasOpenAIKey: !!process.env.OPENAI_API_KEY
@@ -36,10 +36,10 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const { company } = await req.json() as { company: string };
-    
+
     const apiKey = process.env.APOLLO_API_KEY;
     const openaiKey = process.env.OPENAI_API_KEY;
-    
+
     if (!apiKey) {
       return NextResponse.json({ error: 'Apollo API key not configured' }, { status: 500 });
     }
@@ -78,13 +78,13 @@ export async function POST(req: NextRequest) {
 
     console.log(`✅ ENHANCED: Company data:`, companyData.name, companyData.industry);
 
-    // STEP 2: Get employee information by department (Transparent Partners focus areas)
-    const departments = ['Marketing', 'Data Analytics', 'Media', 'Customer Insight', 'Procurement'];
+    // STEP 2: Get employee information by department
+    const departments = ['Marketing', 'Sales', 'Engineering', 'Operations'];
     const accountMap: { [key: string]: any[] } = {};
-  
-  for (const dept of departments) {
+
+    for (const dept of departments) {
       console.log(`🔍 ENHANCED: Getting ${dept} employees...`);
-    
+
       const peopleResponse = await fetch('https://api.apollo.io/api/v1/mixed_people/search', {
         method: 'POST',
         headers: {
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
           per_page: 10
         })
       });
-      
+
       if (peopleResponse.ok) {
         const peopleData = await peopleResponse.json();
         accountMap[dept] = (peopleData.people || []).map((person: any) => ({
@@ -183,11 +183,10 @@ export async function POST(req: NextRequest) {
 
 function getDepartmentTitles(dept: string): string[] {
   const titles: { [key: string]: string[] } = {
-    'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 'Marketing Technology Manager'],
-    'Data Analytics': ['Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 'Chief Data Officer', 'Business Intelligence Manager'],
-    'Media': ['Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 'Media Planning Manager'],
-    'Customer Insight': ['Customer Insight Manager', 'Customer Analytics Manager', 'VP Customer Experience', 'Customer Data Manager', 'Insights Director', 'Customer Success Manager'],
-    'Procurement': ['Procurement Manager', 'VP Procurement', 'Head of Procurement', 'Sourcing Manager', 'Vendor Manager', 'Procurement Director']
+    'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager'],
+    'Sales': ['Sales Manager', 'Sales Director', 'VP Sales', 'Account Manager', 'Sales Executive'],
+    'Engineering': ['Engineering Manager', 'CTO', 'VP Engineering', 'Software Engineer', 'Tech Lead'],
+    'Operations': ['Operations Manager', 'COO', 'VP Operations', 'Operations Director', 'Process Manager']
   };
   return titles[dept] || ['Manager'];
 }
