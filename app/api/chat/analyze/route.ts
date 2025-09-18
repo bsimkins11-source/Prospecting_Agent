@@ -3,7 +3,15 @@ import { openai } from '@/lib/openai';
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('🤖 Chat analyze: Starting analysis...');
     const { companyData, martechStack, technologyCategories, newsArticles } = await req.json();
+    
+    console.log('🤖 Chat analyze: Received data:', {
+      companyName: companyData?.name,
+      hasMartechStack: !!martechStack,
+      hasTechnologyCategories: !!technologyCategories,
+      hasNewsArticles: !!newsArticles
+    });
 
     // Generate initial analysis
     const analysisPrompt = `Analyze the following company data and provide a comprehensive overview:
@@ -41,6 +49,7 @@ Please provide:
 
 Format your response as a professional analysis report.`;
 
+    console.log('🤖 Chat analyze: Calling OpenAI API...');
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: analysisPrompt }],
@@ -48,7 +57,9 @@ Format your response as a professional analysis report.`;
       max_tokens: 2000
     });
 
+    console.log('🤖 Chat analyze: OpenAI response received');
     const analysis = response.choices[0].message.content || "Analysis could not be generated.";
+    console.log('🤖 Chat analyze: Analysis length:', analysis.length);
 
     return NextResponse.json({ analysis });
 

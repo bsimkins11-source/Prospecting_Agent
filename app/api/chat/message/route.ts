@@ -3,7 +3,10 @@ import { openai } from '@/lib/openai';
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('🤖 Chat message: Starting message processing...');
     const { message, companyData, martechStack, technologyCategories, newsArticles, conversationHistory } = await req.json();
+    
+    console.log('🤖 Chat message: Received message:', message);
 
     // Build context from the data
     const context = `
@@ -62,6 +65,7 @@ Always be specific about how Transparent Partners' expertise can address the com
       { role: "user" as const, content: `Context: ${context}\n\nUser question: ${message}` }
     ];
 
+    console.log('🤖 Chat message: Calling OpenAI API...');
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages,
@@ -69,7 +73,9 @@ Always be specific about how Transparent Partners' expertise can address the com
       max_tokens: 1000
     });
 
+    console.log('🤖 Chat message: OpenAI response received');
     const chatResponse = response.choices[0].message.content || "I couldn't generate a response. Please try again.";
+    console.log('🤖 Chat message: Response length:', chatResponse.length);
 
     return NextResponse.json({ response: chatResponse });
 
