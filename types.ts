@@ -6,6 +6,7 @@ export type Person = {
   seniority?: string;
   email?: string;
   linkedin_url?: string;
+  company?: string;
 };
 
 export type Company = {
@@ -65,9 +66,6 @@ export type TechnologyStack = {
 
 export type ProspectResult = {
   company: Company;
-  accountMap: Record<AccountMapLane, Person[]>;
-  articles: Article[];
-  tp_alignment?: TPSolutionAlignment[];
-  child_brands?: ChildBrands;
-  technology_stack?: TechnologyStack;
+  accountMap: Record<string, Person[]>;
+  generated_at?: string;
 };

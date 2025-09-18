@@ -145,8 +145,8 @@ export async function POST(req: NextRequest) {
   }
 }
 
-function getDepartmentTitles(dept: string) {
-  const titles = {
+function getDepartmentTitles(dept: string): string[] {
+  const titles: { [key: string]: string[] } = {
     'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager'],
     'Sales': ['Sales Manager', 'Sales Director', 'VP Sales', 'Account Manager'],
     'Engineering': ['Engineering Manager', 'CTO', 'VP Engineering', 'Software Engineer'],

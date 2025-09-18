@@ -193,11 +193,7 @@ export default function Home() {
           <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "0.875rem", fontWeight: "600" }}>🔧 Debug Info</h4>
           <div><strong>Company Domain:</strong> {data.company?.website}</div>
           <div><strong>Industry:</strong> {data.company?.industry}</div>
-          <div><strong>Total People Found:</strong> {data.data_quality?.total_people_found || 0}</div>
-          <div><strong>Has Real People:</strong> {data.data_quality?.has_real_people ? 'Yes' : 'No'}</div>
-          {data.data_quality?.apollo_limitation && (
-            <div><strong>Apollo Limitation:</strong> {data.data_quality.apollo_limitation}</div>
-          )}
+          <div><strong>Total People Found:</strong> {Object.values(data.accountMap || {}).flat().length}</div>
         </div>
       )}
       
@@ -417,7 +413,7 @@ export default function Home() {
           </div>
 
           {/* Articles */}
-          {data.articles && data.articles.length > 0 && (
+          {false && (
             <div id="articles" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('articles')}
@@ -444,7 +440,7 @@ export default function Home() {
               
               {expandedSections.articles && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {data.articles.map((a, i) => (
+                  {[].map((a, i) => (
                     <div key={i} style={{ 
                       backgroundColor: "#f8fafc", 
                       padding: "1rem", 
@@ -453,7 +449,7 @@ export default function Home() {
                     }}>
                       <h4 style={{ margin: "0 0 0.5rem 0" }}>
                         <a 
-                          href={a.url} 
+                          href={"#"} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{ 
@@ -463,27 +459,22 @@ export default function Home() {
                             fontWeight: "600"
                           }}
                         >
-                          {a.title} ↗
+                          {"Article Title"}
                         </a>
                       </h4>
                       
-                      {a.source && (
-                        <div style={{ color: "#6b7280", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                          {a.source}
-                          {a.published_at && ` • ${new Date(a.published_at).toLocaleDateString()}`}
+                      <div style={{ color: "#6b7280", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+                          Source
                         </div>
-                      )}
                       
-                      {a.why_it_matters && (
-                        <p style={{ 
+                      <p style={{ 
                           margin: 0, 
                           color: "#374151",
                           fontSize: "0.875rem",
                           fontStyle: "italic"
                         }}>
-                          <strong>Why it matters:</strong> {a.why_it_matters}
+                          <strong>Why it matters:</strong> Description
                         </p>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -492,7 +483,7 @@ export default function Home() {
           )}
 
           {/* Child Brands */}
-          {data.child_brands && data.child_brands.is_portfolio_company && (
+          {false && (
             <div id="portfolio" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('portfolio')}
@@ -530,7 +521,7 @@ export default function Home() {
                     fontSize: "1.1rem",
                     fontWeight: "600"
                   }}>
-                    Parent Company: {data.child_brands.parent_company}
+                    Parent Company: {""}
                   </h4>
                   
                   <div style={{ marginBottom: "1rem" }}>
@@ -541,7 +532,7 @@ export default function Home() {
                       gap: "0.5rem", 
                       marginTop: "0.5rem" 
                     }}>
-                      {data.child_brands.child_brands.map((brand, i) => (
+                      {[].map((brand, i) => (
                         <span key={i} style={{
                           backgroundColor: "#e5e7eb",
                           padding: "0.25rem 0.75rem",
@@ -561,7 +552,7 @@ export default function Home() {
                     fontSize: "0.875rem",
                     fontStyle: "italic"
                   }}>
-                    {data.child_brands.note}
+                    {""}
                   </p>
                 </div>
               )}
@@ -569,7 +560,7 @@ export default function Home() {
           )}
 
           {/* Technology Stack Analysis */}
-          {data.technology_stack && (
+          {false && (
             <div id="tech-stack" style={{ marginBottom: "2rem" }}>
               <div 
                 onClick={() => toggleSection('tech-stack')}
@@ -598,7 +589,7 @@ export default function Home() {
                 <div>
                   <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
                     {/* Technology Categories */}
-                    {Object.entries(data.technology_stack).filter(([key]) => 
+                    {Object.entries({}).filter(([key]) => 
                       !['potential_issues', 'integration_complexity', 'recommendation'].includes(key)
                     ).map(([category, tech]) => {
                       const techCategory = tech as TechStackCategory;
@@ -648,7 +639,7 @@ export default function Home() {
                   </div>
 
                   {/* Integration Issues */}
-                  {data.technology_stack.potential_issues && data.technology_stack.potential_issues.length > 0 && (
+                  {false && (
                     <div style={{ 
                       backgroundColor: "#fef2f2", 
                       padding: "1.5rem", 
@@ -666,7 +657,7 @@ export default function Home() {
                       </h4>
                       
                       <div style={{ display: "grid", gap: "1rem" }}>
-                        {data.technology_stack.potential_issues.map((issue, i) => (
+                        {[].map((issue, i) => (
                           <div key={i} style={{ 
                             backgroundColor: "white", 
                             padding: "1rem", 
@@ -685,17 +676,17 @@ export default function Home() {
                                 fontSize: "1rem",
                                 fontWeight: "600"
                               }}>
-                                {issue.category}
+                                {"Category"}
                               </h5>
                               <span style={{
-                                backgroundColor: issue.impact === 'High' ? "#dc2626" : "#f59e0b",
+                                backgroundColor: "#f59e0b",
                                 color: "white",
                                 padding: "0.25rem 0.5rem",
                                 borderRadius: "4px",
                                 fontSize: "0.75rem",
                                 fontWeight: "600"
                               }}>
-                                {issue.impact} Impact
+                                {"Impact"} Impact
                               </span>
                             </div>
                             
@@ -704,7 +695,7 @@ export default function Home() {
                               color: "#374151",
                               fontSize: "0.875rem"
                             }}>
-                              <strong>Issue:</strong> {issue.issue}
+                              <strong>Issue:</strong> {"Issue description"}
                             </p>
                             
                             <p style={{ 
@@ -713,7 +704,7 @@ export default function Home() {
                               fontSize: "0.875rem",
                               fontWeight: "600"
                             }}>
-                              <strong>Solution:</strong> {issue.solution}
+                              <strong>Solution:</strong> {"Solution description"}
                             </p>
                           </div>
                         ))}
@@ -731,7 +722,7 @@ export default function Home() {
                     <div style={{ marginBottom: "1rem" }}>
                       <strong>Integration Complexity:</strong> 
                       <span style={{
-                        backgroundColor: data.technology_stack.integration_complexity === 'High' ? "#dc2626" : "#f59e0b",
+                        backgroundColor: "#f59e0b",
                         color: "white",
                         padding: "0.25rem 0.5rem",
                         borderRadius: "4px",
@@ -739,7 +730,7 @@ export default function Home() {
                         fontWeight: "600",
                         marginLeft: "0.5rem"
                       }}>
-                        {data.technology_stack.integration_complexity}
+                        {""}
                       </span>
                     </div>
                     
@@ -749,7 +740,7 @@ export default function Home() {
                       fontSize: "0.875rem",
                       fontWeight: "600"
                     }}>
-                      <strong>Recommendation:</strong> {data.technology_stack.recommendation}
+                      <strong>Recommendation:</strong> {""}
                     </p>
                   </div>
                 </div>
@@ -758,7 +749,7 @@ export default function Home() {
           )}
 
           {/* TP Alignment */}
-          {data.tp_alignment && data.tp_alignment.length > 0 && (
+          {false && (
             <div id="tp-alignment">
               <div 
                 onClick={() => toggleSection('tp-alignment')}
@@ -785,7 +776,7 @@ export default function Home() {
               
               {expandedSections["tp-alignment"] && (
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {data.tp_alignment.map((t, i) => (
+                  {[].map((t, i) => (
                     <div key={i} style={{ 
                       backgroundColor: "#f0f9ff", 
                       padding: "1rem", 
@@ -798,11 +789,11 @@ export default function Home() {
                         fontSize: "1rem",
                         fontWeight: "600"
                       }}>
-                        {t.need}
+                        {"Need"}
                       </h4>
                       
                       <p style={{ margin: "0 0 0.5rem 0", color: "#374151" }}>
-                        <strong>Suggested Solution:</strong> {t.suggested_solution}
+                        <strong>Suggested Solution:</strong> {"Solution"}
                       </p>
                       
                       <p style={{ 
@@ -811,7 +802,7 @@ export default function Home() {
                         fontSize: "0.875rem",
                         fontStyle: "italic"
                       }}>
-                        <strong>Rationale:</strong> {t.rationale}
+                        <strong>Rationale:</strong> {"Rationale"}
                       </p>
                     </div>
                   ))}
