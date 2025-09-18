@@ -1351,3 +1351,4 @@ function analyzeTechnologyStack(orgData: any) {
     recommendation: 'Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation.'
   };
 }
+}
