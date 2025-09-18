@@ -162,6 +162,7 @@ async function getOrganizationData(company: string, apiKey: string) {
       
       // Apollo enrichment returns data in a nested structure
       const orgData = orgResponseData.organization || orgResponseData;
+      console.log(`Extracted orgData:`, orgData);
       
       if (orgData && orgData.name) {
         // Use OpenAI to validate and improve the enrichment data
@@ -206,8 +207,8 @@ async function getOrganizationData(company: string, apiKey: string) {
     console.warn('Organization search failed:', error);
   }
 
-  // Fallback to generated data
-  return generateFallbackCompanyData(company);
+  // No fallback data - this is a production prospecting tool
+  throw new Error(`Unable to find accurate company data for "${company}". Please check the company name or try a different company.`);
 }
 
 // Helper function to get real people data from Apollo
