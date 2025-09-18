@@ -130,20 +130,30 @@ export async function POST(req: NextRequest) {
         console.log(`🤖 ENHANCED: Generating AI analysis...`);
         
         // MarTech Analysis
+        console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
         martechAnalysis = await generateMarTechAnalysis(companyData, accountMap);
+        console.log(`🤖 ENHANCED: MarTech analysis result:`, martechAnalysis ? 'SUCCESS' : 'FAILED');
         
         // Challenges Analysis
+        console.log(`🤖 ENHANCED: Starting challenges analysis...`);
         challenges = await generateChallengesAnalysis(companyData, accountMap);
+        console.log(`🤖 ENHANCED: Challenges analysis result:`, challenges ? 'SUCCESS' : 'FAILED');
         
         // Tech Stack Analysis
+        console.log(`🤖 ENHANCED: Starting tech stack analysis...`);
         techStack = await generateTechStackAnalysis(companyData, accountMap);
+        console.log(`🤖 ENHANCED: Tech stack analysis result:`, techStack ? 'SUCCESS' : 'FAILED');
         
         // TP Alignment
+        console.log(`🤖 ENHANCED: Starting TP alignment analysis...`);
         tpAlignment = await generateTPAlignment(companyData, accountMap);
+        console.log(`🤖 ENHANCED: TP alignment analysis result:`, tpAlignment ? 'SUCCESS' : 'FAILED');
         
         console.log(`✅ ENHANCED: AI analysis completed`);
-      } catch (error) {
+      } catch (error: any) {
         console.error(`❌ ENHANCED: AI analysis failed:`, error);
+        console.error(`❌ ENHANCED: Error details:`, error.message);
+        console.error(`❌ ENHANCED: Error stack:`, error.stack);
       }
     } else {
       console.log(`⚠️ ENHANCED: OpenAI key not available, skipping AI analysis`);
@@ -249,7 +259,10 @@ function getDepartmentTitles(dept: string): string[] {
 }
 
 async function generateMarTechAnalysis(companyData: ApolloOrg, accountMap: { [key: string]: any[] }) {
-  const prompt = `Analyze the MarTech landscape for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+  try {
+    console.log(`🤖 MarTech Analysis: Starting for ${companyData.name}`);
+    
+    const prompt = `Analyze the MarTech landscape for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
 
 Key contacts found:
 ${Object.entries(accountMap).map(([dept, people]) => 
@@ -264,13 +277,21 @@ Provide a comprehensive MarTech analysis including:
 
 Format as JSON with sections: current_state, challenges, recommendations, roadmap.`;
 
-  const response = await openai.chat.completions.create({
-    model: DEFAULT_MODEL,
-    messages: [{ role: "user", content: prompt }],
-    temperature: 0.7,
-  });
+    console.log(`🤖 MarTech Analysis: Calling OpenAI API...`);
+    const response = await openai.chat.completions.create({
+      model: DEFAULT_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+    });
 
-  return JSON.parse(response.choices[0].message.content || '{}');
+    console.log(`🤖 MarTech Analysis: OpenAI response received`);
+    const result = JSON.parse(response.choices[0].message.content || '{}');
+    console.log(`🤖 MarTech Analysis: Parsed result:`, Object.keys(result));
+    return result;
+  } catch (error) {
+    console.error(`❌ MarTech Analysis Error:`, error);
+    return null;
+  }
 }
 
 async function generateChallengesAnalysis(companyData: ApolloOrg, accountMap: { [key: string]: any[] }) {
