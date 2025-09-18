@@ -17,6 +17,11 @@ export type Company = {
   employees?: number;
   locations?: string[];
   overview?: string;
+  founded_year?: number;
+  linkedin_url?: string;
+  logo_url?: string;
+  keywords?: string;
+  raw_address?: string;
 };
 
 export type Article = {

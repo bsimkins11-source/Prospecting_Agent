@@ -36,16 +36,7 @@ export async function POST(req: NextRequest) {
       console.log(`🔍 SIMPLE: Apollo enrichment result:`, orgData.organization?.name, orgData.organization?.industry);
       
       if (orgData.organization) {
-        companyData = {
-          name: orgData.organization.name,
-          industry: orgData.organization.industry,
-          website: orgData.organization.website_url || orgData.organization.primary_domain,
-          revenue: orgData.organization.annual_revenue_printed || `$${Math.floor(orgData.organization.annual_revenue / 1000000000)}B`,
-          employees: orgData.organization.estimated_num_employees,
-          location: orgData.organization.city && orgData.organization.state 
-            ? `${orgData.organization.city}, ${orgData.organization.state}`
-            : orgData.organization.country
-        };
+        companyData = orgData.organization; // Use the full Apollo data
       }
     }
 
@@ -131,7 +122,20 @@ export async function POST(req: NextRequest) {
 
     // STEP 3: Return everything
     const result = {
-      company: companyData,
+      company: {
+        name: companyData.name,
+        website: companyData.website_url || companyData.primary_domain,
+        industry: companyData.industry,
+        revenue: companyData.annual_revenue_printed || companyData.annual_revenue,
+        employees: companyData.estimated_num_employees,
+        locations: companyData.city && companyData.state ? [`${companyData.city}, ${companyData.state}`] : [],
+        overview: companyData.short_description,
+        founded_year: companyData.founded_year,
+        linkedin_url: companyData.linkedin_url,
+        logo_url: companyData.logo_url,
+        keywords: companyData.keywords,
+        raw_address: companyData.raw_address
+      },
       accountMap: accountMap,
       generated_at: new Date().toISOString()
     };
