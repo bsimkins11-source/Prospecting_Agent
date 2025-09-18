@@ -202,10 +202,7 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
         reveal_personal_emails: true,
         reveal_phone_numbers: false,
         person_locations: ['United States'],
-        organization_locations: ['United States'],
-        // Additional parameters from documentation
-        sort_by_field: 'last_activity',
-        sort_ascending: false
+        organization_locations: ['United States']
       };
       
       console.log(`🔍 Apollo People Search for ${dept}:`, JSON.stringify(searchPayload, null, 2));
