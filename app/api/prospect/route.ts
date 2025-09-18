@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { openai, DEFAULT_MODEL } from '@/lib/openai';
+import { anthropic, DEFAULT_MODEL } from '@/lib/openai';
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -108,14 +108,14 @@ Rules:
 4. If no good match, return null
 5. Be very strict about accuracy - this is for a production prospecting tool`;
 
-    const response = await openai.chat.completions.create({
+    const response = await anthropic.messages.create({
       model: DEFAULT_MODEL,
-      messages: [{ role: "user", content: prompt }],
+      max_tokens: 500,
       temperature: 0.1,
-      max_tokens: 500
+      messages: [{ role: "user", content: prompt }]
     });
 
-    const aiResponse = response.choices[0]?.message?.content?.trim();
+    const aiResponse = response.content[0]?.text?.trim();
     if (aiResponse && aiResponse !== 'null') {
       return JSON.parse(aiResponse);
     }
