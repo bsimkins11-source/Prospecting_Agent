@@ -518,6 +518,206 @@ function generateFallbackCompanyData(company: string) {
       organization_city: 'Los Gatos',
       organization_state: 'CA',
       organization_country: 'United States'
+    },
+    'cvshealth': {
+      name: 'CVS Health Corporation',
+      website_url: 'cvs.com',
+      industry: 'Healthcare & Pharmacy',
+      estimated_annual_revenue: '$300B+',
+      organization_headcount: 300000,
+      organization_city: 'Woonsocket',
+      organization_state: 'RI',
+      organization_country: 'United States'
+    },
+    'unitedhealth': {
+      name: 'UnitedHealth Group Inc.',
+      website_url: 'unitedhealthgroup.com',
+      industry: 'Healthcare & Insurance',
+      estimated_annual_revenue: '$350B+',
+      organization_headcount: 400000,
+      organization_city: 'Minnetonka',
+      organization_state: 'MN',
+      organization_country: 'United States'
+    },
+    'berkshirehathaway': {
+      name: 'Berkshire Hathaway Inc.',
+      website_url: 'berkshirehathaway.com',
+      industry: 'Conglomerate & Investment',
+      estimated_annual_revenue: '$350B+',
+      organization_headcount: 372000,
+      organization_city: 'Omaha',
+      organization_state: 'NE',
+      organization_country: 'United States'
+    },
+    'mckesson': {
+      name: 'McKesson Corporation',
+      website_url: 'mckesson.com',
+      industry: 'Healthcare & Pharmaceuticals',
+      estimated_annual_revenue: '$250B+',
+      organization_headcount: 78000,
+      organization_city: 'Irving',
+      organization_state: 'TX',
+      organization_country: 'United States'
+    },
+    'amerisourcebergen': {
+      name: 'AmerisourceBergen Corporation',
+      website_url: 'amerisourcebergen.com',
+      industry: 'Healthcare & Pharmaceuticals',
+      estimated_annual_revenue: '$200B+',
+      organization_headcount: 42000,
+      organization_city: 'Chesterbrook',
+      organization_state: 'PA',
+      organization_country: 'United States'
+    },
+    'alphabet': {
+      name: 'Alphabet Inc.',
+      website_url: 'alphabet.com',
+      industry: 'Technology & Internet',
+      estimated_annual_revenue: '$300B+',
+      organization_headcount: 190000,
+      organization_city: 'Mountain View',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'google': {
+      name: 'Google LLC',
+      website_url: 'google.com',
+      industry: 'Technology & Internet',
+      estimated_annual_revenue: '$300B+',
+      organization_headcount: 190000,
+      organization_city: 'Mountain View',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'fordmotor': {
+      name: 'Ford Motor Company',
+      website_url: 'ford.com',
+      industry: 'Automotive Manufacturing',
+      estimated_annual_revenue: '$150B+',
+      organization_headcount: 190000,
+      organization_city: 'Dearborn',
+      organization_state: 'MI',
+      organization_country: 'United States'
+    },
+    'generalmotors': {
+      name: 'General Motors Company',
+      website_url: 'gm.com',
+      industry: 'Automotive Manufacturing',
+      estimated_annual_revenue: '$150B+',
+      organization_headcount: 167000,
+      organization_city: 'Detroit',
+      organization_state: 'MI',
+      organization_country: 'United States'
+    },
+    'costco': {
+      name: 'Costco Wholesale Corporation',
+      website_url: 'costco.com',
+      industry: 'Retail & Wholesale',
+      estimated_annual_revenue: '$200B+',
+      organization_headcount: 304000,
+      organization_city: 'Issaquah',
+      organization_state: 'WA',
+      organization_country: 'United States'
+    },
+    'cigna': {
+      name: 'Cigna Corporation',
+      website_url: 'cigna.com',
+      industry: 'Healthcare & Insurance',
+      estimated_annual_revenue: '$180B+',
+      organization_headcount: 74000,
+      organization_city: 'Bloomfield',
+      organization_state: 'CT',
+      organization_country: 'United States'
+    },
+    'att': {
+      name: 'AT&T Inc.',
+      website_url: 'att.com',
+      industry: 'Telecommunications',
+      estimated_annual_revenue: '$120B+',
+      organization_headcount: 160000,
+      organization_city: 'Dallas',
+      organization_state: 'TX',
+      organization_country: 'United States'
+    },
+    'cardinalhealth': {
+      name: 'Cardinal Health Inc.',
+      website_url: 'cardinalhealth.com',
+      industry: 'Healthcare & Pharmaceuticals',
+      estimated_annual_revenue: '$180B+',
+      organization_headcount: 50000,
+      organization_city: 'Dublin',
+      organization_state: 'OH',
+      organization_country: 'United States'
+    },
+    'chevron': {
+      name: 'Chevron Corporation',
+      website_url: 'chevron.com',
+      industry: 'Oil & Gas',
+      estimated_annual_revenue: '$200B+',
+      organization_headcount: 45000,
+      organization_city: 'San Ramon',
+      organization_state: 'CA',
+      organization_country: 'United States'
+    },
+    'homedepot': {
+      name: 'The Home Depot Inc.',
+      website_url: 'homedepot.com',
+      industry: 'Retail & Home Improvement',
+      estimated_annual_revenue: '$150B+',
+      organization_headcount: 500000,
+      organization_city: 'Atlanta',
+      organization_state: 'GA',
+      organization_country: 'United States'
+    },
+    'walgreens': {
+      name: 'Walgreens Boots Alliance Inc.',
+      website_url: 'walgreens.com',
+      industry: 'Healthcare & Pharmacy',
+      estimated_annual_revenue: '$140B+',
+      organization_headcount: 450000,
+      organization_city: 'Deerfield',
+      organization_state: 'IL',
+      organization_country: 'United States'
+    },
+    'kroger': {
+      name: 'The Kroger Co.',
+      website_url: 'kroger.com',
+      industry: 'Retail & Grocery',
+      estimated_annual_revenue: '$150B+',
+      organization_headcount: 500000,
+      organization_city: 'Cincinnati',
+      organization_state: 'OH',
+      organization_country: 'United States'
+    },
+    'generalelectric': {
+      name: 'General Electric Company',
+      website_url: 'ge.com',
+      industry: 'Industrial & Technology',
+      estimated_annual_revenue: '$80B+',
+      organization_headcount: 172000,
+      organization_city: 'Boston',
+      organization_state: 'MA',
+      organization_country: 'United States'
+    },
+    'fanniemae': {
+      name: 'Fannie Mae',
+      website_url: 'fanniemae.com',
+      industry: 'Financial Services & Mortgage',
+      estimated_annual_revenue: '$100B+',
+      organization_headcount: 8000,
+      organization_city: 'Washington',
+      organization_state: 'DC',
+      organization_country: 'United States'
+    },
+    'comcast': {
+      name: 'Comcast Corporation',
+      website_url: 'comcast.com',
+      industry: 'Telecommunications & Media',
+      estimated_annual_revenue: '$120B+',
+      organization_headcount: 190000,
+      organization_city: 'Philadelphia',
+      organization_state: 'PA',
+      organization_country: 'United States'
     }
   };
   
