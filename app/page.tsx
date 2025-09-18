@@ -2,6 +2,11 @@
 import { useState } from "react";
 import type { ProspectResult, TechStackCategory } from "@/types";
 import ChatModule from "@/components/ChatModule";
+import CompanyOverview from "@/components/CompanyOverview";
+import AccountMap from "@/components/AccountMap";
+import CollapsibleSection from "@/components/CollapsibleSection";
+import { createButtonStyle, createInputStyle, createCardStyle } from "@/lib/utils";
+import { COLORS, SPACING, TYPOGRAPHY } from "@/lib/constants";
 
 
 export default function Home() {

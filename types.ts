@@ -1,5 +1,16 @@
-export type AccountMapLane = "Marketing" | "Media and Advertising" | "Content and Creative" | "Social Media" | "Brand" | "CRM" | "MarTech" | "Analytics & Data" | "Customer Strategy";
+// Core Types
+export type AccountMapLane = 
+  | "Marketing" 
+  | "Media and Advertising" 
+  | "Content and Creative" 
+  | "Social Media" 
+  | "Brand" 
+  | "CRM" 
+  | "MarTech" 
+  | "Analytics & Data" 
+  | "Customer Strategy";
 
+// Person/Contact Types
 export type Person = {
   name: string;
   title: string;
@@ -9,6 +20,7 @@ export type Person = {
   company?: string;
 };
 
+// Company Types
 export type Company = {
   name?: string;
   website?: string;
@@ -24,18 +36,13 @@ export type Company = {
   raw_address?: string;
 };
 
+// Content Types
 export type Article = {
   title: string;
   url: string;
   source?: string;
   published_at?: string;
   why_it_matters?: string;
-};
-
-export type TPSolutionAlignment = {
-  need: string;
-  suggested_solution: string;
-  rationale: string;
 };
 
 export type ChildBrands = {
@@ -45,6 +52,7 @@ export type ChildBrands = {
   note: string;
 };
 
+// Technology Stack Types
 export type TechStackCategory = {
   primary: string;
   secondary: string;
@@ -90,6 +98,14 @@ export type TechnologyCategories = {
   }>;
 };
 
+// Legacy Types (for backward compatibility)
+export type TPSolutionAlignment = {
+  need: string;
+  suggested_solution: string;
+  rationale: string;
+};
+
+// Main Result Type
 export type ProspectResult = {
   company: Company;
   accountMap: Record<AccountMapLane, Person[]>;
