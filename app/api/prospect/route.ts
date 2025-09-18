@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { openai, DEFAULT_MODEL } from '@/lib/openai';
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,16 +82,52 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Helper function to use OpenAI to improve company search
+async function improveCompanySearchWithAI(company: string, apolloResults: any[]) {
+  try {
+    const prompt = `You are a business intelligence expert. I searched Apollo database for "${company}" and got these results:
+
+${JSON.stringify(apolloResults, null, 2)}
+
+Please analyze these results and return the most accurate company data in this exact JSON format:
+{
+  "name": "Exact company name",
+  "website_url": "company.com",
+  "industry": "Correct industry",
+  "estimated_annual_revenue": "Revenue range like $100B+",
+  "organization_headcount": 50000,
+  "organization_city": "City",
+  "organization_state": "State",
+  "organization_country": "United States"
+}
+
+Rules:
+1. Only return data if you're confident it's the correct company
+2. Use real industry classifications (not generic "Technology")
+3. Use realistic revenue and employee estimates
+4. If no good match, return null
+5. Be very strict about accuracy - this is for a production prospecting tool`;
+
+    const response = await openai.chat.completions.create({
+      model: DEFAULT_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.1,
+      max_tokens: 500
+    });
+
+    const aiResponse = response.choices[0]?.message?.content?.trim();
+    if (aiResponse && aiResponse !== 'null') {
+      return JSON.parse(aiResponse);
+    }
+    return null;
+  } catch (error) {
+    console.error('OpenAI improvement failed:', error);
+    return null;
+  }
+}
+
 // Helper function to get organization data from Apollo
 async function getOrganizationData(company: string, apiKey: string) {
-  // First check if we have known data for this company
-  const knownData = generateFallbackCompanyData(company);
-  if (knownData && knownData.name !== company) {
-    // We found known data, use it instead of Apollo
-    console.log(`Using known company data for: ${company}`);
-    return knownData;
-  }
-  
   try {
     let searchQuery = company.trim();
     
@@ -126,12 +163,20 @@ async function getOrganizationData(company: string, apiKey: string) {
       const orgJson = await orgResponse.json();
       const accounts = orgJson.accounts || [];
       console.log(`Found ${accounts.length} accounts from Apollo`);
-      console.log(`Apollo response:`, JSON.stringify(orgJson, null, 2));
       
       if (accounts.length > 0) {
         console.log(`First few accounts found:`, accounts.slice(0, 3).map((acc: any) => ({ name: acc.name, domain: acc.primary_domain })));
         
-        // Find best match
+        // Use OpenAI to improve the search results
+        console.log(`Using OpenAI to improve search results for: ${company}`);
+        const improvedData = await improveCompanySearchWithAI(company, accounts);
+        
+        if (improvedData) {
+          console.log(`OpenAI improved data:`, improvedData);
+          return improvedData;
+        }
+        
+        // Fallback to Apollo results if OpenAI fails
         let bestMatch = accounts.find((acc: any) => 
           acc.primary_domain === searchQuery || 
           acc.primary_domain?.includes(searchQuery) ||
