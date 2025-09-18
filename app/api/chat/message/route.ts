@@ -60,7 +60,14 @@ Your role is to:
 
 Always be specific about how Transparent Partners' expertise can address the company's needs.
 
-IMPORTANT: Respond in plain text only. Do not use any markdown formatting (no **, #, -, or other markdown syntax).`;
+CRITICAL: Respond in plain text only. Do NOT use any markdown formatting including:
+- No # for headers
+- No ** for bold text  
+- No - for bullet points
+- No * for emphasis
+- No any other markdown syntax
+
+Write in clean, readable paragraphs with proper spacing.`;
 
     const messages = [
       { role: "system" as const, content: systemPrompt },

@@ -47,7 +47,14 @@ Please provide:
 4. Recent news analysis and trends
 5. How Transparent Partners can help this company based on the data
 
-Format your response as a professional analysis report WITHOUT any markdown formatting (no **, #, -, or other markdown syntax). Use plain text only.`;
+CRITICAL: Format your response as a professional analysis report using ONLY plain text. Do NOT use any markdown formatting including:
+- No # for headers
+- No ** for bold text  
+- No - for bullet points
+- No * for emphasis
+- No any other markdown syntax
+
+Write in clean, readable paragraphs with proper spacing. Use numbered lists (1., 2., 3.) if needed, but avoid all other formatting.`;
 
     console.log('🤖 Chat analyze: Calling OpenAI API...');
     const response = await openai.chat.completions.create({
