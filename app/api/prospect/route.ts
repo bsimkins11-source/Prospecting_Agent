@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
 
       if (peopleResponse.ok) {
         const peopleData = await peopleResponse.json();
-        accountMap[dept] = (peopleData.people || []).map(person => ({
+        accountMap[dept] = (peopleData.people || []).map((person: any) => ({
           name: person.name,
           title: person.title,
           seniority: person.seniority,
