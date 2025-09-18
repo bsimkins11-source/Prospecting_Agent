@@ -18,6 +18,39 @@ type ApolloOrg = {
   estimated_num_employees?: number;
 };
 
+// Enhanced debugging with step-by-step tracking
+class ApolloDebugTracker {
+  steps: any[] = [];
+  errors: any[] = [];
+  warnings: any[] = [];
+
+  log(step: string, data: any = null, status: string = 'info') {
+    const entry = {
+      timestamp: new Date().toISOString(),
+      step,
+      data,
+      status
+    };
+    
+    this.steps.push(entry);
+    console.log(`[APOLLO DEBUG ${status.toUpperCase()}] ${step}`, data ? data : '');
+    
+    if (status === 'error') this.errors.push(entry);
+    if (status === 'warning') this.warnings.push(entry);
+  }
+
+  getSummary() {
+    return {
+      totalSteps: this.steps.length,
+      errors: this.errors.length,
+      warnings: this.warnings.length,
+      steps: this.steps,
+      errorMessages: this.errors.map((e: any) => e.step),
+      warningMessages: this.warnings.map((w: any) => w.step)
+    };
+  }
+}
+
 type ApolloOrgEnrichResponse = { organization?: ApolloOrg };
 
 type CompanyCard = {
@@ -73,6 +106,199 @@ function extractCompanyFromApollo(resp: ApolloOrgEnrichResponse): CompanyCard {
     linkedin: org.linkedin_url ?? undefined,
     description: org.short_description ?? undefined,
     logo: org.logo_url ?? undefined,
+  };
+}
+
+// Enhanced Apollo enrichment with comprehensive debugging
+async function apolloEnrichmentWithDebug(domain: string, apiKey: string) {
+  const debug = new ApolloDebugTracker();
+  
+  try {
+    debug.log('Starting Apollo enrichment', { domain });
+    
+    // Validate inputs
+    if (!domain) {
+      debug.log('Missing domain parameter', null, 'error');
+      throw new Error('Domain is required');
+    }
+    
+    if (!apiKey) {
+      debug.log('Missing API key', null, 'error');
+      throw new Error('Apollo API key is required');
+    }
+    
+    // Force .com extension if not present
+    let searchDomain = domain;
+    if (!domain.includes('.') && !domain.includes('://')) {
+      searchDomain = `${domain}.com`;
+      debug.log('Added .com extension', { original: domain, searchDomain });
+    }
+    
+    debug.log('Inputs validated', { domain, searchDomain, hasApiKey: !!apiKey });
+    
+    // Try organization enrichment first (more accurate)
+    debug.log('Trying organization enrichment...');
+    const enrichUrl = `https://api.apollo.io/api/v1/organizations/enrich?domain=${searchDomain}`;
+    
+    const enrichResponse = await fetch(enrichUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': apiKey,
+        'accept': 'application/json'
+      }
+    });
+    
+    debug.log('Enrichment API call completed', { 
+      status: enrichResponse.status, 
+      statusText: enrichResponse.statusText
+    });
+    
+    if (enrichResponse.ok) {
+      const enrichData = await enrichResponse.json();
+      debug.log('Enrichment response received', { 
+        hasOrganization: 'organization' in enrichData,
+        organizationKeys: enrichData.organization ? Object.keys(enrichData.organization).slice(0, 10) : []
+      });
+      
+      if (enrichData.organization && enrichData.organization.name) {
+        debug.log('Organization enrichment successful', {
+          name: enrichData.organization.name,
+          industry: enrichData.organization.industry,
+          hasIndustry: !!enrichData.organization.industry,
+          hasLocation: !!(enrichData.organization.city || enrichData.organization.state)
+        });
+        
+        return {
+          success: true,
+          data: enrichData,
+          method: 'enrichment',
+          debug: debug.getSummary()
+        };
+      }
+    }
+    
+    debug.log('Enrichment failed, trying organization search...', {
+      status: enrichResponse.status,
+      statusText: enrichResponse.statusText
+    });
+    
+    // Fallback to organization search
+    const searchUrl = 'https://api.apollo.io/api/v1/mixed_companies/search';
+    const searchPayload = {
+      q: searchDomain,
+      page: 1,
+      per_page: 1
+    };
+    
+    debug.log('Making organization search API call...', { url: searchUrl, payload: searchPayload });
+    
+    const searchResponse = await fetch(searchUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': apiKey,
+        'accept': 'application/json'
+      },
+      body: JSON.stringify(searchPayload)
+    });
+    
+    debug.log('Search API call completed', { 
+      status: searchResponse.status, 
+      statusText: searchResponse.statusText
+    });
+    
+    if (!searchResponse.ok) {
+      debug.log('Search API returned error status', {
+        status: searchResponse.status,
+        statusText: searchResponse.statusText
+      }, 'error');
+      
+      const errorText = await searchResponse.text();
+      debug.log('Error response body', errorText, 'error');
+      
+      throw new Error(`Apollo API error: ${searchResponse.status} ${searchResponse.statusText}`);
+    }
+    
+    const searchData = await searchResponse.json();
+    debug.log('Search response received', { 
+      hasAccounts: 'accounts' in searchData,
+      accountCount: searchData.accounts?.length || 0
+    });
+    
+    if (!searchData.accounts || searchData.accounts.length === 0) {
+      debug.log('No organizations found for domain', { searchDomain }, 'warning');
+      return {
+        success: false,
+        reason: 'no_results',
+        data: null,
+        debug: debug.getSummary()
+      };
+    }
+    
+    const org = searchData.accounts[0];
+    debug.log('Organization found via search', {
+      name: org.name,
+      industry: org.industry,
+      hasIndustry: !!org.industry,
+      hasLocation: !!(org.city || org.state)
+    });
+    
+    return {
+      success: true,
+      data: { organization: org },
+      method: 'search',
+      debug: debug.getSummary()
+    };
+    
+  } catch (error: any) {
+    debug.log('Apollo enrichment failed', {
+      message: error.message,
+      stack: error.stack
+    }, 'error');
+    
+    return {
+      success: false,
+      reason: 'api_error',
+      error: error.message,
+      data: null,
+      debug: debug.getSummary()
+    };
+  }
+}
+
+// Generic fallback detector
+function detectGenericFallback(companyData: any, debug: ApolloDebugTracker) {
+  const genericIndicators: string[] = [];
+  
+  if (!companyData) {
+    genericIndicators.push('null_data');
+  } else {
+    if (companyData.industry === 'Technology') {
+      genericIndicators.push('generic_technology_industry');
+    }
+    if (companyData.location === 'Unknown') {
+      genericIndicators.push('unknown_location');
+    }
+    if (!companyData.revenue && !companyData.employees) {
+      genericIndicators.push('missing_financial_data');
+    }
+    if (companyData.name === 'Unknown' || !companyData.name) {
+      genericIndicators.push('missing_company_name');
+    }
+  }
+  
+  const isGenericFallback = genericIndicators.length > 0;
+  
+  debug.log('Generic fallback detection', {
+    isGenericFallback,
+    indicators: genericIndicators
+  }, isGenericFallback ? 'warning' : 'info');
+  
+  return {
+    isGenericFallback,
+    indicators: genericIndicators,
+    confidence: genericIndicators.length > 2 ? 'high' : genericIndicators.length > 0 ? 'medium' : 'low'
   };
 }
 
@@ -203,6 +429,10 @@ Rules:
 
 // Helper function to get organization data from Apollo
 async function getOrganizationData(company: string, apiKey: string) {
+  console.log('\n=== APOLLO ENRICHMENT DEBUG SESSION ===');
+  console.log('Company:', company);
+  console.log('Time:', new Date().toISOString());
+  
   try {
     let searchQuery = company.trim();
     
@@ -219,25 +449,36 @@ async function getOrganizationData(company: string, apiKey: string) {
     // Remove www. prefix
     searchQuery = searchQuery.replace(/^www\./, '');
     
+    // Force .com extension if not present
+    if (!searchQuery.includes('.') && !searchQuery.includes('://')) {
+      searchQuery = `${searchQuery}.com`;
+      console.log(`Added .com extension: ${company} -> ${searchQuery}`);
+    }
+    
     console.log(`Searching Apollo for: "${searchQuery}"`);
 
-    // Use organization enrichment by domain (more accurate than search)
-    const orgResponse = await fetch(`https://api.apollo.io/api/v1/organizations/enrich?domain=${searchQuery}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Api-Key': apiKey,
-        'accept': 'application/json'
-      }
-    });
-
-    if (orgResponse.ok) {
-      const orgResponseData = await orgResponse.json();
-      console.log(`Organization enrichment result:`, orgResponseData);
+    // Use enhanced Apollo enrichment with debugging
+    const result = await apolloEnrichmentWithDebug(searchQuery, apiKey);
+    
+    if (result.success && result.data) {
+      console.log('✅ Apollo enrichment successful');
+      console.log('Method used:', result.method);
       
-      // Use the proper extractor for Apollo enrichment response
-      const extractedData = extractCompanyFromApollo(orgResponseData);
-      console.log(`Extracted company data:`, extractedData);
+      // Extract company data using our proper extractor
+      const extractedData = extractCompanyFromApollo(result.data);
+      console.log('Extracted company data:', extractedData);
+      
+      // Check for generic fallback
+      const debug = new ApolloDebugTracker();
+      const fallbackCheck = detectGenericFallback(extractedData, debug);
+      
+      if (fallbackCheck.isGenericFallback) {
+        console.log('⚠️  WARNING: Data appears to be generic fallback');
+        console.log('Generic indicators:', fallbackCheck.indicators);
+        console.log('Confidence:', fallbackCheck.confidence);
+      } else {
+        console.log('✅ Data appears to be genuine Apollo enrichment');
+      }
       
       if (extractedData && extractedData.name) {
         // Use OpenAI to validate and improve the enrichment data
@@ -246,44 +487,44 @@ async function getOrganizationData(company: string, apiKey: string) {
         
         if (improvedData) {
           console.log(`OpenAI improved data:`, improvedData);
+          console.log('=== END DEBUG SESSION ===\n');
           return improvedData;
         }
         
         // Return the extracted enrichment data directly
-        const result = {
+        const finalResult = {
           name: extractedData.name,
           website_url: extractedData.website || extractedData.domain,
           industry: extractedData.industry,
-          estimated_annual_revenue: orgResponseData.organization?.annual_revenue,
-          organization_headcount: orgResponseData.organization?.estimated_num_employees,
-          organization_city: orgResponseData.organization?.city,
-          organization_state: orgResponseData.organization?.state,
-          organization_country: orgResponseData.organization?.country,
+          estimated_annual_revenue: result.data.organization?.annual_revenue,
+          organization_headcount: result.data.organization?.estimated_num_employees,
+          organization_city: result.data.organization?.city,
+          organization_state: result.data.organization?.state,
+          organization_country: result.data.organization?.country,
           location: extractedData.location
         };
         
-        console.log(`Using Apollo enrichment data for: ${result.name}`);
-        return result;
+        console.log(`Using Apollo enrichment data for: ${finalResult.name}`);
+        console.log('=== END DEBUG SESSION ===\n');
+        return finalResult;
       } else {
         console.warn(`No organization data found for domain: ${searchQuery}`);
       }
     } else {
-      const errorText = await orgResponse.text();
-      console.warn(`Apollo enrichment error: ${orgResponse.status} ${orgResponse.statusText} - ${errorText}`);
+      console.log('❌ Apollo enrichment failed');
+      console.log('Reason:', result.reason);
+      console.log('Error:', result.error);
       
-      if (orgResponse.status === 429) {
-        throw new Error(`Rate limited by Apollo API. Please try again in a few minutes.`);
-      } else if (orgResponse.status === 404) {
-        throw new Error(`Company domain not found in Apollo database. Please check the company name or try a different company.`);
-      } else {
-        throw new Error(`Apollo API error: ${orgResponse.status} - ${errorText}`);
+      if (result.debug) {
+        console.log('Debug summary:', result.debug);
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     console.warn('Organization search failed:', error);
   }
 
   // No fallback data - this is a production prospecting tool
+  console.log('=== END DEBUG SESSION ===\n');
   throw new Error(`Unable to find accurate company data for "${company}". Please check the company name or try a different company.`);
 }
 
