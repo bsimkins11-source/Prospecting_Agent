@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     console.log(`✅ ENHANCED: Company data:`, companyData.name, companyData.industry);
 
     // STEP 2: Get employee information by department (Transparent Partners focus areas)
-    const departments = ['Marketing', 'Data Analytics', 'Media', 'Customer Insight', 'Procurement'];
+    const departments = ['Marketing', 'Media & AdTech', 'MarTech', 'Analytics & Data', 'Customer Strategy'];
     const accountMap: { [key: string]: any[] } = {};
   
   for (const dept of departments) {
@@ -183,11 +183,11 @@ export async function POST(req: NextRequest) {
 
 function getDepartmentTitles(dept: string): string[] {
   const titles: { [key: string]: string[] } = {
-    'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 'Marketing Technology Manager'],
-    'Data Analytics': ['Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 'Chief Data Officer', 'Business Intelligence Manager'],
-    'Media': ['Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 'Media Planning Manager'],
-    'Customer Insight': ['Customer Insight Manager', 'Customer Analytics Manager', 'VP Customer Experience', 'Customer Data Manager', 'Insights Director', 'Customer Success Manager'],
-    'Procurement': ['Procurement Manager', 'VP Procurement', 'Head of Procurement', 'Sourcing Manager', 'Vendor Manager', 'Procurement Director']
+    'Marketing': ['Marketing Manager', 'Marketing Director', 'CMO', 'Brand Manager', 'Digital Marketing Manager', 'Marketing Technology Manager', 'VP Marketing', 'Head of Marketing'],
+    'Media & AdTech': ['Media Manager', 'Media Director', 'VP Media', 'Digital Media Manager', 'Paid Media Manager', 'Media Planning Manager', 'AdTech Manager', 'Programmatic Manager', 'Ad Operations Manager'],
+    'MarTech': ['MarTech Manager', 'Marketing Technology Manager', 'Marketing Automation Manager', 'Marketing Operations Manager', 'Marketing Technology Director', 'VP Marketing Technology', 'Marketing Systems Manager'],
+    'Analytics & Data': ['Data Analyst', 'Data Scientist', 'Analytics Manager', 'Head of Analytics', 'VP Analytics', 'Chief Data Officer', 'Business Intelligence Manager', 'Marketing Analytics Manager', 'Data Engineering Manager'],
+    'Customer Strategy': ['Customer Strategy Manager', 'Customer Experience Manager', 'VP Customer Experience', 'Customer Data Manager', 'Customer Insights Director', 'Customer Success Manager', 'Customer Marketing Manager', 'Customer Lifecycle Manager']
   };
   return titles[dept] || ['Manager'];
 }

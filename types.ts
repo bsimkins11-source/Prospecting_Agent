@@ -1,4 +1,4 @@
-export type AccountMapLane = "Marketing" | "Data Analytics" | "Media" | "Customer Insight" | "Procurement";
+export type AccountMapLane = "Marketing" | "Media & AdTech" | "MarTech" | "Analytics & Data" | "Customer Strategy";
 
 export type Person = {
   name: string;
