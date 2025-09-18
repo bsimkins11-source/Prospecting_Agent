@@ -178,28 +178,38 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
     accountMap[dept] = [];
     
     try {
+      const searchPayload = {
+        q: `${orgData.name} ${getDepartmentTitles(dept)[0]}`,
+        page: 1,
+        per_page: 25,
+        reveal_personal_emails: true,
+        reveal_phone_numbers: false,
+        person_titles: getDepartmentTitles(dept),
+        person_locations: ['United States'],
+        organization_locations: ['United States']
+      };
+      
+      console.log(`🔍 Apollo People Search for ${dept}:`, JSON.stringify(searchPayload, null, 2));
+      console.log(`🏢 Organization data:`, JSON.stringify(orgData, null, 2));
+      
       const response = await fetch('https://api.apollo.io/api/v1/people/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Api-Key': apiKey
         },
-        body: JSON.stringify({
-          q: `${orgData.name} ${getDepartmentTitles(dept)[0]}`,
-          page: 1,
-          per_page: 25,
-          reveal_personal_emails: true,
-          reveal_phone_numbers: false,
-          person_titles: getDepartmentTitles(dept),
-          person_locations: ['United States'],
-          organization_locations: ['United States']
-        })
+        body: JSON.stringify(searchPayload)
       });
       
       if (response.ok) {
         const data = await response.json();
         const people = data.people || [];
         console.log(`Found ${people.length} people for ${dept}`);
+        console.log(`📊 Apollo Response for ${dept}:`, JSON.stringify(data, null, 2));
+        
+        if (people.length > 0) {
+          console.log(`👤 Sample person data:`, JSON.stringify(people[0], null, 2));
+        }
         
         // Check if we're getting generic/demo data (same people every time)
         const isGenericData = people.length > 0 && 

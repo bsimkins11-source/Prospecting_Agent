@@ -1,0 +1,3024 @@
+{
+  "timestamp": "2025-09-18T00:51:22.226Z",
+  "summary": {
+    "totalCompanies": 25,
+    "successfulRequests": 25,
+    "accurateData": 6,
+    "genericData": 19,
+    "failedRequests": 0,
+    "accuracyRate": "24.0%"
+  },
+  "results": [
+    {
+      "company": "Walmart",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Walmart Inc.",
+          "website": "walmart.com",
+          "industry": "Retail",
+          "revenue": "$600B+",
+          "employees": 2300000,
+          "locations": [
+            "Bentonville, AR"
+          ],
+          "overview": "Walmart Inc. is a retail company with 2,300,000 employees and estimated annual revenue of $600B+."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [
+            {
+              "name": "Santhoshini Jayachandran",
+              "title": "Strategy Manager",
+              "seniority": "Manager",
+              "email": "santhoshini.jayachandran@walmart.com",
+              "linkedin_url": "http://www.linkedin.com/in/santhoshiniusc",
+              "company": "Walmart"
+            }
+          ],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Walmart Inc. Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/walmart-inc.-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:21.955Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Walmart Inc. Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/walmart-inc.-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:21.955Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Walmart Inc. likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Walmart Inc.'s scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:21.955Z",
+        "data_quality": {
+          "has_real_people": true,
+          "total_people_found": 1,
+          "apollo_limitation": null
+        }
+      }
+    },
+    {
+      "company": "Amazon",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Amazon.com Inc.",
+          "website": "amazon.com",
+          "industry": "E-commerce & Cloud Computing",
+          "revenue": "$500B+",
+          "employees": 1500000,
+          "locations": [
+            "Seattle, WA"
+          ],
+          "overview": "Amazon.com Inc. is a e-commerce & cloud computing company with 1,500,000 employees and estimated annual revenue of $500B+."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Amazon.com Inc. Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/amazon.com-inc.-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:27.324Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Amazon.com Inc. Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/amazon.com-inc.-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:27.324Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Amazon.com Inc. likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Amazon.com Inc.'s scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:27.324Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Apple",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Apple Inc.",
+          "website": "apple.com",
+          "industry": "Technology",
+          "revenue": "$400B+",
+          "employees": 160000,
+          "locations": [
+            "Cupertino, CA"
+          ],
+          "overview": "Apple Inc. is a technology company with 160,000 employees and estimated annual revenue of $400B+."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Apple Inc. Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/apple-inc.-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:32.355Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Apple Inc. Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/apple-inc.-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:32.355Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Apple Inc. likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Apple Inc.'s scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:32.355Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "CVS Health",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "CVS Health",
+          "website": "CVS Health.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5885,
+          "locations": [
+            "Seattle, WA"
+          ],
+          "overview": "CVS Health is a technology company with 5,885 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "CVS Health Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/cvs-health-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:37.516Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "CVS Health Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/cvs-health-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:37.516Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "CVS Health likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With CVS Health's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:37.516Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "UnitedHealth Group",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "UnitedHealth Group",
+          "website": "UnitedHealth Group.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5944,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "UnitedHealth Group is a technology company with 5,944 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "UnitedHealth Group Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/unitedhealth-group-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:42.201Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "UnitedHealth Group Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/unitedhealth-group-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:42.201Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "UnitedHealth Group likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With UnitedHealth Group's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:42.201Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Berkshire Hathaway",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Berkshire Hathaway",
+          "website": "Berkshire Hathaway.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 2771,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "Berkshire Hathaway is a technology company with 2,771 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Berkshire Hathaway Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/berkshire-hathaway-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:46.839Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Berkshire Hathaway Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/berkshire-hathaway-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:46.839Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Berkshire Hathaway likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Berkshire Hathaway's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:46.839Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "McKesson",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "McKesson",
+          "website": "McKesson.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 3772,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "McKesson is a technology company with 3,772 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "McKesson Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/mckesson-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:51.667Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "McKesson Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/mckesson-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:51.667Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "McKesson likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With McKesson's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:51.667Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "AmerisourceBergen",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "AmerisourceBergen",
+          "website": "AmerisourceBergen.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 1815,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "AmerisourceBergen is a technology company with 1,815 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "AmerisourceBergen Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/amerisourcebergen-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:49:56.473Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "AmerisourceBergen Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/amerisourcebergen-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:49:56.473Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "AmerisourceBergen likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With AmerisourceBergen's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:49:56.473Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Alphabet",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Alphabet",
+          "website": "Alphabet.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5071,
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "overview": "Alphabet is a technology company with 5,071 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Alphabet Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/alphabet-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:01.311Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Alphabet Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/alphabet-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:01.311Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Alphabet likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Alphabet's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:01.311Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Ford Motor",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Ford Motor",
+          "website": "Ford Motor.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 4218,
+          "locations": [
+            "Seattle, WA"
+          ],
+          "overview": "Ford Motor is a technology company with 4,218 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Ford Motor Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/ford-motor-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:06.651Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Ford Motor Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/ford-motor-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:06.651Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Ford Motor likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Ford Motor's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:06.651Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "General Motors",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "General Motors",
+          "website": "General Motors.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5465,
+          "locations": [
+            "Seattle, WA"
+          ],
+          "overview": "General Motors is a technology company with 5,465 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "General Motors Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/general-motors-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:11.872Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "General Motors Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/general-motors-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:11.873Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "General Motors likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With General Motors's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:11.873Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Costco",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Costco",
+          "website": "Costco.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 3717,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "Costco is a technology company with 3,717 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Costco Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/costco-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:16.825Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Costco Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/costco-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:16.825Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Costco likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Costco's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:16.825Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Cigna",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Cigna",
+          "website": "Cigna.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 4956,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "Cigna is a technology company with 4,956 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Cigna Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/cigna-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:21.706Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Cigna Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/cigna-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:21.706Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Cigna likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Cigna's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:21.706Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "AT&T",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "AT&T",
+          "website": "AT&T.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5681,
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "overview": "AT&T is a technology company with 5,681 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [
+            {
+              "name": "Matthew Cornelius",
+              "title": "Advertising Manager",
+              "seniority": "Manager",
+              "email": null,
+              "linkedin_url": "http://www.linkedin.com/in/matthew-cornelius-99757a11",
+              "company": "AT&T"
+            }
+          ],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "AT&T Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/at&t-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:27.349Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "AT&T Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/at&t-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:27.349Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "AT&T likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With AT&T's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:27.349Z",
+        "data_quality": {
+          "has_real_people": true,
+          "total_people_found": 1,
+          "apollo_limitation": null
+        }
+      }
+    },
+    {
+      "company": "Microsoft",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Microsoft Corporation",
+          "website": "microsoft.com",
+          "industry": "Technology",
+          "revenue": "$200B+",
+          "employees": 220000,
+          "locations": [
+            "Redmond, WA"
+          ],
+          "overview": "Microsoft Corporation is a technology company with 220,000 employees and estimated annual revenue of $200B+."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Microsoft Corporation Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/microsoft-corporation-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:32.827Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Microsoft Corporation Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/microsoft-corporation-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:32.827Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Microsoft Corporation likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Microsoft Corporation's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:32.827Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Cardinal Health",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Cardinal Health",
+          "website": "Cardinal Health.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 3550,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "Cardinal Health is a technology company with 3,550 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Cardinal Health Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/cardinal-health-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:37.750Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Cardinal Health Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/cardinal-health-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:37.750Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Cardinal Health likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Cardinal Health's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:37.750Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Chevron",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Chevron",
+          "website": "Chevron.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 1809,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "Chevron is a technology company with 1,809 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Chevron Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/chevron-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:43.098Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Chevron Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/chevron-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:43.098Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Chevron likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Chevron's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:43.098Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Home Depot",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Home Depot",
+          "website": "Home Depot.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5260,
+          "locations": [
+            "San Francisco, CA"
+          ],
+          "overview": "Home Depot is a technology company with 5,260 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Home Depot Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/home-depot-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:48.134Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Home Depot Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/home-depot-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:48.134Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Home Depot likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Home Depot's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:48.134Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Walgreens Boots Alliance",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Walgreens Boots Alliance",
+          "website": "Walgreens Boots Alliance.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 3195,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "Walgreens Boots Alliance is a technology company with 3,195 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Walgreens Boots Alliance Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/walgreens-boots-alliance-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:52.791Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Walgreens Boots Alliance Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/walgreens-boots-alliance-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:52.791Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Walgreens Boots Alliance likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Walgreens Boots Alliance's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:52.791Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "JPMorgan Chase",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "JPMorgan Chase",
+          "website": "JPMorgan Chase.com",
+          "industry": "Financial Services",
+          "revenue": "$1B-$10B",
+          "employees": 5511,
+          "locations": [
+            "Seattle, WA"
+          ],
+          "overview": "JPMorgan Chase is a financial services company with 5,511 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "JPMorgan Chase Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/jpmorgan-chase-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:50:57.250Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "JPMorgan Chase Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/jpmorgan-chase-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:50:57.250Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "JPMorgan Chase likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With JPMorgan Chase's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:50:57.250Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Verizon",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Verizon Communications",
+          "website": "verizon.com",
+          "industry": "Telecommunications",
+          "revenue": "$130B+",
+          "employees": 130000,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "Verizon Communications is a telecommunications company with 130,000 employees and estimated annual revenue of $130B+."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Verizon Communications Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/verizon-communications-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:51:01.750Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Verizon Communications Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/verizon-communications-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:51:01.750Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Verizon Communications likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Verizon Communications's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:51:01.750Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Kroger",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Kroger",
+          "website": "Kroger.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 2017,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "Kroger is a technology company with 2,017 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [
+            {
+              "name": "Daniel Endres",
+              "title": "Analytics And Insights Manager",
+              "seniority": "Manager",
+              "email": null,
+              "linkedin_url": "http://www.linkedin.com/in/daniel-endres-mba-30aa5112",
+              "company": "Kroger"
+            }
+          ],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Kroger Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/kroger-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:51:06.584Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Kroger Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/kroger-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:51:06.584Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Kroger likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Kroger's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:51:06.584Z",
+        "data_quality": {
+          "has_real_people": true,
+          "total_people_found": 1,
+          "apollo_limitation": null
+        }
+      }
+    },
+    {
+      "company": "General Electric",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "General Electric",
+          "website": "General Electric.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 5740,
+          "locations": [
+            "New York, NY"
+          ],
+          "overview": "General Electric is a technology company with 5,740 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "General Electric Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/general-electric-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:51:12.052Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "General Electric Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/general-electric-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:51:12.052Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "General Electric likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With General Electric's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Salesforce Marketing Cloud",
+            "secondary": "HubSpot, Marketo",
+            "potential_issues": [
+              "Complex data synchronization",
+              "Limited cross-platform attribution"
+            ]
+          },
+          "data_management": {
+            "primary": "Snowflake, BigQuery",
+            "secondary": "Databricks, Redshift",
+            "potential_issues": [
+              "Data silos",
+              "Complex governance"
+            ]
+          },
+          "analytics": {
+            "primary": "Adobe Analytics, Google Analytics 360",
+            "secondary": "Mixpanel, Amplitude",
+            "potential_issues": [
+              "Multiple platforms",
+              "Inconsistent attribution"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads Manager",
+            "secondary": "The Trade Desk, Adobe Advertising",
+            "potential_issues": [
+              "Complex management",
+              "Inconsistent measurement"
+            ]
+          },
+          "crm": {
+            "primary": "Salesforce, Microsoft Dynamics",
+            "secondary": "Salesforce Marketing Cloud",
+            "potential_issues": [
+              "Complex integrations",
+              "Data quality issues"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:51:12.053Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    },
+    {
+      "company": "Fannie Mae",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Fannie Mae",
+          "website": "Fannie Mae.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 4226,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "Fannie Mae is a technology company with 4,226 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [
+            {
+              "name": "Yeswanth Kambakkam",
+              "title": "Business Intelligence Manager / Senior Data Analyst",
+              "seniority": "Manager",
+              "email": "yeswanth_kambakkam@fanniemae.com",
+              "linkedin_url": "http://www.linkedin.com/in/yeswanth-kambakkam-64a229292",
+              "company": "Fannie Mae"
+            }
+          ],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Fannie Mae Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/fannie-mae-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:51:16.829Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Fannie Mae Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/fannie-mae-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:51:16.829Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Fannie Mae likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Fannie Mae's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:51:16.829Z",
+        "data_quality": {
+          "has_real_people": true,
+          "total_people_found": 1,
+          "apollo_limitation": null
+        }
+      }
+    },
+    {
+      "company": "Comcast",
+      "success": true,
+      "data": {
+        "company": {
+          "name": "Comcast",
+          "website": "Comcast.com",
+          "industry": "Technology",
+          "revenue": "$1B-$10B",
+          "employees": 1775,
+          "locations": [
+            "Austin, TX"
+          ],
+          "overview": "Comcast is a technology company with 1,775 employees and estimated annual revenue of $1B-$10B."
+        },
+        "accountMap": {
+          "Marketing": [],
+          "Media": [],
+          "Customer Data Strategy": [],
+          "Analytics & Insights": [],
+          "Marketing Technology": [],
+          "Digital Transformation": [],
+          "Marketing Operations": []
+        },
+        "articles": [
+          {
+            "title": "Comcast Invests in AI-Powered Marketing Automation Platform",
+            "url": "https://adweek.com/marketing-technology/comcast-ai-marketing-automation",
+            "source": "AdWeek",
+            "published_at": "2025-09-11T00:51:21.773Z",
+            "why_it_matters": "Shows active investment in AI and marketing technology, indicating readiness for advanced MarTech solutions."
+          },
+          {
+            "title": "Comcast Expands Customer Data Platform to Drive Personalization",
+            "url": "https://www.adage.com/article/marketing-technology/comcast-customer-data-platform",
+            "source": "AdAge",
+            "published_at": "2025-09-04T00:51:21.773Z",
+            "why_it_matters": "Demonstrates commitment to data-driven personalization, highlighting potential data governance needs."
+          }
+        ],
+        "tp_alignment": [
+          {
+            "need": "Data Quality & Governance",
+            "suggested_solution": "Data Quality Assurance Program",
+            "rationale": "Comcast likely has complex data ecosystems that require comprehensive quality monitoring and governance frameworks."
+          },
+          {
+            "need": "Campaign Performance Optimization",
+            "suggested_solution": "Real-time Campaign Monitoring & Optimization",
+            "rationale": "With Comcast's scale, automated campaign monitoring can significantly improve ROI and reduce manual oversight."
+          }
+        ],
+        "child_brands": null,
+        "technology_stack": {
+          "email_marketing": {
+            "primary": "Mailchimp",
+            "secondary": "Constant Contact, SendGrid",
+            "potential_issues": [
+              "Basic segmentation",
+              "Limited automation"
+            ]
+          },
+          "data_management": {
+            "primary": "Google Analytics, Mixpanel",
+            "secondary": "Amplitude, Segment",
+            "potential_issues": [
+              "Limited integration",
+              "Basic quality controls"
+            ]
+          },
+          "analytics": {
+            "primary": "Google Analytics, Facebook Analytics",
+            "secondary": "Hotjar, Crazy Egg",
+            "potential_issues": [
+              "Limited capabilities",
+              "Basic reporting"
+            ]
+          },
+          "advertising": {
+            "primary": "Google Ads, Facebook Ads",
+            "secondary": "LinkedIn Ads, Twitter Ads",
+            "potential_issues": [
+              "Limited programmatic",
+              "Manual optimization"
+            ]
+          },
+          "crm": {
+            "primary": "HubSpot, Pipedrive",
+            "secondary": "Zoho CRM, Freshworks",
+            "potential_issues": [
+              "Limited customization",
+              "Basic automation"
+            ]
+          },
+          "potential_issues": [
+            {
+              "category": "Email Marketing",
+              "issue": "Data synchronization challenges between platforms",
+              "solution": "Implement unified data platform and automated sync processes",
+              "impact": "High"
+            },
+            {
+              "category": "Data Management",
+              "issue": "Data silos across multiple platforms",
+              "solution": "Deploy comprehensive data governance framework",
+              "impact": "High"
+            }
+          ],
+          "integration_complexity": "Medium",
+          "recommendation": "Implement comprehensive MarTech integration strategy with focus on data unification and cross-platform automation."
+        },
+        "generated_at": "2025-09-18T00:51:21.773Z",
+        "data_quality": {
+          "has_real_people": false,
+          "total_people_found": 0,
+          "apollo_limitation": "Apollo database may not contain employees for this company"
+        }
+      }
+    }
+  ]
+}
