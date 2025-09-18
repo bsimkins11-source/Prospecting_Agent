@@ -55,14 +55,26 @@ export default function ChatModule({
 
       const data = await response.json();
       
-      setMessages([
-        {
-          id: '1',
-          type: 'assistant',
-          content: data.analysis,
-          timestamp: new Date()
-        }
-      ]);
+      if (data.error) {
+        console.error('API Error:', data.error, data.details);
+        setMessages([
+          {
+            id: '1',
+            type: 'assistant',
+            content: `Sorry, I encountered an error: ${data.error}. ${data.details || ''}`,
+            timestamp: new Date()
+          }
+        ]);
+      } else {
+        setMessages([
+          {
+            id: '1',
+            type: 'assistant',
+            content: data.analysis || 'Analysis could not be generated.',
+            timestamp: new Date()
+          }
+        ]);
+      }
     } catch (error) {
       console.error('Error generating initial analysis:', error);
       setMessages([
@@ -108,14 +120,24 @@ export default function ChatModule({
 
       const data = await response.json();
       
-      const assistantMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        type: 'assistant',
-        content: data.response,
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
+      if (data.error) {
+        console.error('API Error:', data.error);
+        const errorMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: `Sorry, I encountered an error: ${data.error}`,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      } else {
+        const assistantMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: data.response || 'I couldn\'t generate a response. Please try again.',
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, assistantMessage]);
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage: ChatMessage = {
