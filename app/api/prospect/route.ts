@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     // STEP 2: Get employee information by department
     const departments = ['Marketing', 'Sales', 'Engineering', 'Operations'];
-    const accountMap = {};
+    const accountMap: any = {};
 
     for (const dept of departments) {
       console.log(`🔍 SIMPLE: Getting ${dept} employees...`);
