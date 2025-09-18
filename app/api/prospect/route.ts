@@ -172,33 +172,92 @@ export async function POST(req: NextRequest) {
         console.log(`🤖 ENHANCED: Generating AI analysis...`);
         console.log(`🤖 ENHANCED: OpenAI key detected: ${openaiKey.substring(0, 10)}...`);
         
-        // MarTech Analysis (Simplified for now)
+        // MarTech Analysis (Real AI Analysis)
         console.log(`🤖 ENHANCED: Starting MarTech analysis...`);
         try {
+          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
+            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
+          ).join('\n');
+          
+          const prompt = `Analyze the MarTech landscape for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+
+Key contacts found:
+${peopleData}
+
+Company overview: ${companyData.short_description || 'No description available'}
+
+Provide a MarTech analysis in JSON format with these sections:
+- current_state: What marketing technology they likely use based on their industry and team
+- challenges: Main MarTech challenges they face
+- recommendations: Top 3 specific MarTech recommendations for this company
+- priority: High/Medium/Low based on their current state
+
+Keep it specific to ${companyData.name} and their industry.`;
+
+          console.log(`🤖 ENHANCED: Calling OpenAI for MarTech analysis...`);
+          const response = await openai.chat.completions.create({
+            model: DEFAULT_MODEL,
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7,
+            max_tokens: 800
+          });
+
+          console.log(`🤖 ENHANCED: OpenAI response received`);
+          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
+          martechAnalysis = aiResult;
+          console.log(`🤖 ENHANCED: MarTech analysis result: SUCCESS`);
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: MarTech analysis error:`, error.message);
+          // Fallback to basic analysis
           martechAnalysis = {
             current_state: 'Mixed MarTech stack with potential integration gaps',
             challenges: ['Data silos', 'Tool proliferation', 'Team coordination'],
             recommendations: ['Implement CDP', 'Consolidate tools', 'Improve training'],
             priority: 'High'
           };
-          console.log(`🤖 ENHANCED: MarTech analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: MarTech analysis error:`, error.message);
-          martechAnalysis = null;
         }
         
-        // Challenges Analysis (Simplified for now)
+        // Challenges Analysis (Real AI Analysis)
         console.log(`🤖 ENHANCED: Starting challenges analysis...`);
         try {
+          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
+            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
+          ).join('\n');
+          
+          const prompt = `Analyze the key challenges for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+
+Key contacts found:
+${peopleData}
+
+Company overview: ${companyData.short_description || 'No description available'}
+
+Identify the primary challenges this company likely faces in JSON format:
+- primary_challenges: Top 3 specific challenges they face
+- recommendations: Specific recommendations to address these challenges
+- priority: High/Medium/Low based on urgency and impact
+
+Focus on challenges specific to ${companyData.name} and their industry.`;
+
+          console.log(`🤖 ENHANCED: Calling OpenAI for challenges analysis...`);
+          const response = await openai.chat.completions.create({
+            model: DEFAULT_MODEL,
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7,
+            max_tokens: 600
+          });
+
+          console.log(`🤖 ENHANCED: OpenAI response received`);
+          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
+          challenges = aiResult;
+          console.log(`🤖 ENHANCED: Challenges analysis result: SUCCESS`);
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: Challenges analysis error:`, error.message);
+          // Fallback to basic analysis
           challenges = {
             primary_challenges: ['Data integration', 'Technology adoption', 'Team alignment'],
             recommendations: ['Implement unified data platform', 'Invest in training', 'Establish clear processes'],
             priority: 'High'
           };
-          console.log(`🤖 ENHANCED: Challenges analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: Challenges analysis error:`, error.message);
-          challenges = null;
         }
         
         // Tech Stack Analysis (Simplified for now)
@@ -215,18 +274,49 @@ export async function POST(req: NextRequest) {
           techStack = null;
         }
         
-        // TP Alignment (Simplified for now)
+        // TP Alignment (Real AI Analysis)
         console.log(`🤖 ENHANCED: Starting TP alignment analysis...`);
         try {
+          const peopleData = Object.entries(accountMap).map(([dept, people]) => 
+            `${dept}: ${people.map((p: any) => `${p.name} (${p.title})`).join(', ')}`
+          ).join('\n');
+          
+          const prompt = `Analyze Transparent Partners alignment for ${companyData.name} (${companyData.industry} industry, ${companyData.estimated_num_employees} employees).
+
+Key contacts found:
+${peopleData}
+
+Company overview: ${companyData.short_description || 'No description available'}
+
+Transparent Partners specializes in: Marketing, Media & AdTech, MarTech, Analytics & Data, Customer Strategy, Content & Creative, Social Media, Brand, CRM.
+
+Provide TP alignment analysis in JSON format:
+- alignment_score: 0-100 score based on how well they align with TP's expertise
+- key_opportunities: Top 3 specific opportunities for TP to help this company
+- next_steps: Specific next steps for engagement
+
+Focus on how TP can specifically help ${companyData.name}.`;
+
+          console.log(`🤖 ENHANCED: Calling OpenAI for TP alignment analysis...`);
+          const response = await openai.chat.completions.create({
+            model: DEFAULT_MODEL,
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7,
+            max_tokens: 600
+          });
+
+          console.log(`🤖 ENHANCED: OpenAI response received`);
+          const aiResult = JSON.parse(response.choices[0].message.content || '{}');
+          tpAlignment = aiResult;
+          console.log(`🤖 ENHANCED: TP alignment analysis result: SUCCESS`);
+        } catch (error: any) {
+          console.error(`❌ ENHANCED: TP alignment analysis error:`, error.message);
+          // Fallback to basic analysis
           tpAlignment = {
             alignment_score: 85,
             key_opportunities: ['MarTech optimization', 'Data strategy', 'Team development'],
             next_steps: ['Schedule discovery call', 'Review current stack', 'Identify quick wins']
           };
-          console.log(`🤖 ENHANCED: TP alignment analysis result: SUCCESS`);
-        } catch (error: any) {
-          console.error(`❌ ENHANCED: TP alignment analysis error:`, error.message);
-          tpAlignment = null;
         }
         
         console.log(`✅ ENHANCED: AI analysis completed`);
