@@ -190,6 +190,14 @@ async function getOrganizationData(company: string, apiKey: string) {
     } else {
       const errorText = await orgResponse.text();
       console.warn(`Apollo enrichment error: ${orgResponse.status} ${orgResponse.statusText} - ${errorText}`);
+      
+      if (orgResponse.status === 429) {
+        throw new Error(`Rate limited by Apollo API. Please try again in a few minutes.`);
+      } else if (orgResponse.status === 404) {
+        throw new Error(`Company domain not found in Apollo database. Please check the company name or try a different company.`);
+      } else {
+        throw new Error(`Apollo API error: ${orgResponse.status} - ${errorText}`);
+      }
     }
   } catch (error) {
     console.warn('Organization search failed:', error);
@@ -338,6 +346,13 @@ async function getRealPeopleData(orgData: any, apiKey: string) {
       } else {
         const errorText = await response.text();
         console.error(`Apollo people search failed for ${dept}: ${response.status} - ${errorText}`);
+        
+        if (response.status === 429) {
+          console.warn(`Rate limited for ${dept} department. Skipping...`);
+          // Continue with other departments instead of failing completely
+        } else {
+          console.warn(`Apollo people search error for ${dept}: ${response.status}`);
+        }
       }
     } catch (error: any) {
       console.warn(`Error searching for people in ${dept}:`, error.message);

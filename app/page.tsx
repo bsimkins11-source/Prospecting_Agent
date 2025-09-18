@@ -91,7 +91,7 @@ export default function Home() {
         </h1>
       </div>
       <p style={{ color: "#666", marginBottom: "2rem" }}>
-        Enter a company name to get comprehensive prospect insights. Use the search feature to find the exact company you're looking for.
+        Enter a company name or domain to get comprehensive prospect insights. We'll resolve the company domain and show you verified contacts with LinkedIn profiles.
       </p>
       
       <div style={{ display: "flex", gap: 12, marginBottom: "2rem" }}>
@@ -176,6 +176,28 @@ export default function Home() {
           marginBottom: "1rem"
         }}>
           ❌ {error}
+        </div>
+      )}
+
+      {/* Debug panel for development */}
+      {data && process.env.NODE_ENV === 'development' && (
+        <div style={{ 
+          padding: "1rem", 
+          backgroundColor: "#f0f9ff", 
+          border: "1px solid #bae6fd",
+          borderRadius: "8px",
+          color: "#0369a1",
+          marginBottom: "1rem",
+          fontSize: "0.875rem"
+        }}>
+          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "0.875rem", fontWeight: "600" }}>🔧 Debug Info</h4>
+          <div><strong>Company Domain:</strong> {data.company?.website}</div>
+          <div><strong>Industry:</strong> {data.company?.industry}</div>
+          <div><strong>Total People Found:</strong> {data.data_quality?.total_people_found || 0}</div>
+          <div><strong>Has Real People:</strong> {data.data_quality?.has_real_people ? 'Yes' : 'No'}</div>
+          {data.data_quality?.apollo_limitation && (
+            <div><strong>Apollo Limitation:</strong> {data.data_quality.apollo_limitation}</div>
+          )}
         </div>
       )}
       
@@ -303,22 +325,81 @@ export default function Home() {
                     {people.length > 0 ? (
                       <ul style={{ margin: 0, paddingLeft: "1rem" }}>
                         {people.map((p, i) => (
-                          <li key={i} style={{ marginBottom: "0.25rem" }}>
-                            <strong>{p.name}</strong> — {p.title}
-                            {p.seniority && ` (${p.seniority})`}
-                            <div style={{ marginLeft: "1rem", fontSize: "0.875rem", color: "#6b7280" }}>
+                          <li key={i} style={{ marginBottom: "0.5rem", padding: "0.5rem", backgroundColor: "#f8fafc", borderRadius: "4px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.25rem" }}>
+                              <strong>{p.name}</strong>
+                              <span style={{ color: "#6b7280", fontSize: "0.875rem" }}>— {p.title}</span>
+                              {p.seniority && (
+                                <span style={{ 
+                                  backgroundColor: "#e5e7eb", 
+                                  padding: "0.125rem 0.375rem", 
+                                  borderRadius: "12px", 
+                                  fontSize: "0.75rem",
+                                  color: "#374151"
+                                }}>
+                                  {p.seniority}
+                                </span>
+                              )}
+                            </div>
+                            
+                            {/* Quality badges */}
+                            <div style={{ display: "flex", gap: "0.25rem", marginBottom: "0.25rem", flexWrap: "wrap" }}>
                               {p.email && (
-                                <div>📧 <a href={`mailto:${p.email}`} style={{ color: "#059669", textDecoration: "none" }}>{p.email}</a></div>
+                                <span style={{ 
+                                  backgroundColor: "#dcfce7", 
+                                  color: "#166534", 
+                                  padding: "0.125rem 0.375rem", 
+                                  borderRadius: "12px", 
+                                  fontSize: "0.75rem",
+                                  fontWeight: "500"
+                                }}>
+                                  ✓ Verified Email
+                                </span>
                               )}
                               {p.linkedin_url && (
-                                <div>🔗 <a 
-                                  href={p.linkedin_url} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  style={{ color: "#3b82f6", textDecoration: "none" }}
-                                >
-                                  LinkedIn Profile ↗
-                                </a></div>
+                                <span style={{ 
+                                  backgroundColor: "#dbeafe", 
+                                  color: "#1e40af", 
+                                  padding: "0.125rem 0.375rem", 
+                                  borderRadius: "12px", 
+                                  fontSize: "0.75rem",
+                                  fontWeight: "500"
+                                }}>
+                                  ✓ LinkedIn
+                                </span>
+                              )}
+                              {p.company && (
+                                <span style={{ 
+                                  backgroundColor: "#fef3c7", 
+                                  color: "#92400e", 
+                                  padding: "0.125rem 0.375rem", 
+                                  borderRadius: "12px", 
+                                  fontSize: "0.75rem",
+                                  fontWeight: "500"
+                                }}>
+                                  ✓ {p.company}
+                                </span>
+                              )}
+                            </div>
+                            
+                            {/* Contact details */}
+                            <div style={{ marginLeft: "0", fontSize: "0.875rem", color: "#6b7280" }}>
+                              {p.email && (
+                                <div style={{ marginBottom: "0.25rem" }}>
+                                  📧 <a href={`mailto:${p.email}`} style={{ color: "#059669", textDecoration: "none" }}>{p.email}</a>
+                                </div>
+                              )}
+                              {p.linkedin_url && (
+                                <div>
+                                  🔗 <a 
+                                    href={p.linkedin_url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    style={{ color: "#3b82f6", textDecoration: "none" }}
+                                  >
+                                    LinkedIn Profile ↗
+                                  </a>
+                                </div>
                               )}
                             </div>
                           </li>
@@ -326,7 +407,7 @@ export default function Home() {
                       </ul>
                     ) : (
                       <p style={{ color: "#6b7280", margin: 0, fontStyle: "italic" }}>
-                        No contacts found for this department
+                        No verified contacts found for this department
                       </p>
                     )}
                   </div>
