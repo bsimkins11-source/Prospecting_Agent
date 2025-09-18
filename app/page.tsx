@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import type { ProspectResult, TechStackCategory } from "@/types";
-import CompanySearch from "@/components/CompanySearch";
 
 
 export default function Home() {
@@ -9,8 +8,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ProspectResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showSearch, setShowSearch] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState<any>(null);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     overview: true,
     "account-map": false,
@@ -32,8 +29,7 @@ export default function Home() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          company: input.trim(),
-          selectedCompany: selectedCompany // Pass the selected company data
+          company: input.trim()
         })
       });
       
@@ -57,13 +53,6 @@ export default function Home() {
     }
   };
 
-  const handleCompanySelect = (companyData: any) => {
-    setInput(companyData.name);
-    setShowSearch(false);
-    // Store the selected company data for more accurate people search
-    setSelectedCompany(companyData);
-    run();
-  };
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev => ({
@@ -99,7 +88,7 @@ export default function Home() {
           value={input} 
           onChange={e => setInput(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="e.g. Verizon, Microsoft, Apple..." 
+          placeholder="e.g. microsoft.com, apple.com, tesla.com..." 
           style={{ 
             flex: 1, 
             padding: "12px 16px", 
@@ -112,22 +101,6 @@ export default function Home() {
           onFocus={(e) => e.target.style.borderColor = "#3b82f6"}
           onBlur={(e) => e.target.style.borderColor = "#e1e5e9"}
         />
-        <button 
-          onClick={() => setShowSearch(!showSearch)}
-          style={{
-            padding: "12px 24px",
-            backgroundColor: "#10b981",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            fontSize: "16px",
-            fontWeight: "600",
-            cursor: "pointer",
-            transition: "background-color 0.2s"
-          }}
-        >
-          {showSearch ? "Hide Search" : "Search Companies"}
-        </button>
         <button 
           onClick={run} 
           disabled={loading || !input.trim()}
@@ -147,11 +120,18 @@ export default function Home() {
         </button>
       </div>
 
-      {showSearch && (
-        <div style={{ marginBottom: "2rem" }}>
-          <CompanySearch onCompanySelect={handleCompanySelect} />
-        </div>
-      )}
+      <div style={{
+        backgroundColor: "#f0f9ff",
+        border: "1px solid #bae6fd",
+        borderRadius: "8px",
+        padding: "1rem",
+        marginBottom: "2rem"
+      }}>
+        <p style={{ margin: "0", color: "#0369a1", fontSize: "0.875rem" }}>
+          <strong>💡 Tip:</strong> Use company domains (e.g., microsoft.com, apple.com) for best results. 
+          The system will automatically enrich company data and find relevant contacts.
+        </p>
+      </div>
 
       {loading && (
         <div style={{ 
@@ -529,195 +509,6 @@ export default function Home() {
                     </div>
                     <p style={{ margin: "0.5rem 0 0 0", color: "#6b7280", fontSize: "0.875rem" }}>
                       {data.child_brands.note}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Technology Stack Analysis */}
-          {data.technology_stack && (
-            <div id="tech-stack" style={{ marginBottom: "2rem" }}>
-              <div 
-                onClick={() => toggleSection('tech-stack')}
-                style={{ 
-                  cursor: "pointer", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "space-between",
-                  marginBottom: expandedSections["tech-stack"] ? "1rem" : "0"
-                }}
-              >
-                <h3 style={{ 
-                  fontSize: "1.25rem", 
-                  fontWeight: "bold", 
-                  margin: 0,
-                  color: "#1f2937"
-                }}>
-                  🔧 Technology Stack Analysis
-                </h3>
-                <span style={{ fontSize: "1.5rem", color: "#6b7280" }}>
-                  {expandedSections["tech-stack"] ? "−" : "+"}
-                </span>
-              </div>
-              
-              {expandedSections["tech-stack"] && (
-                <div>
-                  <div style={{ display: "grid", gap: "1rem", marginBottom: "1.5rem" }}>
-                    {/* Technology Categories */}
-                    {Object.entries({}).filter(([key]) => 
-                      !['potential_issues', 'integration_complexity', 'recommendation'].includes(key)
-                    ).map(([category, tech]) => {
-                      const techCategory = tech as TechStackCategory;
-                      return (
-                      <div key={category} style={{ 
-                        backgroundColor: "#f8fafc", 
-                        padding: "1rem", 
-                        borderRadius: "8px",
-                        border: "1px solid #e2e8f0"
-                      }}>
-                        <h4 style={{ 
-                          margin: "0 0 0.5rem 0", 
-                          color: "#374151",
-                          fontSize: "1rem",
-                          fontWeight: "600",
-                          textTransform: "capitalize"
-                        }}>
-                          {category.replace('_', ' ')}
-                        </h4>
-                        
-                        <div style={{ marginBottom: "0.5rem" }}>
-                          <strong>Primary:</strong> {techCategory.primary}
-                        </div>
-                        <div style={{ marginBottom: "0.5rem" }}>
-                          <strong>Secondary:</strong> {techCategory.secondary}
-                        </div>
-                        
-                        {techCategory.potential_issues && (
-                          <div>
-                            <strong style={{ color: "#dc2626" }}>Potential Issues:</strong>
-                            <ul style={{ margin: "0.25rem 0 0 1rem", padding: 0 }}>
-                              {techCategory.potential_issues.map((issue, i) => (
-                                <li key={i} style={{ 
-                                  fontSize: "0.875rem", 
-                                  color: "#6b7280",
-                                  marginBottom: "0.25rem"
-                                }}>
-                                  {issue}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Integration Issues */}
-                  {false && (
-                    <div style={{ 
-                      backgroundColor: "#fef2f2", 
-                      padding: "1.5rem", 
-                      borderRadius: "12px", 
-                      border: "1px solid #fecaca",
-                      marginBottom: "1rem"
-                    }}>
-                      <h4 style={{ 
-                        margin: "0 0 1rem 0", 
-                        color: "#dc2626",
-                        fontSize: "1.1rem",
-                        fontWeight: "600"
-                      }}>
-                        ⚠️ Critical Integration Issues
-                      </h4>
-                      
-                      <div style={{ display: "grid", gap: "1rem" }}>
-                        {[].map((issue, i) => (
-                          <div key={i} style={{ 
-                            backgroundColor: "white", 
-                            padding: "1rem", 
-                            borderRadius: "8px",
-                            border: "1px solid #fecaca"
-                          }}>
-                            <div style={{ 
-                              display: "flex", 
-                              justifyContent: "space-between", 
-                              alignItems: "center",
-                              marginBottom: "0.5rem"
-                            }}>
-                              <h5 style={{ 
-                                margin: 0, 
-                                color: "#dc2626",
-                                fontSize: "1rem",
-                                fontWeight: "600"
-                              }}>
-                                {"Category"}
-                              </h5>
-                              <span style={{
-                                backgroundColor: "#f59e0b",
-                                color: "white",
-                                padding: "0.25rem 0.5rem",
-                                borderRadius: "4px",
-                                fontSize: "0.75rem",
-                                fontWeight: "600"
-                              }}>
-                                {"Impact"} Impact
-                              </span>
-                            </div>
-                            
-                            <p style={{ 
-                              margin: "0 0 0.5rem 0", 
-                              color: "#374151",
-                              fontSize: "0.875rem"
-                            }}>
-                              <strong>Issue:</strong> {"Issue description"}
-                            </p>
-                            
-                            <p style={{ 
-                              margin: 0, 
-                              color: "#059669",
-                              fontSize: "0.875rem",
-                              fontWeight: "600"
-                            }}>
-                              <strong>Solution:</strong> {"Solution description"}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Integration Complexity & Recommendation */}
-                  <div style={{ 
-                    backgroundColor: "#f0f9ff", 
-                    padding: "1.5rem", 
-                    borderRadius: "12px", 
-                    border: "1px solid #bae6fd"
-                  }}>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <strong>Integration Complexity:</strong> 
-                      <span style={{
-                        backgroundColor: "#f59e0b",
-                        color: "white",
-                        padding: "0.25rem 0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.875rem",
-                        fontWeight: "600",
-                        marginLeft: "0.5rem"
-                      }}>
-                        {""}
-                      </span>
-                    </div>
-                    
-                    <p style={{ 
-                      margin: 0, 
-                      color: "#0369a1",
-                      fontSize: "0.875rem",
-                      fontWeight: "600"
-                    }}>
-                      <strong>Recommendation:</strong> {""}
                     </p>
                   </div>
                 </div>
