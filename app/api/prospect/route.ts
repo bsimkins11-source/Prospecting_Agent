@@ -481,15 +481,8 @@ async function getOrganizationData(company: string, apiKey: string) {
       }
       
       if (extractedData && extractedData.name) {
-        // Use OpenAI to validate and improve the enrichment data
-        console.log(`Using OpenAI to validate enrichment data for: ${company}`);
-        const improvedData = await improveCompanySearchWithAI(company, [extractedData]);
-        
-        if (improvedData) {
-          console.log(`OpenAI improved data:`, improvedData);
-          console.log('=== END DEBUG SESSION ===\n');
-          return improvedData;
-        }
+        // Skip OpenAI validation for now - use Apollo data directly
+        console.log(`Skipping OpenAI validation - using Apollo data directly for: ${company}`);
         
         // Return the extracted enrichment data directly
         const finalResult = {
