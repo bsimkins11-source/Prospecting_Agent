@@ -14,7 +14,7 @@ interface Company {
 }
 
 interface CompanySearchProps {
-  onCompanySelect: (companyName: string) => void;
+  onCompanySelect: (companyData: Company) => void;
 }
 
 export default function CompanySearch({ onCompanySelect }: CompanySearchProps) {
@@ -111,7 +111,7 @@ export default function CompanySearch({ onCompanySelect }: CompanySearchProps) {
               <div
                 key={company.id}
                 className="p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all cursor-pointer"
-                onClick={() => onCompanySelect(company.name)}
+                onClick={() => onCompanySelect(company)}
               >
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="text-lg font-semibold text-gray-900">

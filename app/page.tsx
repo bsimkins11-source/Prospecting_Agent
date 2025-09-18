@@ -10,6 +10,7 @@ export default function Home() {
   const [data, setData] = useState<ProspectResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState<any>(null);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     overview: true,
     "account-map": false,
@@ -30,7 +31,10 @@ export default function Home() {
       const res = await fetch("/api/prospect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ company: input.trim() })
+        body: JSON.stringify({ 
+          company: input.trim(),
+          selectedCompany: selectedCompany // Pass the selected company data
+        })
       });
       
       const json = await res.json();
@@ -53,9 +57,11 @@ export default function Home() {
     }
   };
 
-  const handleCompanySelect = (companyName: string) => {
-    setInput(companyName);
+  const handleCompanySelect = (companyData: any) => {
+    setInput(companyData.name);
     setShowSearch(false);
+    // Store the selected company data for more accurate people search
+    setSelectedCompany(companyData);
     run();
   };
 

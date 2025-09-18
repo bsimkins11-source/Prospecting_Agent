@@ -14,7 +14,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { company } = await req.json() as { company: string };
+    const { company, selectedCompany } = await req.json() as { company: string; selectedCompany?: any };
     
     const apiKey = process.env.APOLLO_API_KEY;
     
@@ -24,8 +24,24 @@ export async function POST(req: NextRequest) {
 
     console.log(`Analyzing prospect for: ${company}`);
 
-    // 1. Get Organization Data from Apollo
-    let orgData = await getOrganizationData(company, apiKey);
+    // 1. Get Organization Data from Apollo or use selected company data
+    let orgData;
+    if (selectedCompany) {
+      // Use the selected company data for more accurate people search
+      orgData = {
+        name: selectedCompany.name,
+        website_url: selectedCompany.website,
+        industry: selectedCompany.industry,
+        estimated_annual_revenue: selectedCompany.revenue,
+        organization_headcount: selectedCompany.employees,
+        organization_city: selectedCompany.location.split(',')[0]?.trim(),
+        organization_state: selectedCompany.location.split(',')[1]?.trim(),
+        organization_country: 'United States'
+      };
+      console.log(`Using selected company data: ${orgData.name} (${orgData.website_url})`);
+    } else {
+      orgData = await getOrganizationData(company, apiKey);
+    }
     
     // 2. Get Real People Data from Apollo
     let accountMap = await getRealPeopleData(orgData, apiKey);
