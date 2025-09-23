@@ -1,7 +1,7 @@
 const https = require('https');
 
 async function testApolloDirect() {
-  const apiKey = process.env.APOLLO_API_KEY || 'JsEq3P_FBt32hPfxP7jpdA';
+  const apiKey = process.env.APOLLO_API_KEY;
   
   console.log('🔍 Testing Apollo API Directly with Enhanced Logic...\n');
   

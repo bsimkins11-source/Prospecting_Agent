@@ -1,7 +1,7 @@
 const https = require('https');
 
 async function testApolloEnrichmentDebug() {
-  const apiKey = process.env.APOLLO_API_KEY || 'JsEq3P_FBt32hPfxP7jpdA';
+  const apiKey = process.env.APOLLO_API_KEY;
   
   console.log('🔍 Debugging Apollo Enrichment Response Structure...\n');
   

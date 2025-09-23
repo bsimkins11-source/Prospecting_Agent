@@ -1,7 +1,7 @@
 const https = require('https');
 
 async function testVerizonSpecificSearch() {
-  const apiKey = process.env.APOLLO_API_KEY || 'JsEq3P_FBt32hPfxP7jpdA';
+  const apiKey = process.env.APOLLO_API_KEY;
   
   // Try different search approaches for Verizon
   const searchApproaches = [

@@ -1,7 +1,7 @@
 const https = require('https');
 
 async function testSouthwestCompanyData() {
-  const apiKey = process.env.APOLLO_API_KEY || 'JsEq3P_FBt32hPfxP7jpdA';
+  const apiKey = process.env.APOLLO_API_KEY;
   
   console.log('🔍 Testing Southwest Airlines company data...\n');
   
